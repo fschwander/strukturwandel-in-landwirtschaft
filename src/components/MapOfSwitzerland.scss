@@ -1,0 +1,20 @@
+.MapOfSwitzerland {
+
+  .cantons-and-municipalities {
+    .country {
+      fill: #222;
+    }
+
+    .canton-boundaries {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1;
+    }
+
+    .municipality-boundaries {
+      fill: none;
+      stroke: #fff;
+      stroke-width: .3;
+    }
+  }
+}

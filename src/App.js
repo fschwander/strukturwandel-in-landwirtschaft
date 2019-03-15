@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import SimpleBarChart from "./components/SimpleBarChart";
+import MapOfSwitzerland from "./components/MapOfSwitzerland";
 
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <SimpleBarChart/>
+        <MapOfSwitzerland/>
       </div>
     );
   }
