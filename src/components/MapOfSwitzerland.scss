@@ -1,4 +1,21 @@
 .MapOfSwitzerland {
+  .cantons-and-labels {
+    .canton {
+      fill: #bbb;
+    }
+
+    .canton-boundary {
+      fill: none;
+      stroke: #fff;
+      stroke-linejoin: round;
+    }
+
+    text {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 10px;
+      text-anchor: middle;
+    }
+  }
 
   .cantons-and-municipalities {
     .country {
