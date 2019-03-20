@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import MapOfSwitzerland from "./components/MapOfSwitzerland";
+import FarmsCountChart from "./components/FarmsCountChart";
 
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <MapOfSwitzerland/>
+        <FarmsCountChart/>
       </div>
     );
   }
