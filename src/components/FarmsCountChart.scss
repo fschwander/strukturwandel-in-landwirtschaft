@@ -1,7 +1,25 @@
 .FarmsCountChart {
+  text {
+    font-size: 12px;
+  }
 
-  text.label {
-    fill: #333;
-    font-size: 1.5em;
+  .axis {
+    .header {
+      font-weight: bold;
+      font-size: 14px;
+      fill: black;
+    }
+    text {
+      font-size: 11px;
+    }
+  }
+
+  .legend {
+    position: absolute;
+    padding: 0.5em 1em;
+    top: 2em;
+    right: 4em;
+    background-color: white;
+    border: 1px solid black;
   }
 }
