@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import FarmsCountChart from "./components/FarmsCountChart";
+import QuizPage from "./components/QuizPage";
 
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <FarmsCountChart/>
+        <QuizPage/>
       </div>
     );
   }
