@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as d3 from 'd3';
-import data from '../res/data/farm-sizes.csv'
 
 export default class FarmsCountChart extends React.Component {
 
@@ -37,75 +36,61 @@ export default class FarmsCountChart extends React.Component {
    * Based on https://observablehq.com/@tmcw/stacked-area-chart
    */
   init() {
-    d3.csv(data,
-      d => ({
-        year: +d.year,
-        total_farms_count: +d.total_farms_count,
-        area_valley_in_percent: +d.area_valley_in_percent,
-        area_mountain_in_percent: +d.area_mountain_in_percent,
-        area_size_0_1: +d.area_size_0_1,
-        area_size_1_3: +d.area_size_1_3,
-        area_size_3_5: +d.area_size_3_5,
-        area_size_5_10: +d.area_size_5_10,
-        area_size_10_20: +d.area_size_10_20,
-        area_size_20_30: +d.area_size_20_30,
-        area_size_30_50: +d.area_size_30_50,
-        area_size_50_n: +d.area_size_50_n
-      })).then(data => {
+    const {
+      innerWidth, innerHeight, width, height, margin,
+      props: {data}
+    } = this;
 
-      const { innerWidth, innerHeight, width, height, margin } = this;
+    const keys = Object.keys(data[0]).filter(d =>
+      d === 'area_size_0_1' ||
+      d === 'area_size_1_3' ||
+      d === 'area_size_3_5' ||
+      d === 'area_size_5_10' ||
+      d === 'area_size_10_20' ||
+      d === 'area_size_20_30' ||
+      d === 'area_size_30_50' ||
+      d === 'area_size_50_n');
 
-      const keys = Object.keys(data[0]).filter(d =>
-        d === 'area_size_0_1' ||
-        d === 'area_size_1_3' ||
-        d === 'area_size_3_5' ||
-        d === 'area_size_5_10' ||
-        d === 'area_size_10_20' ||
-        d === 'area_size_20_30' ||
-        d === 'area_size_30_50' ||
-        d === 'area_size_50_n');
+    const stack = d3.stack().keys(keys);
+    const series = stack(data);
+    const colorScale = d3.scaleOrdinal(d3.schemePastel2);
 
-      const stack = d3.stack().keys(keys);
-      const series = stack(data);
-      const colorScale = d3.scaleOrdinal(d3.schemePastel2);
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.year))
+      .range([0, innerWidth]);
 
-      const xScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => d.year))
-        .range([0, innerWidth]);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(series, series => d3.max(series, d => d[1]))])
+      .range([innerHeight, 0]);
 
-      const yScale = d3.scaleLinear()
-        .domain([0, d3.max(series, series => d3.max(series, d => d[1]))])
-        .range([innerHeight, 0]);
+    const area = d3.area()
+      .x(d => xScale(d.data.year))
+      .y0(d => yScale(d[0]))
+      .y1(d => yScale(d[1]));
 
-      const area = d3.area()
-        .x(d => xScale(d.data.year))
-        .y0(d => yScale(d[0]))
-        .y1(d => yScale(d[1]));
+    this.svg = d3.select('.chart')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
 
-      this.svg = d3.select('.chart')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height);
+    const g = this.svg.append('g')
+      .attr('class', 'main')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-      const g = this.svg.append('g')
-        .attr('class', 'main')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    // create the stacked area paths
+    g.selectAll('.area')
+      .data(series)
+      .enter().append('path')
+      .attr('class', 'area')
+      .attr('fill', d => colorScale(d.key))
+      .attr('d', area);
 
-      // create the stacked area paths
-      g.selectAll('.area')
-        .data(series)
-        .enter().append('path')
-        .attr('class', 'area')
-        .attr('fill', d => colorScale(d.key))
-        .attr('d', area);
-
-      this.initAxes(g, xScale, yScale)
-      this.initLegend(keys, colorScale)
-    })
+    this.initAxes(g, xScale, yScale)
+    this.initLegend(keys, colorScale)
   }
 
   initAxes(g, xScale, yScale) {
-    const { innerWidth, innerHeight } = this;
+    const {innerWidth, innerHeight} = this;
 
     const xAxis = d3.axisBottom()
       .scale(xScale)
@@ -178,10 +163,11 @@ export default class FarmsCountChart extends React.Component {
   }
 
   render() {
-    return <div className='FarmsCountChart'>
-      <div className='chart'/>
-      <div className='legend'/>
-    </div>
-
+    return (
+      <div className='FarmsCountChart'>
+        <div className='chart'/>
+        <div className='legend'/>
+      </div>
+    )
   }
 }
