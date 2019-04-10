@@ -68,28 +68,29 @@ export default class FarmsCountChart extends React.Component {
       .y0(d => yScale(d[0]))
       .y1(d => yScale(d[1]));
 
-    this.svg = d3.select('.chart')
+    const svg = d3.select('.FarmsCountChart')
       .append('svg')
       .attr('width', width)
       .attr('height', height);
 
-    const g = this.svg.append('g')
+    this.mainGroup = svg.append('g')
       .attr('class', 'main')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     // create the stacked area paths
-    g.selectAll('.area')
+    this.mainGroup.append('g').attr('class', 'chart')
+      .selectAll('.area')
       .data(series)
       .enter().append('path')
       .attr('class', 'area')
       .attr('fill', d => colorScale(d.key))
       .attr('d', area);
 
-    this.initAxes(g, xScale, yScale)
+    this.initAxes(xScale, yScale)
     this.initLegend(keys, colorScale)
   }
 
-  initAxes(g, xScale, yScale) {
+  initAxes(xScale, yScale) {
     const {innerWidth, innerHeight} = this;
 
     const xAxis = d3.axisBottom()
@@ -101,7 +102,7 @@ export default class FarmsCountChart extends React.Component {
       .scale(yScale);
 
     // x axis
-    g.append('g')
+    this.mainGroup.append('g')
       .attr('class', 'axis x')
       .attr('transform', `translate(0, ${innerHeight})`)
       .call(xAxis);
@@ -116,7 +117,7 @@ export default class FarmsCountChart extends React.Component {
       .style('text-anchor', 'middle');
 
     // generate y axis
-    g.append('g')
+    this.mainGroup.append('g')
       .attr('class', 'axis y')
       .call(yAxis);
 
@@ -132,29 +133,44 @@ export default class FarmsCountChart extends React.Component {
   }
 
   initLegend(keys, colorScale) {
-    const legendWidth = 100;
     const lineHeight = 25;
+    const padding = 12;
 
-    const legend = d3.select('.legend').append('svg')
+    const legendWidth = 100 + 2 * padding;
+    const legendHeight = keys.length * lineHeight + padding;
+
+    console.log(keys);
+
+    const legend = this.mainGroup.append('g')
+      .attr('class', 'legend')
       .attr('width', legendWidth)
-      .attr('height', keys.length * lineHeight);
+      .attr('height', legendHeight)
+      .attr('transform', `translate(${this.innerWidth-legendWidth-padding},${padding})`);
 
-    const legendEntry = legend.selectAll('rect')
+    legend.append('rect')
+      .attr('class', 'background')
+      .attr('width', legendWidth)
+      .attr('height', legendHeight)
+      .attr('fill', 'white')
+      .attr('stroke', 'currentColor')
+      .attr('stroke-width', '1');
+
+    const legendEntry = legend.append('g')
+      .attr('class', 'entries')
+      .attr('transform', `translate(${padding},${padding})`)
+      .selectAll('rect')
       .data(keys.reverse())
       .enter();
 
     legendEntry.append('rect')
-      .attr('x', 2)
-      .attr('y', (d, i) => lineHeight * i + (lineHeight - 12) / 2)
+      .attr('y', (d, i) => lineHeight * i)
       .attr('width', 12)
       .attr('height', 12)
-      .attr('fill', d => colorScale(d))
-      .attr('stroke', 'black')
-      .attr('stroke-width', '1');
+      .attr('fill', d => colorScale(d));
 
     legendEntry.append('text')
       .attr('x', 20)
-      .attr('y', (d, i) => lineHeight * i + lineHeight / 1.6)
+      .attr('y', (d, i) => lineHeight * i + 10)
       .text(d => this.labelMap[d]);
   }
 
@@ -164,10 +180,7 @@ export default class FarmsCountChart extends React.Component {
 
   render() {
     return (
-      <div className='FarmsCountChart'>
-        <div className='chart'/>
-        <div className='legend'/>
-      </div>
+      <div className='FarmsCountChart' />
     )
   }
 }
