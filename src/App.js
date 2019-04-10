@@ -2,7 +2,6 @@ import QuizPage from "./components/QuizPage";
 import * as React from "react";
 import * as d3 from "d3";
 import data from "./res/data/farm-sizes.csv";
-import FarmsCountChart from "./components/FarmsCountChart";
 
 class App extends React.Component {
 
@@ -43,7 +42,6 @@ class App extends React.Component {
     return (
       <div className="App">
         {dataIsLoaded ? <QuizPage data={data}/> : null}
-        {dataIsLoaded ? <FarmsCountChart data={data}/> : null}
       </div>
     )
   }

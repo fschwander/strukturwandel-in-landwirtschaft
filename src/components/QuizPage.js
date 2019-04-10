@@ -1,4 +1,5 @@
 import * as React from "react";
+import DraggableBarChart from "./DraggableBarChart";
 
 export default class QuizPage extends React.Component {
 
@@ -6,6 +7,8 @@ export default class QuizPage extends React.Component {
     return (
       <div className='QuizPage background-container-outer'>
         <div className='background-container-inner'>
+
+          <DraggableBarChart data={this.props.data}/>
 
         </div>
       </div>
