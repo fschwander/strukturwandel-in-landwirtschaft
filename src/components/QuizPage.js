@@ -8,7 +8,7 @@ export default class QuizPage extends React.Component {
       <div className='QuizPage background-container-outer'>
         <div className='background-container-inner'>
 
-          <DraggableBarChart data={this.props.data}/>
+          <DraggableBarChart quizData={this.props.quizData}/>
 
         </div>
       </div>

@@ -7,14 +7,9 @@ export default class DraggableBarChart extends React.Component {
    * Based on https://bl.ocks.org/AlainRo/9264cd08e341f2c92f020c39642c34d1
    */
   drawChart() {
-    const data = [
-      {index: 0, value: 3},
-      {index: 1, value: 5},
-      {index: 2, value: 12}
-    ];
+    const {quizData} = this.props;
 
     let delim = 4;
-
     let chartWidth = 250,
       chartHeight = 300;
 
@@ -23,7 +18,7 @@ export default class DraggableBarChart extends React.Component {
       .rangeRound([chartHeight, 0]);
 
     const x = d3.scaleLinear()
-      .domain([0, data.length])
+      .domain([0, quizData.length])
       .rangeRound([0, chartWidth]);
 
     const mainGroup = d3.select('.chart-container')
@@ -37,7 +32,7 @@ export default class DraggableBarChart extends React.Component {
       .on('end', brushend);
 
     const barContainer = mainGroup.selectAll('.bar')
-      .data(data)
+      .data(quizData)
       .enter()
       .append('g')
       .attr('id', (d, i) => 'bar' + i)

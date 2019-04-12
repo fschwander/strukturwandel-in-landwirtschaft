@@ -13,6 +13,16 @@ class App extends React.Component {
     }
   }
 
+  loadQuizData() {
+    this.setState({
+      quizData: [
+        {index: 0, value: 3},
+        {index: 1, value: 5},
+        {index: 2, value: 12}
+      ]
+    })
+  }
+
   loadData() {
     d3.csv(data,
       d => ({
@@ -32,16 +42,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData()
+    this.loadData();
+    this.loadQuizData();
   }
 
   render() {
-    const {data} = this.state;
-    let dataIsLoaded = data !== undefined;
-
+    const {quizData} = this.state;
+    let dataIsLoaded = quizData !== undefined;
     return (
       <div className="App">
-        {dataIsLoaded ? <QuizPage data={data}/> : null}
+        {dataIsLoaded ? <QuizPage quizData={quizData}/> : null}
       </div>
     )
   }
