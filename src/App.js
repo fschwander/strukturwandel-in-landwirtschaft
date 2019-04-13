@@ -31,8 +31,8 @@ class App extends React.Component {
   }
 
   async initData() {
-    const quizData = DataService.getQuizData();
     const farmsData = await DataService.getFarmsData();
+    const quizData = DataService.getFullQuizData(farmsData);
 
     this.setState({
       quizData: quizData,

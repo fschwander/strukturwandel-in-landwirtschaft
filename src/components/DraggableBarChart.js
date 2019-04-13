@@ -9,18 +9,17 @@ export default class DraggableBarChart extends React.Component {
     this.state = {
       showAnswer: props.showAnswer
     };
-    this.maxScaleValue = d3.max(this.props.quizData, d => d.answer) * 2;
+    this.maxScaleValue = Math.round(d3.max(this.props.quizData, d => d.answerInPct)) * 1.3;
   }
 
   /**
    * Based on https://bl.ocks.org/AlainRo/9264cd08e341f2c92f020c39642c34d1
    */
   drawChart() {
-    console.log('drawing...');
     const {quizData} = this.props;
 
     let barsGap = 4;
-    let chartWidth = 250,
+    let chartWidth = 500,
       chartHeight = 300;
     let margin = {
       top: 30,
@@ -28,8 +27,6 @@ export default class DraggableBarChart extends React.Component {
       bottom: 0,
       left: 30,
     };
-
-
 
     const scaleY = d3.scaleLinear()
       .domain([0, this.maxScaleValue])
@@ -62,11 +59,11 @@ export default class DraggableBarChart extends React.Component {
 
     barContainer.append('text')
       .attr('text-anchor', 'middle')
-      .attr('y', d => scaleY(d.value) )
+      .attr('y', d => scaleY(d.value))
       .attr('x', (d, i) => x(i) + x(0.5))
       .attr('dy', -4)
       .style('fill', 'currentColor')
-      .text(d => d3.format('d')(d.value));
+      .text(d => d3.format('.0%')(d.value));
 
     function brushmove() {
       if (!d3.event.sourceEvent) return;
@@ -94,7 +91,7 @@ export default class DraggableBarChart extends React.Component {
         .call(brushY.move, d => [d.value, 0].map(scaleY))
         .selectAll('text')
         .attr('y', d => scaleY(d.value))
-        .text(d => d3.format('d')(d.value));
+        .text(d => d3.format('.0%')(d.value));
     }
   }
 
@@ -111,15 +108,15 @@ export default class DraggableBarChart extends React.Component {
       .data(quizData)
       .transition()
       .duration(2000)
-      .attr('height', d => chartHeight - scaleY(d.answer))
-      .attr('y', d => scaleY(d.answer));
+      .attr('height', d => chartHeight - scaleY(d.answerInPct))
+      .attr('y', d => scaleY(d.answerInPct));
 
     this.mainGroup
       .selectAll('text')
       .transition()
       .duration(2000)
-      .attr('y', d => scaleY(d.answer))
-      .text(d => d3.format('d')(d.answer));
+      .attr('y', d => scaleY(d.answerInPct))
+      .text(d => d3.format('.0%')(d.answerInPct));
 
     this.mainGroup.selectAll('*')
       .attr('pointer-events', 'none');
