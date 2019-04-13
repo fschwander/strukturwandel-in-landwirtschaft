@@ -1,5 +1,15 @@
-.DraggableBarCharts {
+.DraggableBarChart {
 
+  .overlay, .selection {
+    pointer-events: none;
+    cursor: unset;
+  }
 
+  .handle {
+    cursor: grab;
+    &:focus {
+      //cursor: grabbing;
+    }
+  }
 
 }

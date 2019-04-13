@@ -7,9 +7,9 @@ export default class DataService extends React.Component {
 
   static getQuizData() {
     return [
-      {value: 100, answer: 1000},
-      {value: 100, answer: 67},
-      {value: 100, answer: 351}
+      {value: 500, answer: 1000},
+      {value: 500, answer: 67},
+      {value: 500, answer: 351}
     ]
   }
 
