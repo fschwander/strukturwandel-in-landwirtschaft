@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as d3 from 'd3';
+import DataService from "../services/DataService";
 
 export default class FarmsCountChart extends React.Component {
 
   constructor(params) {
-    super(params)
+    super(params);
 
     this.width = 900;
     this.height = 500;
@@ -16,41 +17,17 @@ export default class FarmsCountChart extends React.Component {
     };
     this.innerHeight = this.height - this.margin.top - this.margin.bottom;
     this.innerWidth = this.width - this.margin.left - this.margin.right;
-    this.labelMap = {
-      year: 'Jahr',
-      total_farms_count: 'Total Anz. Farmen',
-      area_valley_in_percent: 'Talgebiet in %',
-      area_mountain_in_percent: 'Berggebiet in %',
-      area_size_0_1: '< 1 ha',
-      area_size_1_3: '1 bis 3 ha',
-      area_size_3_5: '3 bis 5 ha',
-      area_size_5_10: '5 bis 10 ha',
-      area_size_10_20: '10 bis 20 ha',
-      area_size_20_30: '20 bis 30 ha',
-      area_size_30_50: '30 bis 50 ha',
-      area_size_50_n: '> 50 ha'
-    };
+    this.labelMap = DataService.getLabelMap();
   }
 
   /**
    * Based on https://observablehq.com/@tmcw/stacked-area-chart
    */
   init() {
-    const {
-      innerWidth, innerHeight, width, height, margin,
-      props: {data}
-    } = this;
+    const {innerWidth, innerHeight, width, height, margin} = this;
+    const {data} = this.props;
 
-    const keys = Object.keys(data[0]).filter(d =>
-      d === 'area_size_0_1' ||
-      d === 'area_size_1_3' ||
-      d === 'area_size_3_5' ||
-      d === 'area_size_5_10' ||
-      d === 'area_size_10_20' ||
-      d === 'area_size_20_30' ||
-      d === 'area_size_30_50' ||
-      d === 'area_size_50_n');
-
+    const keys = DataService.getFilteredFarmsKeys(data);
     const stack = d3.stack().keys(keys);
     const series = stack(data);
     const colorScale = d3.scaleOrdinal(d3.schemePastel2);
@@ -139,13 +116,11 @@ export default class FarmsCountChart extends React.Component {
     const legendWidth = 100 + 2 * padding;
     const legendHeight = keys.length * lineHeight + padding;
 
-    console.log(keys);
-
     const legend = this.mainGroup.append('g')
       .attr('class', 'legend')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('transform', `translate(${this.innerWidth-legendWidth-padding},${padding})`);
+      .attr('transform', `translate(${this.innerWidth - legendWidth - padding},${padding})`);
 
     legend.append('rect')
       .attr('class', 'background')
@@ -180,7 +155,7 @@ export default class FarmsCountChart extends React.Component {
 
   render() {
     return (
-      <div className='FarmsCountChart' />
+      <div className='FarmsCountChart'/>
     )
   }
 }
