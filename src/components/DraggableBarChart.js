@@ -3,6 +3,14 @@ import * as d3 from 'd3';
 
 export default class DraggableBarChart extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showAnswer: props.showAnswer
+    }
+  }
+
   /**
    * Based on https://bl.ocks.org/AlainRo/9264cd08e341f2c92f020c39642c34d1
    */
@@ -78,8 +86,17 @@ export default class DraggableBarChart extends React.Component {
     }
   }
 
+  showAnswer() {
+    console.log('showing...');
+
+  }
+
   componentDidMount() {
     this.drawChart();
+  }
+
+  componentDidUpdate() {
+    if (this.props.showAnswer) this.showAnswer();
   }
 
   render() {

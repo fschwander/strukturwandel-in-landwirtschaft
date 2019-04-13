@@ -3,14 +3,14 @@ import * as d3 from "d3";
 import dataSource from "../res/data/farm-sizes.csv";
 
 
-export default class DataService extends React.Component{
+export default class DataService extends React.Component {
 
   static getQuizData() {
     return [
-        {index: 0, value: 3},
-        {index: 1, value: 5},
-        {index: 2, value: 12}
-      ]
+      {value: 3, answer: 14},
+      {value: 5, answer: 5},
+      {value: 12, answer: 0}
+    ]
   }
 
   static getFarmsData() {
