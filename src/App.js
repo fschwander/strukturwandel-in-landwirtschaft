@@ -25,7 +25,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {quizDataIsLoaded ? <QuizPage quizData={quizData}/> : null}
-        {farmsDataIsLoaded ? <FarmsCountChart data={data}/> : null}
+        {/*{farmsDataIsLoaded ? <FarmsCountChart data={data}/> : null}*/}
       </div>
     )
   }
