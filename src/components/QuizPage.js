@@ -22,7 +22,7 @@ export default class QuizPage extends React.Component {
         <div className='background-container-inner'>
           <DraggableBarChart showAnswer={this.state.showAnswer}
                              quizData={this.props.quizData}/>
-          <Button onClick={() => this.showAnswer()}>Antwort zeigen</Button>
+          <Button variant="dark" onClick={() => this.showAnswer()}>Lösung zeigen</Button>
         </div>
       </div>
     )

@@ -8,38 +8,50 @@ export default class DraggableBarChart extends React.Component {
 
     this.state = {
       showAnswer: props.showAnswer
-    }
+    };
+    this.maxScaleValue = d3.max(this.props.quizData, d => d.answer) * 2;
   }
 
   /**
    * Based on https://bl.ocks.org/AlainRo/9264cd08e341f2c92f020c39642c34d1
    */
   drawChart() {
+    console.log('drawing...');
     const {quizData} = this.props;
 
-    let delim = 4;
+    let barsGap = 4;
     let chartWidth = 250,
       chartHeight = 300;
+    let margin = {
+      top: 30,
+      right: 30,
+      bottom: 0,
+      left: 30,
+    };
+
+
 
     const scaleY = d3.scaleLinear()
-      .domain([0, 21])
+      .domain([0, this.maxScaleValue])
       .rangeRound([chartHeight, 0]);
 
     const x = d3.scaleLinear()
       .domain([0, quizData.length])
       .rangeRound([0, chartWidth]);
 
-    const mainGroup = d3.select('.chart-container')
+    this.mainGroup = d3.select('.chart-container')
       .append('svg')
-      .attr('width', chartWidth)
-      .attr('height', chartHeight);
+      .attr('width', chartWidth + margin.left + margin.right)
+      .attr('height', chartHeight + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const brushY = d3.brushY()
-      .extent((d, i) => [[x(i) + delim / 2, 0], [x(i) + x(1) - delim / 2, chartHeight]])
+      .extent((d, i) => [[x(i) + barsGap / 2, 0], [x(i) + x(1) - barsGap / 2, chartHeight]])
       .on('brush', brushmove)
       .on('end', brushend);
 
-    const barContainer = mainGroup.selectAll('.bar')
+    const barContainer = this.mainGroup.selectAll('.bar')
       .data(quizData)
       .enter()
       .append('g')
@@ -49,12 +61,12 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
     barContainer.append('text')
-      .attr('y', d => scaleY(d.value) + 25)
+      .attr('text-anchor', 'middle')
+      .attr('y', d => scaleY(d.value) )
       .attr('x', (d, i) => x(i) + x(0.5))
-      .attr('dx', '-.6em')
-      .attr('dy', -5)
+      .attr('dy', -4)
       .style('fill', 'currentColor')
-      .text(d => d3.format('.2')(d.value));
+      .text(d => d3.format('d')(d.value));
 
     function brushmove() {
       if (!d3.event.sourceEvent) return;
@@ -64,7 +76,7 @@ export default class DraggableBarChart extends React.Component {
       const d0 = d3.event.selection.map(scaleY.invert);
       const d = d3.select(this).select('.selection');
 
-      d0[0] > 0 ? d.datum().value = d0[0] : d.datum().value = 1; // Change the value of the original data
+      d0[0] > 0 ? d.datum().value = d0[0] : d.datum().value = 0.1; // Change the value of the original data
 
       update();
     }
@@ -81,14 +93,36 @@ export default class DraggableBarChart extends React.Component {
       barContainer
         .call(brushY.move, d => [d.value, 0].map(scaleY))
         .selectAll('text')
-        .attr('y', d => scaleY(d.value) + 25)
-        .text(d => d3.format('.2')(d.value));
+        .attr('y', d => scaleY(d.value))
+        .text(d => d3.format('d')(d.value));
     }
   }
 
   showAnswer() {
-    console.log('showing...');
+    const {quizData} = this.props;
+    let chartHeight = 300;
 
+    const scaleY = d3.scaleLinear()
+      .domain([0, this.maxScaleValue])
+      .rangeRound([chartHeight, 0]);
+
+    this.mainGroup
+      .selectAll('.selection')
+      .data(quizData)
+      .transition()
+      .duration(2000)
+      .attr('height', d => chartHeight - scaleY(d.answer))
+      .attr('y', d => scaleY(d.answer));
+
+    this.mainGroup
+      .selectAll('text')
+      .transition()
+      .duration(2000)
+      .attr('y', d => scaleY(d.answer))
+      .text(d => d3.format('d')(d.answer));
+
+    this.mainGroup.selectAll('*')
+      .attr('pointer-events', 'none');
   }
 
   componentDidMount() {
