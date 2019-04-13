@@ -5,6 +5,33 @@ import dataSource from "../res/data/farm-sizes.csv";
 
 export default class DataService extends React.Component {
 
+  static getReducedQuizData(data) {
+    console.log(data);
+    let startSmall = data[0].area_size_0_1
+      + data[0].area_size_1_3
+      + data[0].area_size_3_5
+      + data[0].area_size_5_10
+      + data[0].area_size_10_20;
+    let startMedium = data[0].area_size_20_30
+      + data[0].area_size_30_50;
+    let startLarge = data[0].area_size_50_n;
+
+    let endSmall = data[data.length - 1].area_size_0_1
+      + data[data.length - 1].area_size_1_3
+      + data[data.length - 1].area_size_3_5
+      + data[data.length - 1].area_size_5_10
+      + data[data.length - 1].area_size_10_20;
+    let endMedium = data[data.length - 1].area_size_20_30
+      + data[data.length - 1].area_size_30_50;
+    let endLarge = data[data.length - 1].area_size_50_n;
+
+    return [
+      {value: 1, startInNo: startSmall, answerInNo: endSmall, answerInPct: endSmall / startSmall},
+      {value: 1, startInNo: startMedium, answerInNo: endMedium, answerInPct: endMedium / startMedium},
+      {value: 1, startInNo: startLarge, answerInNo: endLarge, answerInPct: endLarge / startLarge}
+    ]
+  }
+
   static getFullQuizData(data) {
     console.log(data);
     let start_0_1 = data[0].area_size_0_1;
@@ -26,14 +53,14 @@ export default class DataService extends React.Component {
     let end_50_n = data[data.length - 1].area_size_50_n;
 
     return [
-      {value: 1, startInNo: start_0_1, answerInNo: end_0_1, answerInPct: end_0_1/start_0_1},
-      {value: 1, startInNo: start_1_3, answerInNo: end_1_3, answerInPct: end_1_3/start_0_1},
-      {value: 1, startInNo: start_3_5, answerInNo: end_3_5, answerInPct: end_3_5/start_3_5},
-      {value: 1, startInNo: start_5_10, answerInNo: end_5_10, answerInPct: end_5_10/start_5_10},
-      {value: 1, startInNo: start_10_20, answerInNo: end_10_20, answerInPct: end_10_20/start_10_20},
-      {value: 1, startInNo: start_20_30, answerInNo: end_20_30, answerInPct: end_20_30/start_20_30},
-      {value: 1, startInNo: start_30_50, answerInNo: end_30_50, answerInPct: end_30_50/start_30_50},
-      {value: 1, startInNo: start_50_n, answerInNo: end_50_n, answerInPct: end_50_n/start_50_n}
+      {value: 1, startInNo: start_0_1, answerInNo: end_0_1, answerInPct: end_0_1 / start_0_1},
+      {value: 1, startInNo: start_1_3, answerInNo: end_1_3, answerInPct: end_1_3 / start_0_1},
+      {value: 1, startInNo: start_3_5, answerInNo: end_3_5, answerInPct: end_3_5 / start_3_5},
+      {value: 1, startInNo: start_5_10, answerInNo: end_5_10, answerInPct: end_5_10 / start_5_10},
+      {value: 1, startInNo: start_10_20, answerInNo: end_10_20, answerInPct: end_10_20 / start_10_20},
+      {value: 1, startInNo: start_20_30, answerInNo: end_20_30, answerInPct: end_20_30 / start_20_30},
+      {value: 1, startInNo: start_30_50, answerInNo: end_30_50, answerInPct: end_30_50 / start_30_50},
+      {value: 1, startInNo: start_50_n, answerInNo: end_50_n, answerInPct: end_50_n / start_50_n}
     ]
   }
 
