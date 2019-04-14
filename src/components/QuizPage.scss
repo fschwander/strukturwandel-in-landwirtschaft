@@ -3,6 +3,16 @@
   width: 70%;
 
   .btn {
-    margin: 2em;
+    margin: 1em;
+  }
+
+  .show {
+    opacity: 1;
+    transition: 400ms ease-in;
+  }
+
+  .hide {
+    opacity: 0;
+    transition: 200ms ease-out;
   }
 }

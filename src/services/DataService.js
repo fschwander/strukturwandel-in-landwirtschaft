@@ -6,7 +6,6 @@ import dataSource from "../res/data/farm-sizes.csv";
 export default class DataService extends React.Component {
 
   static getReducedQuizData(data) {
-    console.log(data);
     let startSmall = data[0].area_size_0_1
       + data[0].area_size_1_3
       + data[0].area_size_3_5
@@ -33,7 +32,6 @@ export default class DataService extends React.Component {
   }
 
   static getFullQuizData(data) {
-    console.log(data);
     let start_0_1 = data[0].area_size_0_1;
     let start_1_3 = data[0].area_size_1_3;
     let start_3_5 = data[0].area_size_3_5;

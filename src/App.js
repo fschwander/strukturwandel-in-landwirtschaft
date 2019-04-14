@@ -32,10 +32,11 @@ class App extends React.Component {
 
   async initData() {
     const farmsData = await DataService.getFarmsData();
-    const quizData = DataService.getReducedQuizData(farmsData);
+    const quizDataReduced = DataService.getReducedQuizData(farmsData);
+    const quizDataFull = DataService.getFullQuizData(farmsData);
 
     this.setState({
-      quizData: quizData,
+      quizData: quizDataReduced,
       data: farmsData
     })
   }

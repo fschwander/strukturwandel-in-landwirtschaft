@@ -36,11 +36,12 @@ export default class DraggableBarChart extends React.Component {
       .domain([0, quizData.length])
       .rangeRound([0, chartWidth]);
 
-    this.mainGroup = d3.select('.chart-container')
+    const svg = d3.select('.chart-container')
       .append('svg')
       .attr('width', chartWidth + margin.left + margin.right)
       .attr('height', chartHeight + margin.top + margin.bottom)
-      .append('g')
+
+    this.mainGroup = svg.append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const brushY = d3.brushY()
