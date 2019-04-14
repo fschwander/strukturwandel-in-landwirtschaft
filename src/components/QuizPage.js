@@ -20,17 +20,16 @@ export default class QuizPage extends React.Component {
     const showAnswer = this.state.showAnswer;
 
     return (
-      <div className='QuizPage background-container-outer'>
-        <div className='background-container-inner'>
-          <h1>Quiz</h1>
+      <div className='QuizPage'>
+        <h1>Quiz</h1>
 
-          <DraggableBarChart showAnswer={this.state.showAnswer}
-                             quizData={this.props.quizData}/>
-            <p className={showAnswer ? 'show':'hide'}>Du bist entweder genau richtig gelegen – oder daneben. Passende Nachricht muss noch implementiert
-              werden</p>
-          <Button className={showAnswer ? 'hide':'show'} variant="dark"
-                  onClick={() => this.showAnswer()}>Fertig geraten? Lösung zeigen</Button>
-        </div>
+        <DraggableBarChart showAnswer={this.state.showAnswer}
+                           quizData={this.props.quizData}/>
+        <p className={showAnswer ? 'show' : 'hide'}>Du bist entweder genau richtig gelegen – oder daneben. Passende
+          Nachricht muss noch implementiert
+          werden</p>
+        <Button className={showAnswer ? 'hide' : 'show'} variant="dark"
+                onClick={() => this.showAnswer()}>Fertig geraten? Lösung zeigen</Button>
       </div>
     )
   }

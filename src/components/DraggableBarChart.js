@@ -17,8 +17,8 @@ export default class DraggableBarChart extends React.Component {
    */
   drawChart() {
     const {quizData} = this.props;
-
-    let barsGap = 4;
+    console.log(quizData);
+    let barsGap = 22;
     let chartWidth = 500,
       chartHeight = 300;
     let margin = {
@@ -134,6 +134,8 @@ export default class DraggableBarChart extends React.Component {
       .duration(2000)
       .attr('y', d => scaleY(d.answerInPct))
       .text(d => d3.format('.0%')(d.answerInPct));
+
+    this.mainGroup.selectAll('*').attr('pointer-events', 'none')
   }
 
   componentDidMount() {
@@ -147,7 +149,7 @@ export default class DraggableBarChart extends React.Component {
   render() {
     return (
       <div className='DraggableBarChart'>
-        <div className='chart-container'/>
+        <div className='chart-container' />
       </div>
     )
   }
