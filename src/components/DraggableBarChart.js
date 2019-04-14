@@ -9,7 +9,7 @@ export default class DraggableBarChart extends React.Component {
     this.state = {
       showAnswer: props.showAnswer
     };
-    this.maxScaleValue = Math.round(d3.max(this.props.quizData, d => d.answerInPct)) * 1.3;
+    this.maxScaleValue = Math.round(d3.max(this.props.quizData, d => d.answerInPct)) * 1.2;
   }
 
   /**
@@ -39,7 +39,18 @@ export default class DraggableBarChart extends React.Component {
     const svg = d3.select('.chart-container')
       .append('svg')
       .attr('width', chartWidth + margin.left + margin.right)
-      .attr('height', chartHeight + margin.top + margin.bottom)
+      .attr('height', chartHeight + margin.top + margin.bottom);
+
+    svg.append('defs')
+      .append('pattern')
+      .attr('id','dashed-fill')
+      .attr('width','8')
+      .attr('height','8')
+      .attr('patternUnits','userSpaceOnUse')
+      .append('rect')
+      .attr('width','4')
+      .attr('height','8')
+      .attr('transform','translate(0,0) scaleY(0.6)');
 
     this.mainGroup = svg.append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
@@ -58,6 +69,11 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY)
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
+    this.mainGroup.selectAll('.bar')
+      .selectAll('.handle--n')
+      .attr('fill', 'url(#dashed-fill)')
+      .attr('transform', 'translate(0,0)');
+
     barContainer.append('text')
       .attr('text-anchor', 'middle')
       .attr('y', d => scaleY(d.value))
@@ -74,7 +90,7 @@ export default class DraggableBarChart extends React.Component {
       const d0 = d3.event.selection.map(scaleY.invert);
       const d = d3.select(this).select('.selection');
 
-      d0[0] > 0 ? d.datum().value = d0[0] : d.datum().value = 0.1; // Change the value of the original data
+      d0[0] > 0 ? d.datum().value = d0[0] : d.datum().value = 0.01; // Change the value of the original data
 
       update();
     }
@@ -118,9 +134,6 @@ export default class DraggableBarChart extends React.Component {
       .duration(2000)
       .attr('y', d => scaleY(d.answerInPct))
       .text(d => d3.format('.0%')(d.answerInPct));
-
-    this.mainGroup.selectAll('*')
-      .attr('pointer-events', 'none');
   }
 
   componentDidMount() {

@@ -1,11 +1,21 @@
 .DraggableBarChart {
 
-  .overlay, .selection {
-    pointer-events: none;
+  .overlay, .selection, .handle--s {
     cursor: unset;
+    //pointer-events: none;
   }
 
   .handle {
-    cursor: grab;
+    opacity: 0;
+
+    &.handle--n {
+      cursor: grab;
+    }
+  }
+
+  .bar:hover {
+    .handle {
+      opacity: 1;
+    }
   }
 }
