@@ -25,7 +25,7 @@ export default class DraggableBarChart extends React.Component {
       top: 30,
       right: 30,
       bottom: 0,
-      left: 30,
+      left: 50,
     };
 
     const scaleX = d3.scaleBand()
@@ -74,21 +74,39 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
     barContainer.append('rect')
-      .attr('class', 'handle-bar')
+      .attr('class', 'handle-bar on-hover-only')
       .attr('width', scaleX.bandwidth() - barsGap)
       .attr('height', 2)
       .attr('y', d => scaleY(d.value))
-      .attr('x', (d, i) => x(i) + barsGap/2)
+      .attr('x', (d, i) => x(i) + barsGap / 2)
       .attr('fill', 'url(#dashed-fill)');
     drawHandleNorth();
 
     barContainer.append('text')
       .attr('text-anchor', 'middle')
+      .attr('class', 'label-top')
       .attr('y', d => scaleY(d.value))
       .attr('x', (d, i) => x(i) + x(0.5))
       .attr('dy', -4)
       .style('fill', 'currentColor')
       .text(d => d3.format('.0%')(d.value));
+
+    const textLeft = barContainer.append('text')
+      .attr('class', 'label-answer-left h2')
+      .classed('on-hover-only', true)
+      .attr('text-anchor', 'end')
+      .attr('transform', 'translate(6,-2)')
+      .attr('y', d => scaleY(d.value))
+      .attr('x', (d, i) => x(i))
+      .attr('fill', 'currentColor');
+
+    textLeft.append('tspan')
+      .attr('x', (d, i) => x(i))
+      .text("deine");
+    textLeft.append('tspan')
+      .attr('x', (d, i) => x(i))
+      .attr('dy', 12)
+      .text("Antwort");
 
     function brushmove() {
       if (!d3.event.sourceEvent) return;
@@ -115,11 +133,14 @@ export default class DraggableBarChart extends React.Component {
       barContainer
         .call(brushY.move, d => [d.value, 0].map(scaleY))
         .selectAll('text')
-        .attr('y', d => scaleY(d.value))
+        .attr('y', d => scaleY(d.value));
+
+      barContainer
+        .selectAll('.label-top')
         .text(d => d3.format('.0%')(d.value));
 
       barContainer.selectAll('.handle-bar')
-        .attr('y', d => scaleY(d.value))
+        .attr('y', d => scaleY(d.value));
       drawHandleNorth();
     }
 
@@ -138,20 +159,27 @@ export default class DraggableBarChart extends React.Component {
       .domain([0, this.maxScaleValue])
       .rangeRound([chartHeight, 0]);
 
-    this.mainGroup
-      .selectAll('.selection')
+    this.mainGroup.selectAll('.selection')
       .data(quizData)
       .transition()
       .duration(2000)
       .attr('height', d => chartHeight - scaleY(d.answerInPct))
       .attr('y', d => scaleY(d.answerInPct));
 
-    this.mainGroup
-      .selectAll('text')
+    this.mainGroup.selectAll('.label-top')
       .transition()
       .duration(2000)
       .attr('y', d => scaleY(d.answerInPct))
       .text(d => d3.format('.0%')(d.answerInPct));
+
+    const textLeft = this.mainGroup.selectAll('.label-answer-left, .handle-bar')
+      .classed('h2', false)
+      .classed('on-hover-only', false);
+
+    textLeft.selectAll('tspan').remove();
+    textLeft.append('tspan')
+      .attr('dy', 8)
+      .text(d => d3.format('.0%')(d.value));
 
     this.mainGroup.selectAll('*').attr('pointer-events', 'none')
   }
