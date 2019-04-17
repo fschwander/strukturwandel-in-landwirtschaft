@@ -17,7 +17,7 @@ export default class DraggableBarChart extends React.Component {
    */
   drawChart() {
     const {quizData} = this.props;
-    console.log(quizData);
+
     let barsGap = 22;
     let chartWidth = 500,
       chartHeight = 300;
@@ -27,6 +27,10 @@ export default class DraggableBarChart extends React.Component {
       bottom: 0,
       left: 30,
     };
+
+    const scaleX = d3.scaleBand()
+      .domain(quizData.map(d => d.answerInPct))
+      .rangeRound([0, chartWidth])
 
     const scaleY = d3.scaleLinear()
       .domain([0, this.maxScaleValue])
@@ -41,24 +45,24 @@ export default class DraggableBarChart extends React.Component {
       .attr('width', chartWidth + margin.left + margin.right)
       .attr('height', chartHeight + margin.top + margin.bottom);
 
-    svg.append('defs')
-      .append('pattern')
-      .attr('id','dashed-fill')
-      .attr('width','8')
-      .attr('height','8')
-      .attr('patternUnits','userSpaceOnUse')
-      .append('rect')
-      .attr('width','4')
-      .attr('height','8')
-      .attr('transform','translate(0,0) scaleY(0.6)');
-
-    this.mainGroup = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-
     const brushY = d3.brushY()
       .extent((d, i) => [[x(i) + barsGap / 2, 0], [x(i) + x(1) - barsGap / 2, chartHeight]])
       .on('brush', brushmove)
       .on('end', brushend);
+
+    svg.append('defs')
+      .append('pattern')
+      .attr('id', 'dashed-fill')
+      .attr('width', '8')
+      .attr('height', '8')
+      .attr('patternUnits', 'userSpaceOnUse')
+      .append('rect')
+      .attr('width', '4')
+      .attr('height', '8')
+      .attr('transform', 'translate(0,0)');
+
+    this.mainGroup = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const barContainer = this.mainGroup.selectAll('.bar')
       .data(quizData)
@@ -69,10 +73,14 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY)
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
-    this.mainGroup.selectAll('.bar')
-      .selectAll('.handle--n')
-      .attr('fill', 'url(#dashed-fill)')
-      .attr('transform', 'translate(0,0)');
+    barContainer.append('rect')
+      .attr('class', 'handle-bar')
+      .attr('width', scaleX.bandwidth() - barsGap)
+      .attr('height', 2)
+      .attr('y', d => scaleY(d.value))
+      .attr('x', (d, i) => x(i) + barsGap/2)
+      .attr('fill', 'url(#dashed-fill)');
+    drawHandleNorth();
 
     barContainer.append('text')
       .attr('text-anchor', 'middle')
@@ -109,6 +117,16 @@ export default class DraggableBarChart extends React.Component {
         .selectAll('text')
         .attr('y', d => scaleY(d.value))
         .text(d => d3.format('.0%')(d.value));
+
+      barContainer.selectAll('.handle-bar')
+        .attr('y', d => scaleY(d.value))
+      drawHandleNorth();
+    }
+
+    function drawHandleNorth() {
+      barContainer.selectAll('.handle--n')
+        .attr('height', 20)
+        .attr('dy', -10)
     }
   }
 
@@ -149,7 +167,7 @@ export default class DraggableBarChart extends React.Component {
   render() {
     return (
       <div className='DraggableBarChart'>
-        <div className='chart-container' />
+        <div className='chart-container'/>
       </div>
     )
   }

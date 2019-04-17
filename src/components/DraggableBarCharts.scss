@@ -5,17 +5,23 @@
     //pointer-events: none;
   }
 
-  .handle {
-    opacity: 0;
-
-    &.handle--n {
-      cursor: grab;
-    }
+  text, .handle-bar {
+    pointer-events: none;
   }
 
-  .bar:hover {
-    .handle {
-      opacity: 0.5;
+  .handle--n {
+      cursor: grab;
+      transform: translate(0,-15px);
+    }
+
+  .bar {
+    .handle-bar {
+      opacity: 0;
+    }
+    &:hover {
+      .handle-bar {
+        opacity: 1;
+      }
     }
   }
 
