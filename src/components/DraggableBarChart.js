@@ -53,12 +53,12 @@ export default class DraggableBarChart extends React.Component {
     svg.append('defs')
       .append('pattern')
       .attr('id', 'dashed-fill')
-      .attr('width', '8')
-      .attr('height', '8')
+      .attr('width', 8)
+      .attr('height', 8)
       .attr('patternUnits', 'userSpaceOnUse')
       .append('rect')
-      .attr('width', '4')
-      .attr('height', '8')
+      .attr('width', 4)
+      .attr('height', 8)
       .attr('transform', 'translate(0,0)');
 
     this.mainGroup = svg.append('g')
@@ -166,11 +166,20 @@ export default class DraggableBarChart extends React.Component {
       .attr('height', d => chartHeight - scaleY(d.answerInPct))
       .attr('y', d => scaleY(d.answerInPct));
 
+    const formatInPct = d3.format(".0%");
+
     this.mainGroup.selectAll('.label-top')
       .transition()
       .duration(2000)
       .attr('y', d => scaleY(d.answerInPct))
-      .text(d => d3.format('.0%')(d.answerInPct));
+      .on("start", function () {
+        d3.active(this)
+          .tween("text", d => {
+            const that = d3.select(this);
+            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.answerInPct);
+            return t => that.text(formatInPct(i(t)));
+          })
+      });
 
     const textLeft = this.mainGroup.selectAll('.label-answer-left, .handle-bar')
       .classed('h2', false)
@@ -179,7 +188,7 @@ export default class DraggableBarChart extends React.Component {
     textLeft.selectAll('tspan').remove();
     textLeft.append('tspan')
       .attr('dy', 8)
-      .text(d => d3.format('.0%')(d.value));
+      .text(d => formatInPct(d.value));
 
     this.mainGroup.selectAll('*').attr('pointer-events', 'none')
   }
