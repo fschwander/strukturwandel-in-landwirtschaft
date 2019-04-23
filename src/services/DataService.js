@@ -6,49 +6,55 @@ import dataSource from "../res/data/farm-sizes.csv";
 export default class DataService extends React.Component {
 
   static getReducedQuizData(data) {
-    let startSmall = data[0].area_size_0_1
-      + data[0].area_size_1_3
-      + data[0].area_size_3_5
-      + data[0].area_size_5_10
-      + data[0].area_size_10_20;
-    let startMedium = data[0].area_size_20_30
-      + data[0].area_size_30_50;
-    let startLarge = data[0].area_size_50_n;
+    const yearMin = data[0];
+    const yearMax = data[data.length - 1];
 
-    let endSmall = data[data.length - 1].area_size_0_1
-      + data[data.length - 1].area_size_1_3
-      + data[data.length - 1].area_size_3_5
-      + data[data.length - 1].area_size_5_10
-      + data[data.length - 1].area_size_10_20;
-    let endMedium = data[data.length - 1].area_size_20_30
-      + data[data.length - 1].area_size_30_50;
-    let endLarge = data[data.length - 1].area_size_50_n;
+    let startSmall = yearMin.area_size_0_1
+      + yearMin.area_size_1_3
+      + yearMin.area_size_3_5
+      + yearMin.area_size_5_10
+      + yearMin.area_size_10_20;
+    let startMedium = yearMin.area_size_20_30
+      + yearMin.area_size_30_50;
+    let startLarge = yearMin.area_size_50_n;
+
+    let endSmall = yearMax.area_size_0_1
+      + yearMax.area_size_1_3
+      + yearMax.area_size_3_5
+      + yearMax.area_size_5_10
+      + yearMax.area_size_10_20;
+    let endMedium = yearMax.area_size_20_30
+      + yearMax.area_size_30_50;
+    let endLarge = yearMax.area_size_50_n;
 
     return [
-      {value: 1, startInNo: startSmall, answerInNo: endSmall, answerInPct: endSmall / startSmall},
-      {value: 1, startInNo: startMedium, answerInNo: endMedium, answerInPct: endMedium / startMedium},
-      {value: 1, startInNo: startLarge, answerInNo: endLarge, answerInPct: endLarge / startLarge}
+      {value: 1, label: "Kleine Bauernhöfe", size: "bis 20 ha", startInNo: startSmall, answerInNo: endSmall, answerInPct: endSmall / startSmall},
+      {value: 1, label: "Mittlere Bauernhöfe", size: "20 bis 50 ha", startInNo: startMedium, answerInNo: endMedium, answerInPct: endMedium / startMedium},
+      {value: 1, label: "Grosse Bauernhöfe", size: "ab 50 ha", startInNo: startLarge, answerInNo: endLarge, answerInPct: endLarge / startLarge}
     ]
   }
 
   static getFullQuizData(data) {
-    let start_0_1 = data[0].area_size_0_1;
-    let start_1_3 = data[0].area_size_1_3;
-    let start_3_5 = data[0].area_size_3_5;
-    let start_5_10 = data[0].area_size_5_10;
-    let start_10_20 = data[0].area_size_10_20;
-    let start_20_30 = data[0].area_size_20_30;
-    let start_30_50 = data[0].area_size_30_50;
-    let start_50_n = data[0].area_size_50_n;
+    const yearMin = data[0];
+    const yearMax = data[data.length - 1];
 
-    let end_0_1 = data[data.length - 1].area_size_0_1;
-    let end_1_3 = data[data.length - 1].area_size_1_3;
-    let end_3_5 = data[data.length - 1].area_size_3_5;
-    let end_5_10 = data[data.length - 1].area_size_5_10;
-    let end_10_20 = data[data.length - 1].area_size_10_20;
-    let end_20_30 = data[data.length - 1].area_size_20_30;
-    let end_30_50 = data[data.length - 1].area_size_30_50;
-    let end_50_n = data[data.length - 1].area_size_50_n;
+    let start_0_1 = yearMin.area_size_0_1;
+    let start_1_3 = yearMin.area_size_1_3;
+    let start_3_5 = yearMin.area_size_3_5;
+    let start_5_10 = yearMin.area_size_5_10;
+    let start_10_20 = yearMin.area_size_10_20;
+    let start_20_30 = yearMin.area_size_20_30;
+    let start_30_50 = yearMin.area_size_30_50;
+    let start_50_n = yearMin.area_size_50_n;
+
+    let end_0_1 = yearMax.area_size_0_1;
+    let end_1_3 = yearMax.area_size_1_3;
+    let end_3_5 = yearMax.area_size_3_5;
+    let end_5_10 = yearMax.area_size_5_10;
+    let end_10_20 = yearMax.area_size_10_20;
+    let end_20_30 = yearMax.area_size_20_30;
+    let end_30_50 = yearMax.area_size_30_50;
+    let end_50_n = yearMax.area_size_50_n;
 
     return [
       {value: 1, startInNo: start_0_1, answerInNo: end_0_1, answerInPct: end_0_1 / start_0_1},

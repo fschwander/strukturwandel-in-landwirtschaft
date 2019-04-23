@@ -1,0 +1,25 @@
+.FarmSizeRelationsChart {
+
+  svg {
+    margin: 1em;
+
+    .bar {
+      fill: deepskyblue;
+
+      &:hover {
+        fill: deeppink;
+      }
+    }
+
+    text {
+      fill: black;
+      font-size: 1.1em;
+
+      &.title {
+        font-size: 1.5em;
+        text-anchor: middle;
+        font-weight: bold;
+      }
+    }
+  }
+}

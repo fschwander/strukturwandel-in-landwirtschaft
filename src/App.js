@@ -2,6 +2,7 @@ import QuizPage from "./components/QuizPage";
 import * as React from "react";
 import DataService from "./services/DataService";
 import FarmsCountChart from "./components/FarmsCountChart";
+import FarmSizeRelationsChart from "./components/FarmSizeRelationsChart";
 
 class App extends React.Component {
 
@@ -24,8 +25,9 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {quizDataIsLoaded ? <QuizPage quizData={quizData}/> : null}
+        {/*{quizDataIsLoaded ? <QuizPage quizData={quizData}/> : null}*/}
         {/*{farmsDataIsLoaded ? <FarmsCountChart data={data}/> : null}*/}
+        {quizDataIsLoaded ? <FarmSizeRelationsChart data={quizData}/> : null}
       </div>
     )
   }
