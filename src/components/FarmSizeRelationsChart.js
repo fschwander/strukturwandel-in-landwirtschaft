@@ -16,7 +16,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     // define svn size and margin.
     const canvHeight = 600, canvWidth = 800;
-    const margin = { top: 50, right: 20, bottom: 40, left: 80 };
+    const margin = {top: 50, right: 20, bottom: 40, left: 80};
 
     // compute the width and height of the actual chart area.
     const width = canvWidth - margin.left - margin.right;
@@ -50,16 +50,26 @@ export default class FarmSizeRelationsChart extends React.Component {
       .append('text')
       .attr('class', 'title')
       .text('Anzahl Bauernhöfe')
-      .attr('transform', `translate(-50,${height/2}) rotate(-90)`)
+      .attr('transform', `translate(-50,${height / 2}) rotate(-90)`)
 
-    g.selectAll('rect')
+    const barsGroup = g.selectAll('rect')
+      .attr('class', 'bar-container')
       .data(data)
-      .enter().append('rect')
+      .enter();
+
+    barsGroup.append('rect')
       .attr('class', 'bar')
       .attr('x', d => x(d.label))
       .attr('y', d => y(d.minYearData))
-      .attr('width', x.bandwidth())
+      .attr('width', x.bandwidth() / 2)
       .attr('height', d => height - y(d.minYearData));
+
+    barsGroup.append('rect')
+      .attr('class', 'bar')
+      .attr('x', d => x(d.label) + x.bandwidth() / 2)
+      .attr('y', d => y(d.maxYearData))
+      .attr('width', x.bandwidth() / 2)
+      .attr('height', d => height - y(d.maxYearData));
   }
 
   componentDidMount() {
