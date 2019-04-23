@@ -23,7 +23,7 @@ export default class FarmSizeRelationsChart extends React.Component {
     const height = canvHeight - margin.top - margin.bottom;
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.startInNo)])
+      .domain([0, d3.max(data, d => d.minYearData)])
       .rangeRound([height, 0]);
 
     const x = d3.scaleBand()
@@ -33,8 +33,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     const svg = d3.select(".FarmSizeRelationsChart").append("svg")
       .attr("width", canvWidth)
-      .attr("height", canvHeight)
-      .style("border", "1px solid");
+      .attr("height", canvHeight);
 
     const g = svg.append('g')
       .attr('id', 'chart-area-box')
@@ -58,9 +57,9 @@ export default class FarmSizeRelationsChart extends React.Component {
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('x', d => x(d.label))
-      .attr('y', d => y(d.startInNo))
+      .attr('y', d => y(d.minYearData))
       .attr('width', x.bandwidth())
-      .attr('height', d => height - y(d.startInNo));
+      .attr('height', d => height - y(d.minYearData));
   }
 
   componentDidMount() {

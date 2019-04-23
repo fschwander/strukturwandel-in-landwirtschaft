@@ -9,28 +9,28 @@ export default class DataService extends React.Component {
     const yearMin = data[0];
     const yearMax = data[data.length - 1];
 
-    let startSmall = yearMin.area_size_0_1
+    let minSmall = yearMin.area_size_0_1
       + yearMin.area_size_1_3
       + yearMin.area_size_3_5
       + yearMin.area_size_5_10
       + yearMin.area_size_10_20;
-    let startMedium = yearMin.area_size_20_30
+    let minMedium = yearMin.area_size_20_30
       + yearMin.area_size_30_50;
-    let startLarge = yearMin.area_size_50_n;
+    let minLarge = yearMin.area_size_50_n;
 
-    let endSmall = yearMax.area_size_0_1
+    let maxSmall = yearMax.area_size_0_1
       + yearMax.area_size_1_3
       + yearMax.area_size_3_5
       + yearMax.area_size_5_10
       + yearMax.area_size_10_20;
-    let endMedium = yearMax.area_size_20_30
+    let maxMedium = yearMax.area_size_20_30
       + yearMax.area_size_30_50;
-    let endLarge = yearMax.area_size_50_n;
+    let maxLarge = yearMax.area_size_50_n;
 
     return [
-      {value: 1, label: "Kleine Bauernhöfe", size: "bis 20 ha", startInNo: startSmall, answerInNo: endSmall, answerInPct: endSmall / startSmall},
-      {value: 1, label: "Mittlere Bauernhöfe", size: "20 bis 50 ha", startInNo: startMedium, answerInNo: endMedium, answerInPct: endMedium / startMedium},
-      {value: 1, label: "Grosse Bauernhöfe", size: "ab 50 ha", startInNo: startLarge, answerInNo: endLarge, answerInPct: endLarge / startLarge}
+      {value: 1, label: "Kleine Bauernhöfe", size: "bis 20 ha", minYearData: minSmall, maxYearData: maxSmall, maxInPct: maxSmall / minSmall},
+      {value: 1, label: "Mittlere Bauernhöfe", size: "20 bis 50 ha", minYearData: minMedium, maxYearData: maxMedium, maxInPct: maxMedium / minMedium},
+      {value: 1, label: "Grosse Bauernhöfe", size: "ab 50 ha", minYearData: minLarge, maxYearData: maxLarge, maxInPct: maxLarge / minLarge}
     ]
   }
 
@@ -38,33 +38,33 @@ export default class DataService extends React.Component {
     const yearMin = data[0];
     const yearMax = data[data.length - 1];
 
-    let start_0_1 = yearMin.area_size_0_1;
-    let start_1_3 = yearMin.area_size_1_3;
-    let start_3_5 = yearMin.area_size_3_5;
-    let start_5_10 = yearMin.area_size_5_10;
-    let start_10_20 = yearMin.area_size_10_20;
-    let start_20_30 = yearMin.area_size_20_30;
-    let start_30_50 = yearMin.area_size_30_50;
-    let start_50_n = yearMin.area_size_50_n;
+    let min_0_1 = yearMin.area_size_0_1;
+    let min_1_3 = yearMin.area_size_1_3;
+    let min_3_5 = yearMin.area_size_3_5;
+    let min_5_10 = yearMin.area_size_5_10;
+    let min_10_20 = yearMin.area_size_10_20;
+    let min_20_30 = yearMin.area_size_20_30;
+    let min_30_50 = yearMin.area_size_30_50;
+    let min_50_n = yearMin.area_size_50_n;
 
-    let end_0_1 = yearMax.area_size_0_1;
-    let end_1_3 = yearMax.area_size_1_3;
-    let end_3_5 = yearMax.area_size_3_5;
-    let end_5_10 = yearMax.area_size_5_10;
-    let end_10_20 = yearMax.area_size_10_20;
-    let end_20_30 = yearMax.area_size_20_30;
-    let end_30_50 = yearMax.area_size_30_50;
-    let end_50_n = yearMax.area_size_50_n;
+    let max_0_1 = yearMax.area_size_0_1;
+    let max_1_3 = yearMax.area_size_1_3;
+    let max_3_5 = yearMax.area_size_3_5;
+    let max_5_10 = yearMax.area_size_5_10;
+    let max_10_20 = yearMax.area_size_10_20;
+    let max_20_30 = yearMax.area_size_20_30;
+    let max_30_50 = yearMax.area_size_30_50;
+    let max_50_n = yearMax.area_size_50_n;
 
     return [
-      {value: 1, startInNo: start_0_1, answerInNo: end_0_1, answerInPct: end_0_1 / start_0_1},
-      {value: 1, startInNo: start_1_3, answerInNo: end_1_3, answerInPct: end_1_3 / start_0_1},
-      {value: 1, startInNo: start_3_5, answerInNo: end_3_5, answerInPct: end_3_5 / start_3_5},
-      {value: 1, startInNo: start_5_10, answerInNo: end_5_10, answerInPct: end_5_10 / start_5_10},
-      {value: 1, startInNo: start_10_20, answerInNo: end_10_20, answerInPct: end_10_20 / start_10_20},
-      {value: 1, startInNo: start_20_30, answerInNo: end_20_30, answerInPct: end_20_30 / start_20_30},
-      {value: 1, startInNo: start_30_50, answerInNo: end_30_50, answerInPct: end_30_50 / start_30_50},
-      {value: 1, startInNo: start_50_n, answerInNo: end_50_n, answerInPct: end_50_n / start_50_n}
+      {value: 1, minYearData: min_0_1, maxYearData: max_0_1, maxInPct: max_0_1 / min_0_1},
+      {value: 1, minYearData: min_1_3, maxYearData: max_1_3, maxInPct: max_1_3 / min_0_1},
+      {value: 1, minYearData: min_3_5, maxYearData: max_3_5, maxInPct: max_3_5 / min_3_5},
+      {value: 1, minYearData: min_5_10, maxYearData: max_5_10, maxInPct: max_5_10 / min_5_10},
+      {value: 1, minYearData: min_10_20, maxYearData: max_10_20, maxInPct: max_10_20 / min_10_20},
+      {value: 1, minYearData: min_20_30, maxYearData: max_20_30, maxInPct: max_20_30 / min_20_30},
+      {value: 1, minYearData: min_30_50, maxYearData: max_30_50, maxInPct: max_30_50 / min_30_50},
+      {value: 1, minYearData: min_50_n, maxYearData: max_50_n, maxInPct: max_50_n / min_50_n}
     ]
   }
 
