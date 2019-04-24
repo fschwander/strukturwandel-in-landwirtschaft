@@ -24,7 +24,7 @@ export default class QuizPage extends React.Component {
         <h1>Quiz</h1>
 
         <DraggableBarChart showAnswer={this.state.showAnswer}
-                           quizData={this.props.quizData}/>
+                           data={this.props.data}/>
         <p className={showAnswer ? 'show' : 'hide'}>Du bist entweder genau richtig gelegen – oder daneben. Passende
           Nachricht muss noch implementiert
           werden</p>

@@ -5,7 +5,7 @@ import dataSource from "../res/data/farm-sizes.csv";
 
 export default class DataService extends React.Component {
 
-  static getReducedQuizData(data) {
+  static getReducedData(data) {
     const yearMin = data[0];
     const yearMax = data[data.length - 1];
 
@@ -34,41 +34,7 @@ export default class DataService extends React.Component {
     ]
   }
 
-  static getFullQuizData(data) {
-    const yearMin = data[0];
-    const yearMax = data[data.length - 1];
-
-    let min_0_1 = yearMin.area_size_0_1;
-    let min_1_3 = yearMin.area_size_1_3;
-    let min_3_5 = yearMin.area_size_3_5;
-    let min_5_10 = yearMin.area_size_5_10;
-    let min_10_20 = yearMin.area_size_10_20;
-    let min_20_30 = yearMin.area_size_20_30;
-    let min_30_50 = yearMin.area_size_30_50;
-    let min_50_n = yearMin.area_size_50_n;
-
-    let max_0_1 = yearMax.area_size_0_1;
-    let max_1_3 = yearMax.area_size_1_3;
-    let max_3_5 = yearMax.area_size_3_5;
-    let max_5_10 = yearMax.area_size_5_10;
-    let max_10_20 = yearMax.area_size_10_20;
-    let max_20_30 = yearMax.area_size_20_30;
-    let max_30_50 = yearMax.area_size_30_50;
-    let max_50_n = yearMax.area_size_50_n;
-
-    return [
-      {value: 1, minYearData: min_0_1, maxYearData: max_0_1, maxInPct: max_0_1 / min_0_1},
-      {value: 1, minYearData: min_1_3, maxYearData: max_1_3, maxInPct: max_1_3 / min_0_1},
-      {value: 1, minYearData: min_3_5, maxYearData: max_3_5, maxInPct: max_3_5 / min_3_5},
-      {value: 1, minYearData: min_5_10, maxYearData: max_5_10, maxInPct: max_5_10 / min_5_10},
-      {value: 1, minYearData: min_10_20, maxYearData: max_10_20, maxInPct: max_10_20 / min_10_20},
-      {value: 1, minYearData: min_20_30, maxYearData: max_20_30, maxInPct: max_20_30 / min_20_30},
-      {value: 1, minYearData: min_30_50, maxYearData: max_30_50, maxInPct: max_30_50 / min_30_50},
-      {value: 1, minYearData: min_50_n, maxYearData: max_50_n, maxInPct: max_50_n / min_50_n}
-    ]
-  }
-
-  static getFarmsData() {
+  static getFullData() {
     return d3.csv(dataSource,
       d => ({
         year: +d.year,

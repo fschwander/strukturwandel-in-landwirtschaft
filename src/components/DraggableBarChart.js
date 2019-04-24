@@ -9,14 +9,14 @@ export default class DraggableBarChart extends React.Component {
     this.state = {
       showAnswer: props.showAnswer
     };
-    this.maxScaleValue = Math.round(d3.max(this.props.quizData, d => d.maxInPct)) * 1.2;
+    this.maxScaleValue = Math.round(d3.max(this.props.data, d => d.maxInPct)) * 1.2;
   }
 
   /**
    * Based on https://bl.ocks.org/AlainRo/9264cd08e341f2c92f020c39642c34d1
    */
   drawChart() {
-    const {quizData} = this.props;
+    const {data} = this.props;
 
     let barsGap = 22;
     let chartWidth = 500,
@@ -29,7 +29,7 @@ export default class DraggableBarChart extends React.Component {
     };
 
     const scaleX = d3.scaleBand()
-      .domain(quizData.map(d => d.maxInPct))
+      .domain(data.map(d => d.maxInPct))
       .rangeRound([0, chartWidth])
 
     const scaleY = d3.scaleLinear()
@@ -37,7 +37,7 @@ export default class DraggableBarChart extends React.Component {
       .rangeRound([chartHeight, 0]);
 
     const x = d3.scaleLinear()
-      .domain([0, quizData.length])
+      .domain([0, data.length])
       .rangeRound([0, chartWidth]);
 
     const svg = d3.select('.chart-container')
@@ -65,7 +65,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const barContainer = this.mainGroup.selectAll('.bar')
-      .data(quizData)
+      .data(data)
       .enter()
       .append('g')
       .attr('id', (d, i) => 'bar' + i)
@@ -152,7 +152,7 @@ export default class DraggableBarChart extends React.Component {
   }
 
   showAnswer() {
-    const {quizData} = this.props;
+    const {data} = this.props;
     let chartHeight = 300;
 
     const scaleY = d3.scaleLinear()
@@ -160,7 +160,7 @@ export default class DraggableBarChart extends React.Component {
       .rangeRound([chartHeight, 0]);
 
     this.mainGroup.selectAll('.selection')
-      .data(quizData)
+      .data(data)
       .transition()
       .duration(2000)
       .attr('height', d => chartHeight - scaleY(d.maxInPct))

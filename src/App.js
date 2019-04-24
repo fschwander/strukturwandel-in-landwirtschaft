@@ -10,7 +10,7 @@ class App extends React.Component {
     super(params);
 
     this.state = {
-      data: undefined
+
     }
   }
 
@@ -19,27 +19,27 @@ class App extends React.Component {
   }
 
   render() {
-    const {quizData, data} = this.state;
-    let quizDataIsLoaded = quizData !== undefined;
-    let farmsDataIsLoaded = data !== undefined;
+    const {reducedData, fullData} = this.state;
+
+    let reducedDataIsLoaded = reducedData !== undefined;
+    let fullDataIsLoaded = fullData !== undefined;
 
     return (
       <div className="App">
-        {/*{quizDataIsLoaded ? <QuizPage quizData={quizData}/> : null}*/}
-        {/*{farmsDataIsLoaded ? <FarmsCountChart data={data}/> : null}*/}
-        {quizDataIsLoaded ? <FarmSizeRelationsChart data={quizData}/> : null}
+        {reducedDataIsLoaded ? <QuizPage data={reducedData}/> : null}
+        {fullDataIsLoaded ? <FarmsCountChart data={fullData}/> : null}
+        {reducedDataIsLoaded ? <FarmSizeRelationsChart data={reducedData}/> : null}
       </div>
     )
   }
 
   async initData() {
-    const farmsData = await DataService.getFarmsData();
-    const quizDataReduced = DataService.getReducedQuizData(farmsData);
-    const quizDataFull = DataService.getFullQuizData(farmsData);
+    const fullData = await DataService.getFullData();
+    const reducedData = DataService.getReducedData(fullData);
 
     this.setState({
-      quizData: quizDataReduced,
-      data: farmsData
+      reducedData: reducedData,
+      fullData: fullData
     })
   }
 }
