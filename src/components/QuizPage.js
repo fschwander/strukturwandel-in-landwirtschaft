@@ -16,6 +16,7 @@ export default class QuizPage extends React.Component {
     this.setState({showAnswer: true})
   }
 
+
   render() {
     const showAnswer = this.state.showAnswer;
 

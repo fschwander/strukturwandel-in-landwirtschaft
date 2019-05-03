@@ -28,7 +28,7 @@ class App extends React.Component {
       <div className="App">
         {reducedDataIsLoaded ? <QuizPage data={reducedData}/> : null}
         {fullDataIsLoaded ? <FarmsCountChart data={fullData}/> : null}
-        {reducedDataIsLoaded ? <FarmSizeRelationsChart data={reducedData}/> : null}
+        {reducedDataIsLoaded && fullDataIsLoaded ? <FarmSizeRelationsChart fullData={fullData} data={reducedData}/> : null}
       </div>
     )
   }

@@ -12,7 +12,7 @@ export default class FarmsCountChart extends React.Component {
     this.margin = {
       top: 20,
       bottom: 60,
-      left: 80,
+      left: 90,
       right: 10
     };
     this.innerHeight = this.height - this.margin.top - this.margin.bottom;
@@ -89,7 +89,7 @@ export default class FarmsCountChart extends React.Component {
       .append('text')
       .attr('class', 'header')
       .attr('x', innerWidth / 2)
-      .attr('y', 40)
+      .attr('y', 50)
       .text('Jahr')
       .style('text-anchor', 'middle');
 
@@ -103,7 +103,7 @@ export default class FarmsCountChart extends React.Component {
       .append('text')
       .attr('class', 'header')
       .attr('x', -innerHeight / 2)
-      .attr('y', -60)
+      .attr('y', -70)
       .attr('transform', 'rotate(-90)')
       .text('Bauernhöfe')
       .style('text-anchor', 'middle');

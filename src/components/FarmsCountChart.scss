@@ -1,18 +1,11 @@
 .FarmsCountChart {
   position: relative;
 
-  text {
-    font-size: 12px;
-  }
-
   .axis {
     .header {
       font-weight: bold;
-      font-size: 14px;
+      font-size: 1.6em;
       fill: currentColor;
-    }
-    text {
-      font-size: 11px;
     }
   }
 }
