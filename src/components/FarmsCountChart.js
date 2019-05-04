@@ -30,7 +30,10 @@ export default class FarmsCountChart extends React.Component {
     const keys = DataService.getFilteredFarmsKeys(data);
     const stack = d3.stack().keys(keys);
     const series = stack(data);
-    const colorScale = d3.scaleOrdinal(d3.schemePastel2);
+    const colorScale = d3.scaleOrdinal()
+      .range(['#c2eedc', '#7fd1af', '#1cb373', '#168c5a',
+        '#66bbff', '#1e8cd3',
+        '#ebb0dd', '#d674c0']);
 
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, d => d.year))
@@ -110,8 +113,8 @@ export default class FarmsCountChart extends React.Component {
   }
 
   initLegend(keys, colorScale) {
-    const lineHeight = 25;
-    const padding = 12;
+    const lineHeight = 22;
+    const padding = 8;
 
     const legendWidth = 100 + 2 * padding;
     const legendHeight = keys.length * lineHeight + padding;
@@ -120,15 +123,13 @@ export default class FarmsCountChart extends React.Component {
       .attr('class', 'legend')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('transform', `translate(${this.innerWidth - legendWidth - padding},${padding})`);
+      .attr('transform', `translate(${this.innerWidth - legendWidth - 48},${padding})`);
 
     legend.append('rect')
       .attr('class', 'background')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('fill', 'white')
-      .attr('stroke', 'currentColor')
-      .attr('stroke-width', '1');
+      .attr('fill', 'white');
 
     const legendEntry = legend.append('g')
       .attr('class', 'entries')

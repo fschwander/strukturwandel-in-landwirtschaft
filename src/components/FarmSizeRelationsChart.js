@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as d3 from "d3";
-import DataService from "../services/DataService";
 
 export default class FarmSizeRelationsChart extends React.Component {
 
@@ -21,8 +20,11 @@ export default class FarmSizeRelationsChart extends React.Component {
       this.props.data.map(d => d.maxYearData)
     ];
 
-    const colorScale = d3.scaleOrdinal()
-      .range(["#8a89a6", "#6b486b"]);
+    this.colorScale = [
+      d3.scaleOrdinal().range(['#7fd1af', '#1cb373']),
+      d3.scaleOrdinal().range(['#66bbff', '#1e8cd3']),
+      d3.scaleOrdinal().range(['#ebb0dd', '#d674c0'])
+    ];
 
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(processedData, oldData => d3.max(oldData))])
@@ -48,8 +50,9 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     mainGroup.append("g").selectAll("g")
       .data(processedData)
+
       .enter().append("g")
-      .style("fill", (d, i) => colorScale(i))
+
       .attr("transform", (d, i) => "translate(" + scaleWidth(i) + ",0)")
       .selectAll("rect")
       .data(d => d)
@@ -57,7 +60,11 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr("width", scaleWidth.bandwidth())
       .attr("height", d => height - yScale(d))
       .attr("x", (d, i) => xScale(data[i].label))
-      .attr("y", d => yScale(d));
+      .attr("y", d => yScale(d))
+      .style("fill", (d, i) => {
+        const scale = this.colorScale[i];
+        return scale(d)
+      });
 
     mainGroup.append('g')
       .attr('class', 'x-axis')
@@ -72,15 +79,15 @@ export default class FarmSizeRelationsChart extends React.Component {
       .text('Anzahl Bauernhöfe')
       .attr('transform', `translate(-80,${height / 2}) rotate(-90)`)
 
-    this.initLegend(colorScale);
+    this.initLegend();
   }
 
-  initLegend(colorScale) {
+  initLegend() {
     const {fullData} = this.props;
 
     const legendEntries = [fullData[0].year, fullData[fullData.length - 1].year];
 
-    const lineHeight = 30;
+    const lineHeight = 24;
     const padding = 18;
 
     const legendWidth = 70 + 2 * padding;
@@ -96,9 +103,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('class', 'background')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('fill', 'white')
-      .attr('stroke', 'currentColor')
-      .attr('stroke-width', '1');
+      .attr('fill', 'white');
 
     const legendEntry = legend.append('g')
       .attr('class', 'entries')
@@ -107,14 +112,19 @@ export default class FarmSizeRelationsChart extends React.Component {
       .data(legendEntries)
       .enter();
 
-    legendEntry.append('rect')
-      .attr('y', (d, i) => lineHeight * i)
-      .attr('width', 12)
-      .attr('height', 12)
-      .attr('fill', d => colorScale(d));
+    for (let j = 0; j < this.colorScale.length; j++) {
+      const scale = this.colorScale[j];
+
+      legendEntry.append('rect')
+        .attr('x', j * 14)
+        .attr('y', (d, i) =>  lineHeight * i)
+        .attr('width', 12)
+        .attr('height', 12)
+        .attr('fill', (d, i) => scale(i));
+    }
 
     legendEntry.append('text')
-      .attr('x', 20)
+      .attr('x', 48)
       .attr('y', (d, i) => lineHeight * i + 10)
       .text((d, i) => legendEntries[i]);
   }

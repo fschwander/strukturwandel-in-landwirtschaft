@@ -12,25 +12,46 @@ export default class DataService extends React.Component {
     let minSmall = yearMin.area_size_0_1
       + yearMin.area_size_1_3
       + yearMin.area_size_3_5
-      + yearMin.area_size_5_10
-      + yearMin.area_size_10_20;
-    let minMedium = yearMin.area_size_20_30
-      + yearMin.area_size_30_50;
-    let minLarge = yearMin.area_size_50_n;
+      + yearMin.area_size_5_10;
+
+    let minMedium = yearMin.area_size_20_30 + yearMin.area_size_10_20;
+
+    let minLarge = yearMin.area_size_50_n + yearMin.area_size_30_50;
 
     let maxSmall = yearMax.area_size_0_1
       + yearMax.area_size_1_3
       + yearMax.area_size_3_5
-      + yearMax.area_size_5_10
-      + yearMax.area_size_10_20;
-    let maxMedium = yearMax.area_size_20_30
-      + yearMax.area_size_30_50;
-    let maxLarge = yearMax.area_size_50_n;
+      + yearMax.area_size_5_10;
+
+    let maxMedium = yearMax.area_size_20_30 + yearMax.area_size_10_20;
+
+    let maxLarge = yearMax.area_size_50_n + yearMax.area_size_30_50;
 
     return [
-      {value: 1, label: "Kleine Bauernhöfe", size: "bis 20 ha", minYearData: minSmall, maxYearData: maxSmall, maxInPct: maxSmall / minSmall},
-      {value: 1, label: "Mittlere Bauernhöfe", size: "20 bis 50 ha", minYearData: minMedium, maxYearData: maxMedium, maxInPct: maxMedium / minMedium},
-      {value: 1, label: "Grosse Bauernhöfe", size: "ab 50 ha", minYearData: minLarge, maxYearData: maxLarge, maxInPct: maxLarge / minLarge}
+      {
+        value: 1,
+        label: "Kleine Bauernhöfe",
+        size: "bis 20 ha",
+        minYearData: minSmall,
+        maxYearData: maxSmall,
+        maxInPct: maxSmall / minSmall
+      },
+      {
+        value: 1,
+        label: "Mittlere Bauernhöfe",
+        size: "20 bis 50 ha",
+        minYearData: minMedium,
+        maxYearData: maxMedium,
+        maxInPct: maxMedium / minMedium
+      },
+      {
+        value: 1,
+        label: "Grosse Bauernhöfe",
+        size: "ab 50 ha",
+        minYearData: minLarge,
+        maxYearData: maxLarge,
+        maxInPct: maxLarge / minLarge
+      }
     ]
   }
 

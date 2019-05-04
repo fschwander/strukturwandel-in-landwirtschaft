@@ -73,6 +73,9 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY)
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
+    d3.selectAll('.selection').attr('fill', '#dadad2')
+      .attr('fill-opacity', 1);
+
     barContainer.append('rect')
       .attr('class', 'handle-bar on-hover-only')
       .attr('width', scaleX.bandwidth() - barsGap)
@@ -159,12 +162,16 @@ export default class DraggableBarChart extends React.Component {
       .domain([0, this.maxScaleValue])
       .rangeRound([chartHeight, 0]);
 
+    const colorScale = d3.scaleOrdinal()
+      .range(['#4ec291', '#42a3f1', '#e396d1']);
+
     this.mainGroup.selectAll('.selection')
       .data(data)
       .transition()
       .duration(2000)
       .attr('height', d => chartHeight - scaleY(d.maxInPct))
-      .attr('y', d => scaleY(d.maxInPct));
+      .attr('y', d => scaleY(d.maxInPct))
+      .attr('fill', (d, i) => colorScale(i));
 
     const formatInPct = d3.format(".0%");
 
