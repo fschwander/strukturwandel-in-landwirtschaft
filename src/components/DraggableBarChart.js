@@ -22,14 +22,14 @@ export default class DraggableBarChart extends React.Component {
     let chartWidth = 500,
       chartHeight = 300;
     let margin = {
-      top: 30,
+      top: 20,
       right: 30,
-      bottom: 0,
+      bottom: 50,
       left: 50,
     };
 
     const scaleX = d3.scaleBand()
-      .domain(data.map(d => d.maxInPct))
+      .domain(data.map(d => d.label))
       .rangeRound([0, chartWidth])
 
     const scaleY = d3.scaleLinear()
@@ -94,6 +94,15 @@ export default class DraggableBarChart extends React.Component {
       .style('fill', 'currentColor')
       .text(d => d3.format('.0%')(d.value));
 
+    barContainer.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('class', 'x-axis')
+      .attr('y', chartHeight)
+      .attr('x', (d, i) => x(i) + x(0.5))
+      .attr('dy', 22)
+      .attr('fill', 'currentColor')
+      .text((d, i) => data[i].label);
+
     const textLeft = barContainer.append('text')
       .attr('class', 'label-answer-left h2')
       .classed('on-hover-only', true)
@@ -135,7 +144,7 @@ export default class DraggableBarChart extends React.Component {
     function update() {
       barContainer
         .call(brushY.move, d => [d.value, 0].map(scaleY))
-        .selectAll('text')
+        .selectAll('.label-top, .label-answer-left')
         .attr('y', d => scaleY(d.value));
 
       barContainer

@@ -1,19 +1,18 @@
 .QuizPage {
+  background-color: #dadad2;
+  padding: 2em;
   align-self: center;
   width: 70%;
   min-width: 680px;
-
-  .btn {
-    margin: 1em;
-  }
+  min-height: 810px;
 
   .show {
-    opacity: 1;
+    display: inline;
     transition: 400ms ease-in;
   }
 
   .hide {
-    opacity: 0;
+    display: none;
     transition: 200ms ease-out;
   }
 }
