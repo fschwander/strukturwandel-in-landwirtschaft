@@ -1,4 +1,4 @@
-﻿# Das grosse Bauernhofsterben
+﻿# Strukturwandel in der Landwirtschaft
 **Weniger für die Kleinen, mehr für die Grossen**
 
 Student 1: Fabian Schwander
@@ -11,9 +11,7 @@ Student 1: Fabian Schwander
 ## Technical information
 **Main file path**: build/index.html
 
-Starten mit `serve -s build`
-
-Für den Fall, dass der /build nicht gestartet werden kann: [http://www.ivis.twigo.ch/](http://www.ivis.twigo.ch/)
+Für den Fall, dass der Build nicht gestartet werden kann: [http://www.ivis.twigo.ch/](http://www.ivis.twigo.ch/)
 
 Erstellt mit React.
 
