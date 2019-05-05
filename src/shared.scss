@@ -20,11 +20,13 @@ body {
 
   h2 {
     font-size: 2em;
-    margin: 0.5em 0 1.5em;
+    margin: 1.5em 0 1em;
   }
 
-  p {
-    max-width: 600px;
+  h3 {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
   }
 
   svg {
