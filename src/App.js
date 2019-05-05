@@ -3,6 +3,7 @@ import * as React from "react";
 import DataService from "./services/DataService";
 import FarmsCountChart from "./components/FarmsCountChart";
 import FarmSizeRelationsChart from "./components/FarmSizeRelationsChart";
+import Header from "./components/Header";
 
 class App extends React.Component {
 
@@ -24,12 +25,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <div>
-          <h1>Das grosse Bauernsterben?</h1>
-          <p>Immer wieder liest man davon, dass für die Schweizer Bäuerinnen und Bauer die Existenz gefährdet ist:
-            Für viele Betriebe lohnt sich die Landwirtschft nicht mehr und sie verschwinden.</p>
-        </div>
-
+        <Header />
         {reducedDataIsLoaded ? <QuizPage data={reducedData}/> : null}
         {reducedDataIsLoaded && fullDataIsLoaded ?
           <FarmSizeRelationsChart fullData={fullData} data={reducedData}/> : null}
