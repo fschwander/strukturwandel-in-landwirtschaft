@@ -22,13 +22,10 @@ export default class QuizPage extends React.Component {
 
     return (
       <div className='QuizPage'>
-        <h1>Quiz</h1>
+        <h2>Quiz</h2>
 
-        <p>Immer wieder liest man davon, dass für die Schweizer Bäuerinnen und Bauer die Existenz gefährdet ist:
-          Für viele Betriebe lohnt sich die Landwirtschft nicht mehr und sie verschwinden.</p>
-        <p>Aber wie sieht die Wirklichkeit aus? Wie viele Betriebe sind verschwunden?</p>
-        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Schätze wie sich die Anzahl der Bauernhöfe verändert
-          hat.</p>
+        <p>Schätze wie sich die Anzahl der Bauernhöfe verändert hat.</p>
+        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt es heute?</p>
 
         <DraggableBarChart showAnswer={this.state.showAnswer}
                            data={this.props.data}/>

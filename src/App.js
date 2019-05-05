@@ -9,9 +9,7 @@ class App extends React.Component {
   constructor(params) {
     super(params);
 
-    this.state = {
-
-    }
+    this.state = {}
   }
 
   componentWillMount() {
@@ -26,9 +24,16 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <div>
+          <h1>Das grosse Bauernsterben?</h1>
+          <p>Immer wieder liest man davon, dass für die Schweizer Bäuerinnen und Bauer die Existenz gefährdet ist:
+            Für viele Betriebe lohnt sich die Landwirtschft nicht mehr und sie verschwinden.</p>
+        </div>
+
         {reducedDataIsLoaded ? <QuizPage data={reducedData}/> : null}
+        {reducedDataIsLoaded && fullDataIsLoaded ?
+          <FarmSizeRelationsChart fullData={fullData} data={reducedData}/> : null}
         {fullDataIsLoaded ? <FarmsCountChart data={fullData}/> : null}
-        {reducedDataIsLoaded && fullDataIsLoaded ? <FarmSizeRelationsChart fullData={fullData} data={reducedData}/> : null}
       </div>
     )
   }

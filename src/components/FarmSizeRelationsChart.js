@@ -9,11 +9,11 @@ export default class FarmSizeRelationsChart extends React.Component {
   drawChart() {
     const {data} = this.props;
 
-    const margin = {top: 50, right: 20, bottom: 40, left: 100};
+    const margin = {top: 0, right: 60, bottom: 40, left: 100};
 
-    const width = 600 - margin.left - margin.right;
+    const width = 660 - margin.left - margin.right;
     this.innerWidth = width;
-    const height = 400 - margin.top - margin.bottom;
+    const height = 300 - margin.top - margin.bottom;
 
     const processedData = [
       this.props.data.map(d => d.minYearData),
@@ -50,9 +50,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     mainGroup.append("g").selectAll("g")
       .data(processedData)
-
       .enter().append("g")
-
       .attr("transform", (d, i) => "translate(" + scaleWidth(i) + ",0)")
       .selectAll("rect")
       .data(d => d)
@@ -61,7 +59,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr("height", d => height - yScale(d))
       .attr("x", (d, i) => xScale(data[i].label))
       .attr("y", d => yScale(d))
-      .style("fill", (d, i) => {
+      .attr("fill", (d, i) => {
         const scale = this.colorScale[i];
         return scale(d)
       });
@@ -73,13 +71,13 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     mainGroup.append('g')
       .attr('class', 'y-axis')
-      .call(d3.axisLeft(yScale))
+      .call(d3.axisLeft(yScale).ticks(5))
       .append('text')
       .attr('class', 'title')
       .text('Anzahl Bauernhöfe')
       .attr('transform', `translate(-80,${height / 2}) rotate(-90)`)
 
-    this.initLegend();
+    // this.initLegend();
   }
 
   initLegend() {
@@ -134,6 +132,8 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   render() {
-    return <div className='FarmSizeRelationsChart'/>
+    return <div className='FarmSizeRelationsChart'>
+      <h2>Anzahl Bauernhöfe im Vergleich 1985 zu 2017</h2>
+    </div>
   }
 }

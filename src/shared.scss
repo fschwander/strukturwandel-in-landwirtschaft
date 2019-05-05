@@ -11,6 +11,21 @@ body {
   padding: 0;
   font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;
 
+  h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 1em 0 2em;
+  }
+
+  h2 {
+    font-size: 2em;
+    margin: 0.5em 0 1.5em;
+  }
+
+  p {
+    max-width: 600px;
+  }
+
   .background-container-outer {
     padding: 5vmin;
     background-color: $clr_background;

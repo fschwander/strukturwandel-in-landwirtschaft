@@ -7,13 +7,13 @@ export default class FarmsCountChart extends React.Component {
   constructor(params) {
     super(params);
 
-    this.width = 900;
+    this.width = 780;
     this.height = 500;
     this.margin = {
-      top: 20,
+      top: 0,
       bottom: 60,
       left: 90,
-      right: 10
+      right: 70
     };
     this.innerHeight = this.height - this.margin.top - this.margin.bottom;
     this.innerWidth = this.width - this.margin.left - this.margin.right;
@@ -75,7 +75,6 @@ export default class FarmsCountChart extends React.Component {
 
     const xAxis = d3.axisBottom()
       .scale(xScale)
-      .ticks(10)
       .tickFormat(d3.format(''));
 
     const yAxis = d3.axisLeft()
@@ -156,7 +155,9 @@ export default class FarmsCountChart extends React.Component {
 
   render() {
     return (
-      <div className='FarmsCountChart'/>
+      <div className='FarmsCountChart'>
+        <h2>Veränderungsverlauf aller Bauernhofgrössen</h2>
+      </div>
     )
   }
 }
