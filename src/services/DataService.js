@@ -1,9 +1,7 @@
-import * as React from "react";
 import * as d3 from "d3";
 import dataSource from "../res/data/farm-sizes.csv";
 
-
-export default class DataService extends React.Component {
+export default class DataService {
 
   static getReducedData(data) {
     const yearMin = data[0];
