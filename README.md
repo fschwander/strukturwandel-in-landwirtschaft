@@ -13,10 +13,13 @@ Student 1: Fabian Schwander
 
 Starten mit `serve -s build`
 
+Für den Fall, dass der /build nicht gestartet werden kann: [http://www.ivis.twigo.ch/](http://www.ivis.twigo.ch/)
+
 Erstellt mit React.
 
 ## Status
-| Version | Status |
-| 0.1 | -- |
-| First prototype ready | yes |
-| Final version ready | no |
+| Version               | Status |
+| ---                   |:---:   |
+| 0.1                   | --     |
+| First prototype ready | yes    |
+| Final version ready   | no     |
