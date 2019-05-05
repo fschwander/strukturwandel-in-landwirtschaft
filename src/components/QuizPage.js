@@ -26,7 +26,7 @@ export default class QuizPage extends React.Component {
 
         <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt es heute?</p>
 
-        <p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat.</p>
+        <p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat!</p>
 
         <DraggableBarChart showAnswer={this.state.showAnswer}
                            data={this.props.data}/>

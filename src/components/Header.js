@@ -9,38 +9,40 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className='Header'>
-        <h1>Das grosse Bauernsterben?</h1>
+        <h1>Strukturwandel in der Landwirtschaft</h1>
 
-        <p>Immer wieder liest man davon, dass für die Schweizer Bäuerinnen und Bauer die Existenz gefährdet ist:
-          Für viele Betriebe lohnt sich die Landwirtschft nicht mehr und sie verschwinden.</p>
+        <p>Seit Jahren spricht man über einen Rückgang von Bauernhöfen: Für viele Bäuerinnen und Bauern lohnt sich
+          offenbar der Landwirtschaftsbetrieb nicht mehr und sie geben ihre Höfe auf.</p>
+        <p>Die folgenden Visualisierungen zeigen, wie sich die Schweizer Landwirtschaft in den letzten 35 Jahren
+          tatsächlich verändert hat.</p>
 
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container top'>
-            <FarmImg width={'80px'} fill={'#4ec291'}/>
-            <FarmImg width={'100px'} fill={'#42a3f1'}/>
-            <FarmImg width={'120px'} fill={'#e396d1'}/>
+          <FarmImg width={'80px'} fill={'#4ec291'}/>
+          <FarmImg width={'100px'} fill={'#42a3f1'}/>
+          <FarmImg width={'120px'} fill={'#e396d1'}/>
         </div>
 
         <div className='horizontal-container bottom'>
           <div>
-            <h3>kleine Höfe</h3>
-            <p>Beuernhöfe, die eine Betriebsfläche von weniger als 10 Hektare haben.</p>
+            <h3>kleine Betriebe</h3>
+            <p>Beuernhöfe, die eine Betriebsfläche von weniger als 10 Hektar haben.</p>
           </div>
           <div>
-            <h3>mittlere Höfe</h3>
-            <p>Mittelgrosse Höfe haben eine Fläche zwischen 10 und 30 Hektaren.</p>
+            <h3>mittlere Betriebe</h3>
+            <p>Mittelgrosse Höfe haben eine Fläche zwischen 10 und 30 Hektar.</p>
           </div>
           <div>
-            <h3>grosse Höfe</h3>
-            <p>Die grössten Betriebe haben eine Fläche von 30 Hektaren oder mehr.</p>
+            <h3>Grossbetriebe</h3>
+            <p>Die grössten Betriebe haben eine Fläche von 30 Hektar oder mehr.</p>
           </div>
         </div>
 
         <h2>Anbaumöglichkeiten pro Hektar</h2>
 
         <h3>Kühe</h3>
-        <p>In der Schweiz reicht ein Hektar zum ernähren von rund 2 Kühen.</p>
+        <p>In der Schweiz reicht ein Hektar Land zur Ernährung von rund 2 Kühen.</p>
 
         <div className='horizontal-container'>
           <div className='relations-container'>
@@ -48,7 +50,7 @@ export default class Header extends React.Component {
             {this.printIcons('cowImg', cowImg, 20)}
           </div>
           <div className='relations-container'>
-            <p>Auf Grossbetrieben werden beachtliche Herden von 60 Tieren oder mehr gehalten.</p>
+            <p>Auf Grossbetrieben können Herden von 60 Tieren oder mehr gehalten.</p>
             {this.printIcons('cowImg', cowImg, 60)}
           </div>
         </div>
@@ -59,7 +61,7 @@ export default class Header extends React.Component {
 
         <div className='horizontal-container'>
           <div className='relations-container'>
-            <p>Kleinbetriebe reichen demnach um bis zu 60 Tonnen Weizen anzubauen.</p>
+            <p>Kleinbetriebe reichen um bis zu 60 Tonnen Weizen anzubauen.</p>
             {this.printIcons('wheatImg', wheatImg, 60)}
           </div>
           <div className='relations-container'>
@@ -74,7 +76,7 @@ export default class Header extends React.Component {
   printIcons(name, type, count) {
     let container = [];
     for (let i = 0; i < count; i++) {
-      container[i] = <Image src={type} />
+      container[i] = <Image src={type}/>
     }
     return <div className={name}>{container}</div>;
   }

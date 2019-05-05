@@ -30,7 +30,7 @@ export default class DraggableBarChart extends React.Component {
 
     const scaleX = d3.scaleBand()
       .domain(data.map(d => d.label))
-      .rangeRound([0, chartWidth])
+      .rangeRound([0, chartWidth]);
 
     const scaleY = d3.scaleLinear()
       .domain([0, this.maxScaleValue])
@@ -39,6 +39,9 @@ export default class DraggableBarChart extends React.Component {
     const x = d3.scaleLinear()
       .domain([0, data.length])
       .rangeRound([0, chartWidth]);
+
+    const colorScale = d3.scaleOrdinal()
+      .range(['#4ec291', '#42a3f1', '#e396d1']);
 
     const svg = d3.select('.chart-container')
       .append('svg')
@@ -73,7 +76,8 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY)
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
-    d3.selectAll('.selection').attr('fill', '#b9b7ac')
+    d3.selectAll('.selection')
+      .attr('fill', (d, i) => colorScale(i))
       .attr('fill-opacity', 1);
 
     barContainer.append('rect')
@@ -171,16 +175,12 @@ export default class DraggableBarChart extends React.Component {
       .domain([0, this.maxScaleValue])
       .rangeRound([chartHeight, 0]);
 
-    const colorScale = d3.scaleOrdinal()
-      .range(['#4ec291', '#42a3f1', '#e396d1']);
-
     this.mainGroup.selectAll('.selection')
       .data(data)
       .transition()
       .duration(2000)
       .attr('height', d => chartHeight - scaleY(d.maxInPct))
-      .attr('y', d => scaleY(d.maxInPct))
-      .attr('fill', (d, i) => colorScale(i));
+      .attr('y', d => scaleY(d.maxInPct));
 
     const formatInPct = d3.format(".0%");
 
