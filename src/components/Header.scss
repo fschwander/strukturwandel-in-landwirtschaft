@@ -3,6 +3,8 @@
   .horizontal-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+
     & > * {
       width: 33%;
     }
@@ -17,6 +19,20 @@
       & > * {
         width: 30%;
       }
+    }
+
+    .relations-container {
+      .cowImg {
+        img {
+          height: 20px;
+        }
+      }
+      .wheatImg {
+        img {
+          height: 26px;
+        }
+      }
+
     }
   }
 }
