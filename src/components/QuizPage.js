@@ -24,8 +24,9 @@ export default class QuizPage extends React.Component {
       <div className='QuizPage'>
         <h2>Quiz</h2>
 
-        <p>Schätze wie sich die Anzahl der Bauernhöfe verändert hat.</p>
         <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt es heute?</p>
+
+        <p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat.</p>
 
         <DraggableBarChart showAnswer={this.state.showAnswer}
                            data={this.props.data}/>
@@ -34,7 +35,7 @@ export default class QuizPage extends React.Component {
           Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das Mehrfache
           gestiegen.</p>
         <Button className={showAnswer ? 'hide' : 'show'} variant="dark"
-                onClick={() => this.showAnswer()}>Fertig geraten? Lösung zeigen</Button>
+                onClick={() => this.showAnswer()}>Antwort zeigen</Button>
       </div>
     )
   }

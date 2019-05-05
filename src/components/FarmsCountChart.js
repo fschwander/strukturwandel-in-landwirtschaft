@@ -107,8 +107,8 @@ export default class FarmsCountChart extends React.Component {
       .attr('x', -innerHeight / 2)
       .attr('y', -70)
       .attr('transform', 'rotate(-90)')
-      .text('Bauernhöfe')
-      .style('text-anchor', 'middle');
+      .text('Anz. Bauernhöfe')
+      .attr('text-anchor', 'middle');
   }
 
   initLegend(keys, colorScale) {

@@ -73,7 +73,7 @@ export default class DraggableBarChart extends React.Component {
       .call(brushY)
       .call(brushY.move, d => [d.value, 0].map(scaleY));
 
-    d3.selectAll('.selection').attr('fill', '#dadad2')
+    d3.selectAll('.selection').attr('fill', '#b9b7ac')
       .attr('fill-opacity', 1);
 
     barContainer.append('rect')
@@ -104,7 +104,7 @@ export default class DraggableBarChart extends React.Component {
       .text((d, i) => data[i].label);
 
     const textLeft = barContainer.append('text')
-      .attr('class', 'label-answer-left h2')
+      .attr('class', 'label-answer-left header-small')
       .classed('on-hover-only', true)
       .attr('text-anchor', 'end')
       .attr('transform', 'translate(6,-2)')

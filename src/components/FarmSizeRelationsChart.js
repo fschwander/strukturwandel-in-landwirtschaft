@@ -72,10 +72,11 @@ export default class FarmSizeRelationsChart extends React.Component {
     mainGroup.append('g')
       .attr('class', 'y-axis')
       .call(d3.axisLeft(yScale).ticks(5))
-      .append('text')
-      .attr('class', 'title')
-      .text('Anzahl Bauernhöfe')
-      .attr('transform', `translate(-80,${height / 2}) rotate(-90)`)
+    mainGroup.append('text')
+      .attr('class', 'header')
+      .text('Anz. Bauernhöfe')
+      .attr('text-anchor', 'middle')
+      .attr('transform', `translate(-70,${height / 2}) rotate(-90)`)
 
     // this.initLegend();
   }
@@ -115,7 +116,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
       legendEntry.append('rect')
         .attr('x', j * 14)
-        .attr('y', (d, i) =>  lineHeight * i)
+        .attr('y', (d, i) => lineHeight * i)
         .attr('width', 12)
         .attr('height', 12)
         .attr('fill', (d, i) => scale(i));

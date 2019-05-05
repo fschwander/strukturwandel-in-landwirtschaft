@@ -26,26 +26,27 @@ body {
     max-width: 600px;
   }
 
-  .background-container-outer {
-    padding: 5vmin;
-    background-color: $clr_background;
-    border-radius: 0.4em;
-  }
-
-  .background-container-inner {
-    background-color: $clr_white;
-    padding: 2em 2em;
-    border-radius: 0.2em;
-  }
-
   svg {
     text {
+      font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;
       font-size: 13px;
-    }
 
-    .legend {
-      text {
-        font-size: 14px;
+      &.header {
+        font-weight: bold;
+        font-size: 18px;
+        fill: currentColor;
+      }
+
+      &.header-small {
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: bolder;
+      }
+
+      .legend {
+        text {
+          font-size: 14px;
+        }
       }
     }
   }
