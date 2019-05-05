@@ -34,6 +34,8 @@ export default class DataService extends React.Component {
         size: "bis 20 ha",
         minYearData: minSmall,
         maxYearData: maxSmall,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
         maxInPct: maxSmall / minSmall
       },
       {
@@ -42,6 +44,8 @@ export default class DataService extends React.Component {
         size: "20 bis 50 ha",
         minYearData: minMedium,
         maxYearData: maxMedium,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
         maxInPct: maxMedium / minMedium
       },
       {
@@ -50,6 +54,8 @@ export default class DataService extends React.Component {
         size: "ab 50 ha",
         minYearData: minLarge,
         maxYearData: maxLarge,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
         maxInPct: maxLarge / minLarge
       }
     ]

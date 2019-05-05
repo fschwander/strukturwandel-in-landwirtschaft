@@ -198,7 +198,7 @@ export default class DraggableBarChart extends React.Component {
       });
 
     const textLeft = this.mainGroup.selectAll('.label-answer-left, .handle-bar')
-      .classed('h2', false)
+      .classed('header-small', false)
       .classed('on-hover-only', false);
 
     textLeft.selectAll('tspan').remove();

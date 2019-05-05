@@ -11,11 +11,10 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     const margin = {top: 0, right: 60, bottom: 40, left: 100};
 
-    const width = 660 - margin.left - margin.right;
-    this.innerWidth = width;
-    const height = 300 - margin.top - margin.bottom;
+    this.width = 660 - margin.left - margin.right;
+    this.height = 300 - margin.top - margin.bottom;
 
-    const processedData = [
+    this.processedData = [
       this.props.data.map(d => d.minYearData),
       this.props.data.map(d => d.maxYearData)
     ];
@@ -26,19 +25,21 @@ export default class FarmSizeRelationsChart extends React.Component {
       d3.scaleOrdinal().range(['#ebb0dd', '#d674c0'])
     ];
 
-    const yScale = d3.scaleLinear()
-      .domain([0, d3.max(processedData, oldData => d3.max(oldData))])
-      .range([height, 0]);
+    this.yScale = d3.scaleLinear()
+      .domain([0, d3.max(this.processedData, oldData => d3.max(oldData))])
+      .range([this.height, 0]);
 
-    const xScale = d3.scaleBand()
+    this.xScale = d3.scaleBand()
       .domain(data.map(d => d.label))
-      .rangeRound([0, width]);
+      .rangeRound([0, this.width]);
 
-    const scaleWidth = d3.scaleBand()
-      .domain(d3.range(processedData.length))
-      .range([0, xScale.bandwidth()])
+    this.scaleWidth = d3.scaleBand()
+      .domain(d3.range(this.processedData.length))
+      .range([0, this.xScale.bandwidth()])
       .paddingInner(0.02)
       .paddingOuter(0.2);
+
+    const {width, height, xScale, yScale, scaleWidth, colorScale, processedData} = this;
 
     const svg = d3.select(".FarmSizeRelationsChart").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -48,21 +49,43 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     this.mainGroup = mainGroup;
 
-    mainGroup.append("g").selectAll("g")
+    const barGroup = mainGroup.append("g")
+      .attr('class', 'bars-container')
+      .selectAll("g")
       .data(processedData)
       .enter().append("g")
+      .attr('class', (d, i) => `bars${i}`)
       .attr("transform", (d, i) => "translate(" + scaleWidth(i) + ",0)")
-      .selectAll("rect")
+
+    barGroup.selectAll("rect")
       .data(d => d)
-      .enter().append("rect")
+      .enter().append('g')
+      .append("rect")
       .attr("width", scaleWidth.bandwidth())
       .attr("height", d => height - yScale(d))
       .attr("x", (d, i) => xScale(data[i].label))
       .attr("y", d => yScale(d))
       .attr("fill", (d, i) => {
-        const scale = this.colorScale[i];
+        const scale = colorScale[i];
         return scale(d)
       });
+
+
+    barGroup.append('text')
+      .text((d, i) => {
+        switch (i) {
+          case 0:
+            return data[0].minYear;
+          case 1:
+            return data[0].maxYear;
+          default:
+            return '?';
+        }
+      })
+      .attr('class', 'header-small')
+      .attr('x', scaleWidth.bandwidth() / 2)
+      .attr('y', height - 12)
+      .attr('text-anchor', 'middle');
 
     mainGroup.append('g')
       .attr('class', 'x-axis')
@@ -71,14 +94,39 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     mainGroup.append('g')
       .attr('class', 'y-axis')
-      .call(d3.axisLeft(yScale).ticks(5))
+      .call(d3.axisLeft(yScale).ticks(5));
+
     mainGroup.append('text')
       .attr('class', 'header')
       .text('Anz. Bauernhöfe')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(-70,${height / 2}) rotate(-90)`)
+  }
 
-    // this.initLegend();
+  initLabels() {
+    const {data} = this.props;
+    const {xScale, yScale, scaleWidth} = this;
+
+    let sectorWidth = xScale.bandwidth();
+    let barWidth = scaleWidth.bandwidth() / 2;
+    console.log(data);
+    const formatInPct = d3.format('.0%');
+
+    d3.select('.FarmSizeRelationsChart')
+      .select('.bars1')
+      .selectAll('g')
+      .append('text')
+      .attr('x', (d, i) => sectorWidth * i + barWidth)
+      .attr('y', d => yScale(d) - 4)
+      .attr('text-anchor', 'middle')
+      .text((d, i) => {
+        const pctValue = -1 + data[i].maxInPct;
+        if (pctValue >= 0) {
+          return "+" + formatInPct(pctValue)
+        } else {
+          return "–" + formatInPct(pctValue * -1);
+        }
+      })
   }
 
   initLegend() {
@@ -96,7 +144,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('class', 'legend')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('transform', `translate(${this.innerWidth - legendWidth - padding},${padding})`);
+      .attr('transform', `translate(${this.width - legendWidth - padding},${padding})`);
 
     legend.append('rect')
       .attr('class', 'background')
@@ -126,10 +174,13 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('x', 48)
       .attr('y', (d, i) => lineHeight * i + 10)
       .text((d, i) => legendEntries[i]);
+
   }
 
   componentDidMount() {
     this.drawChart();
+    // this.initLegend();
+    this.initLabels();
   }
 
   render() {
