@@ -20,8 +20,14 @@
         width: 30%;
       }
     }
+  }
+
+  .capacity-container {
+    width: 80%;
+    margin: auto;
 
     .relations-container {
+      margin: 0.5em 0;
       .cowImg {
         img {
           height: 20px;
@@ -32,7 +38,30 @@
           height: 26px;
         }
       }
+    }
+  }
 
+  .arrow {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 2em 0;
+    i {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 4px;
+
+      &.up {
+        transform: rotate(-135deg);
+      }
+    }
+
+    .line {
+      border-left: 3px solid black;
+      height: 100px;
+      width: 3px;
+      transform: translateY(-10px);
     }
   }
 }
