@@ -2,6 +2,7 @@
   "name": "ivis",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://86.119.38.44/2019/FS/6iCbb/landwirtschaft/build/",
   "dependencies": {
     "d3": "^5.9.1",
     "node-sass": "^4.11.0",
