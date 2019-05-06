@@ -109,7 +109,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     let sectorWidth = xScale.bandwidth();
     let barWidth = scaleWidth.bandwidth() / 2;
-    console.log(data);
+
     const formatInPct = d3.format('.0%');
 
     d3.select('.FarmSizeRelationsChart')

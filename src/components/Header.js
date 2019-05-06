@@ -39,6 +39,8 @@ export default class Header extends React.Component {
           </div>
         </div>
 
+        <div></div>
+
         <h2>Anbaumöglichkeiten pro Hektar</h2>
 
         <h3>Kühe</h3>
@@ -76,7 +78,7 @@ export default class Header extends React.Component {
   printIcons(name, type, count) {
     let container = [];
     for (let i = 0; i < count; i++) {
-      container[i] = <Image src={type}/>
+      container[i] = <Image src={type} key={name+i}/>
     }
     return <div className={name}>{container}</div>;
   }
