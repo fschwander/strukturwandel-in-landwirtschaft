@@ -30,6 +30,16 @@ body {
     margin: 2em 0 1em;
   }
 
+  .color-small {
+    color: $clr_small;
+  }
+  .color-medium {
+    color: $clr_medium;
+  }
+  .color-large {
+    color: $clr_large;
+  }
+
   svg {
     text {
       font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;

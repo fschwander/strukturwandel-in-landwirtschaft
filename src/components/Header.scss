@@ -20,10 +20,12 @@
         width: 30%;
       }
     }
+    &.centered {
+      align-items: center;
+    }
   }
 
   .capacity-container {
-    width: 80%;
     margin: auto;
 
     .relations-container {
@@ -45,10 +47,10 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 2em 0;
+    margin: 1em 0;
     i {
       border: solid black;
-      border-width: 0 3px 3px 0;
+      border-width: 0 2px 2px 0;
       display: inline-block;
       padding: 4px;
 
@@ -58,9 +60,9 @@
     }
 
     .line {
-      border-left: 3px solid black;
-      height: 100px;
-      width: 3px;
+      border-left: 2px solid black;
+      height: 70px;
+      width: 2px;
       transform: translateY(-10px);
     }
   }

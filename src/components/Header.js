@@ -57,15 +57,19 @@ export default class Header extends React.Component {
         </div>
 
         <div className='capacity-container'>
-          <div className='horizontal-container'>
+
+          <div className='horizontal-container centered'>
+            <p className='color-small'>0 bis 20 Kühe</p>
             <div className='arrow'>
               <i className='up'/>
               <div className='line'/>
             </div>
+            <p className='color-medium'>20 bis 50 Kühe</p>
             <div className='arrow'>
               <i className='up'/>
               <div className='line'/>
             </div>
+            <p className='color-large'>50 Kühe und mehr</p>
           </div>
 
           <div className='horizontal-container'>
@@ -77,6 +81,20 @@ export default class Header extends React.Component {
               <p>Auf Grossbetrieben können Herden von 60 Tieren oder mehr gehalten.</p>
               {this.printIcons('cowImg', cowImg, 60)}
             </div>
+          </div>
+
+          <div className='horizontal-container centered'>
+            <p className='color-small'>0 bis 60 t</p>
+            <div className='arrow'>
+              <i className='up'/>
+              <div className='line'/>
+            </div>
+            <p className='color-medium'>60 bis 180 t</p>
+            <div className='arrow'>
+              <i className='up'/>
+              <div className='line'/>
+            </div>
+            <p className='color-large'>180 t und mehr</p>
           </div>
 
           <div className='horizontal-container'>
