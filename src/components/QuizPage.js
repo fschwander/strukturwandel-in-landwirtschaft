@@ -9,35 +9,42 @@ export default class QuizPage extends React.Component {
     super(props);
 
     this.state = {
+      quizStarted: false,
       showAnswer: false
     }
   }
 
-  showAnswer() {
-    this.setState({showAnswer: true})
-  }
-
-
   render() {
     const data = DataService.getQuizData(this.props.data);
     const showAnswer = this.state.showAnswer;
+    const quizStarted = this.state.quizStarted;
 
     return (
       <div className='QuizPage'>
         <h2>Quiz</h2>
 
-        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt es heute?</p>
+        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt
+          es heute?</p>
 
-        <p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat!</p>
+        {/*<p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat!</p>*/}
 
-        <DraggableBarChart showAnswer={this.state.showAnswer} data={data}/>
+        <Button className={!quizStarted ? 'show quizButton' : 'hide'}
+                onClick={() => this.setState({quizStarted: true})}
+                variant="dark">Quiz starten!</Button>
 
-        <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
-          Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
-          Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das Mehrfache
-          gestiegen.</p>
-        <Button className={showAnswer ? 'hide' : 'show'} variant="dark"
-                onClick={() => this.showAnswer()}>Antwort zeigen</Button>
+        <div className={quizStarted ? 'show' : 'hide'}>
+          <DraggableBarChart showAnswer={this.state.showAnswer} data={data}/>
+
+          <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
+            Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
+            Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
+            Mehrfache
+            gestiegen.</p>
+        </div>
+
+        <Button className={quizStarted && !showAnswer ? 'show' : 'hide'}
+                onClick={() => this.setState({showAnswer: true})}
+                variant="dark">Antwort zeigen</Button>
       </div>
     )
   }

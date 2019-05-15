@@ -7,6 +7,16 @@
   min-width: 680px;
   min-height: 720px;
 
+  .quizButton {
+    width: 50%;
+    height: 8em;
+    transform: translateY(8em);
+
+    &:not(:hover) {
+      animation: blink 2s ease-in-out infinite;
+    }
+  }
+
   .show {
     display: inline;
     transition: 400ms ease-in;
@@ -15,5 +25,18 @@
   .hide {
     display: none;
     transition: 200ms ease-out;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.04) translateY(8em);
+    }
+    100% {
+      opacity: 0.9;
+    }
   }
 }
