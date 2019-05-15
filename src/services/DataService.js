@@ -5,15 +5,15 @@ export default class DataService {
 
   static getReducedData(data, year) {
     let activeIndex = 0;
-    for(let i = 0; i < data.length; i++) {
+
+    for(let i = 1; i < data.length; i++) {
+      // setting yer on last available data entry
       if(data[i].year < year) {
         activeIndex = i;
-        console.log(year, data[i].year);
-
       }
+      // returning when exact same year was found
       if(data[i].year === year) {
         activeIndex = i;
-        console.log(year, data[i].year);
         return;
       }
     }

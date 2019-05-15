@@ -1,16 +1,17 @@
 import * as React from "react";
 import * as d3 from "d3";
+import DataService from "../services/DataService";
 
 export default class FarmSizeRelationsChart extends React.Component {
 
   constructor(params) {
     super(params);
     this.state = {
-      activeYear: 2000,
-      min: 1985,
-      max: 2017
+      activeYear: 1995,
+      min: 1990,
+      max: 2017,
     }
-    this.margin = {top: 0, right: 60, bottom: 40, left: 100};
+    this.margin = {top: 20, right: 60, bottom: 40, left: 100};
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 400 - this.margin.top - this.margin.bottom;
   }
@@ -19,11 +20,11 @@ export default class FarmSizeRelationsChart extends React.Component {
    * Based on https://bl.ocks.org/mbostock/3887051
    */
   drawChart() {
-    const {data} = this.props;
+    const data = DataService.getReducedData(this.props.fullData, this.state.activeYear);
 
     this.processedData = [
-      this.props.data.map(d => d.minYearData),
-      this.props.data.map(d => d.maxYearData)
+      data.map(d => d.minYearData),
+      data.map(d => d.maxYearData)
     ];
 
     this.colorScale = d3.scaleOrdinal()
@@ -46,6 +47,8 @@ export default class FarmSizeRelationsChart extends React.Component {
       .paddingOuter(0.2);
 
     const {width, height, margin, xScale, yScale, scaleWidth, colorScale, processedData} = this;
+
+    d3.select(".chartContainer").selectAll("svg").remove('svg');
 
     this.svg = d3.select(".chartContainer").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -106,7 +109,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   initLabels() {
-    const {data} = this.props;
+    const data = DataService.getReducedData(this.props.fullData, this.state.activeYear);
     const {xScale, yScale, scaleWidth} = this;
 
     let sectorWidth = xScale.bandwidth();
@@ -179,9 +182,13 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   componentDidMount() {
-    this.getSliderDataListOptions();
     this.drawChart();
     // this.initLegend();
+    this.initLabels();
+  }
+
+  componentDidUpdate() {
+    this.drawChart();
     this.initLabels();
   }
 
