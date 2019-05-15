@@ -3,7 +3,63 @@ import dataSource from "../res/data/farm-sizes.csv";
 
 export default class DataService {
 
-  static getReducedData(data, year) {
+  static getQuizData(data) {
+    const yearMin = data[0];
+    const yearMax = data[data.length - 1];
+
+    let minSmall = yearMin.area_size_0_1
+      + yearMin.area_size_1_3
+      + yearMin.area_size_3_5
+      + yearMin.area_size_5_10;
+
+    let minMedium = yearMin.area_size_20_30 + yearMin.area_size_10_20;
+
+    let minLarge = yearMin.area_size_50_n + yearMin.area_size_30_50;
+
+    let maxSmall = yearMax.area_size_0_1
+      + yearMax.area_size_1_3
+      + yearMax.area_size_3_5
+      + yearMax.area_size_5_10;
+
+    let maxMedium = yearMax.area_size_20_30 + yearMax.area_size_10_20;
+
+    let maxLarge = yearMax.area_size_50_n + yearMax.area_size_30_50;
+
+    return [
+      {
+        value: 1,
+        label: "Kleine Bauernhöfe",
+        size: "bis 20 ha",
+        minYearData: minSmall,
+        maxYearData: maxSmall,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: maxSmall / minSmall
+      },
+      {
+        value: 1,
+        label: "Mittlere Bauernhöfe",
+        size: "20 bis 50 ha",
+        minYearData: minMedium,
+        maxYearData: maxMedium,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: maxMedium / minMedium
+      },
+      {
+        value: 1,
+        label: "Grosse Bauernhöfe",
+        size: "ab 50 ha",
+        minYearData: minLarge,
+        maxYearData: maxLarge,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: maxLarge / minLarge
+      }
+    ]
+  }
+
+  static getCompareYearData(data, year) {
     let activeIndex = 0;
 
     for (let i = 0; i < data.length; i++) {

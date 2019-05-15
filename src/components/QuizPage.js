@@ -1,6 +1,7 @@
 import * as React from "react";
 import DraggableBarChart from "./DraggableBarChart";
 import Button from "react-bootstrap/Button";
+import DataService from "../services/DataService";
 
 export default class QuizPage extends React.Component {
 
@@ -18,6 +19,7 @@ export default class QuizPage extends React.Component {
 
 
   render() {
+    const data = DataService.getQuizData(this.props.data);
     const showAnswer = this.state.showAnswer;
 
     return (
@@ -28,8 +30,8 @@ export default class QuizPage extends React.Component {
 
         <p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat!</p>
 
-        <DraggableBarChart showAnswer={this.state.showAnswer}
-                           data={this.props.data}/>
+        <DraggableBarChart showAnswer={this.state.showAnswer} data={data}/>
+
         <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
           Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
           Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das Mehrfache

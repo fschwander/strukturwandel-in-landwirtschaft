@@ -20,7 +20,7 @@ export default class FarmSizeRelationsChart extends React.Component {
    * Based on https://bl.ocks.org/mbostock/3887051
    */
   drawChart() {
-    const data = DataService.getReducedData(this.props.fullData, this.state.activeYear);
+    const data = DataService.getCompareYearData(this.props.fullData, this.state.activeYear);
 
     this.processedData = [
       data.map(d => d.minYearData),
@@ -109,7 +109,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   initLabels() {
-    const data = DataService.getReducedData(this.props.fullData, this.state.activeYear);
+    const data = DataService.getCompareYearData(this.props.fullData, this.state.activeYear);
     const {xScale, yScale, scaleWidth} = this;
 
     let sectorWidth = xScale.bandwidth();
@@ -222,7 +222,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
   render() {
     return <div className='FarmSizeRelationsChart'>
-      <h2>Veränderung der Bauernhöfe im Jahresvergleich</h2>
+      <h2>Anzahl Bauernhöfe im Vergleich zu 1985</h2>
 
       <div className='chartContainer'/>
 
