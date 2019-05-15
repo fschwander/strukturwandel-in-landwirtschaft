@@ -11,8 +11,8 @@ export default class FarmSizeRelationsChart extends React.Component {
       max: 2017
     }
     this.margin = {top: 0, right: 60, bottom: 40, left: 100};
-    this.width = 660 - this.margin.left - this.margin.right;
-    this.height = 300 - this.margin.top - this.margin.bottom;
+    this.width = 900 - this.margin.left - this.margin.right;
+    this.height = 400 - this.margin.top - this.margin.bottom;
   }
 
   /**
@@ -26,11 +26,10 @@ export default class FarmSizeRelationsChart extends React.Component {
       this.props.data.map(d => d.maxYearData)
     ];
 
-    this.colorScale = [
-      d3.scaleOrdinal().range(['#7fd1af', '#1cb373']),
-      d3.scaleOrdinal().range(['#66bbff', '#1e8cd3']),
-      d3.scaleOrdinal().range(['#ebb0dd', '#d674c0'])
-    ];
+    this.colorScale = d3.scaleOrdinal()
+      .range(['#c2eedc', '#7fd1af', '#1cb373', '#168c5a',
+        '#66bbff', '#1e8cd3',
+        '#ebb0dd', '#d674c0']);
 
     this.yScale = d3.scaleLinear()
       .domain([0, d3.max(this.processedData, oldData => d3.max(oldData))])
@@ -72,11 +71,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr("height", d => height - yScale(d))
       .attr("x", (d, i) => xScale(data[i].label))
       .attr("y", d => yScale(d))
-      .attr("fill", (d, i) => {
-        const scale = colorScale[i];
-        return scale(d)
-      });
-
+      .attr("fill", d => colorScale(d));
 
     barGroup.append('text')
       .text((d, i) => {
@@ -91,7 +86,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       })
       .attr('class', 'header-small')
       .attr('x', scaleWidth.bandwidth() / 2)
-      .attr('y', height - 12)
+      .attr('y', height - 6)
       .attr('text-anchor', 'middle');
 
     mainGroup.append('g')
@@ -107,7 +102,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('class', 'header')
       .text('Anz. Bauernhöfe')
       .attr('text-anchor', 'middle')
-      .attr('transform', `translate(-70,${height / 2}) rotate(-90)`)
+      .attr('transform', `translate(-65,${height / 2}) rotate(-90)`)
   }
 
   initLabels() {
@@ -220,7 +215,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
   render() {
     return <div className='FarmSizeRelationsChart'>
-      <h2>Anzahl Bauernhöfe im Vergleich 1985 zu 2017</h2>
+      <h2>Veränderung der Bauernhöfe im Jahresvergleich</h2>
       <div className='chartContainer'/>
 
       <div className='sliderContainer'>

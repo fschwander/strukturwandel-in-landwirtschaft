@@ -7,56 +7,80 @@ export default class DataService {
     const yearMin = data[0];
     const yearMax = data[data.length - 1];
 
-    let minSmall = yearMin.area_size_0_1
-      + yearMin.area_size_1_3
-      + yearMin.area_size_3_5
-      + yearMin.area_size_5_10;
-
-    let minMedium = yearMin.area_size_20_30 + yearMin.area_size_10_20;
-
-    let minLarge = yearMin.area_size_50_n + yearMin.area_size_30_50;
-
-    let maxSmall = yearMax.area_size_0_1
-      + yearMax.area_size_1_3
-      + yearMax.area_size_3_5
-      + yearMax.area_size_5_10;
-
-    let maxMedium = yearMax.area_size_20_30 + yearMax.area_size_10_20;
-
-    let maxLarge = yearMax.area_size_50_n + yearMax.area_size_30_50;
-
     return [
       {
-        value: 1,
-        label: "Kleine Bauernhöfe",
-        size: "bis 20 ha",
-        minYearData: minSmall,
-        maxYearData: maxSmall,
+        label: "0-1",
+        size: "0 bis 1 ha",
+        minYearData: yearMin.area_size_0_1,
+        maxYearData: yearMax.area_size_0_1,
         minYear: yearMin.year,
         maxYear: yearMax.year,
-        maxInPct: maxSmall / minSmall
+        maxInPct: yearMax.area_size_0_1 / yearMin.area_size_0_1
       },
       {
-        value: 1,
-        label: "Mittlere Bauernhöfe",
-        size: "20 bis 50 ha",
-        minYearData: minMedium,
-        maxYearData: maxMedium,
+        label: "1-3",
+        size: "1 bis 3 ha",
+        minYearData: yearMin.area_size_1_3,
+        maxYearData: yearMax.area_size_1_3,
         minYear: yearMin.year,
         maxYear: yearMax.year,
-        maxInPct: maxMedium / minMedium
+        maxInPct: yearMax.area_size_1_3 / yearMin.area_size_1_3
       },
       {
-        value: 1,
-        label: "Grosse Bauernhöfe",
-        size: "ab 50 ha",
-        minYearData: minLarge,
-        maxYearData: maxLarge,
+        label: "3-5",
+        size: "3 bis 5 ha",
+        minYearData: yearMin.area_size_3_5,
+        maxYearData: yearMax.area_size_3_5,
         minYear: yearMin.year,
         maxYear: yearMax.year,
-        maxInPct: maxLarge / minLarge
+        maxInPct: yearMax.area_size_3_5 / yearMin.area_size_3_5
+      },
+      {
+        label: "5-10",
+        size: "5 bis 10 ha",
+        minYearData: yearMin.area_size_5_10,
+        maxYearData: yearMax.area_size_5_10,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_5_10 / yearMin.area_size_5_10
+      },
+      {
+        label: "10-20",
+        size: "10 bis 20 ha",
+        minYearData: yearMin.area_size_10_20,
+        maxYearData: yearMax.area_size_10_20,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_10_20 / yearMin.area_size_10_20
+      },
+      {
+        label: "20-30",
+        size: "20 bis 30 ha",
+        minYearData: yearMin.area_size_20_30,
+        maxYearData: yearMax.area_size_20_30,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_20_30 / yearMin.area_size_20_30
+      },
+      {
+        label: "30-50",
+        size: "30 bis 50 ha",
+        minYearData: yearMin.area_size_30_50,
+        maxYearData: yearMax.area_size_30_50,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_30_50 / yearMin.area_size_30_50
+      },
+      {
+        label: "50+",
+        size: "50 ha und mehr",
+        minYearData: yearMin.area_size_50_n,
+        maxYearData: yearMax.area_size_50_n,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_50_n / yearMin.area_size_50_n
       }
-    ]
+    ];
   }
 
   static getFullData() {
