@@ -3,16 +3,23 @@ import * as d3 from "d3";
 
 export default class FarmSizeRelationsChart extends React.Component {
 
+  constructor(params) {
+    super(params);
+    this.state = {
+      activeYear: 2000,
+      min: 1985,
+      max: 2017
+    }
+    this.margin = {top: 0, right: 60, bottom: 100, left: 100};
+    this.width = 660 - this.margin.left - this.margin.right;
+    this.height = 300 - this.margin.top - this.margin.bottom;
+  }
+
   /**
    * Based on https://bl.ocks.org/mbostock/3887051
    */
   drawChart() {
     const {data} = this.props;
-
-    const margin = {top: 0, right: 60, bottom: 40, left: 100};
-
-    this.width = 660 - margin.left - margin.right;
-    this.height = 300 - margin.top - margin.bottom;
 
     this.processedData = [
       this.props.data.map(d => d.minYearData),
@@ -39,13 +46,13 @@ export default class FarmSizeRelationsChart extends React.Component {
       .paddingInner(0.02)
       .paddingOuter(0.2);
 
-    const {width, height, xScale, yScale, scaleWidth, colorScale, processedData} = this;
+    const {width, height, margin, xScale, yScale, scaleWidth, colorScale, processedData} = this;
 
-    const svg = d3.select(".FarmSizeRelationsChart").append("svg")
+    this.svg = d3.select(".chartContainer").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 
-    const mainGroup = svg.append("g")
+    const mainGroup = this.svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     this.mainGroup = mainGroup;
 
@@ -178,14 +185,50 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   componentDidMount() {
+    this.getSliderDataListOptions();
     this.drawChart();
     // this.initLegend();
     this.initLabels();
   }
 
+  setActiveYear() {
+    let slider = document.getElementById('yearSlider');
+    let activeYear = slider.value;
+    this.setState({activeYear: activeYear})
+  }
+
+  getSliderDataListOptions() {
+    const data = this.props.fullData;
+
+    const options = data.map(d => {
+      return <option value={d.year}
+                     key={d.year}
+                     label={d.year % 5 === 0 ? d.year : ''}
+      >{d.year % 5 === 0 ? d.year : ''}</option>
+    })
+
+    return <datalist id="tickMarks">{options}</datalist>
+
+  }
+
   render() {
     return <div className='FarmSizeRelationsChart'>
       <h2>Anzahl Bauernhöfe im Vergleich 1985 zu 2017</h2>
+      <div className='chartContainer'/>
+
+      <div className='sliderContainer'>
+        <input className="slider"
+               id='yearSlider'
+               type="range"
+               min={this.state.min}
+               max={this.state.max}
+               value={this.state.activeYear}
+               list='tickMarks'
+               onChange={() => this.setActiveYear()}/>
+        {this.getSliderDataListOptions()}
+      </div>
+
+      <div>{this.state.activeYear}</div>
     </div>
   }
 }
