@@ -10,7 +10,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       min: 1985,
       max: 2017
     }
-    this.margin = {top: 0, right: 60, bottom: 100, left: 100};
+    this.margin = {top: 0, right: 60, bottom: 40, left: 100};
     this.width = 660 - this.margin.left - this.margin.right;
     this.height = 300 - this.margin.top - this.margin.bottom;
   }
@@ -181,7 +181,6 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('x', 48)
       .attr('y', (d, i) => lineHeight * i + 10)
       .text((d, i) => legendEntries[i]);
-
   }
 
   componentDidMount() {
@@ -199,16 +198,24 @@ export default class FarmSizeRelationsChart extends React.Component {
 
   getSliderDataListOptions() {
     const data = this.props.fullData;
-
     const options = data.map(d => {
       return <option value={d.year}
                      key={d.year}
                      label={d.year % 5 === 0 ? d.year : ''}
       >{d.year % 5 === 0 ? d.year : ''}</option>
-    })
-
+    });
     return <datalist id="tickMarks">{options}</datalist>
+  }
 
+  getSliderLabels() {
+    const data = this.props.fullData;
+    const labels = [];
+    for (let i = data[0].year; i < data[data.length-1].year; i++) {
+      if (i % 5 === 0) {
+        labels.push(<li key={i}>{i}</li>)
+      }
+    }
+    return <ul>{labels}</ul>
   }
 
   render() {
@@ -226,6 +233,7 @@ export default class FarmSizeRelationsChart extends React.Component {
                list='tickMarks'
                onChange={() => this.setActiveYear()}/>
         {this.getSliderDataListOptions()}
+        {this.getSliderLabels()}
       </div>
 
       <div>{this.state.activeYear}</div>

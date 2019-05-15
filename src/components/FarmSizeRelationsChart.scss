@@ -1,5 +1,21 @@
 .FarmSizeRelationsChart {
-  .slider {
-    width: 100%;
+
+  .sliderContainer {
+    .slider {
+      width: 100%;
+    }
+    ul {
+      width: 100%;
+      padding: 0 10px 0 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      list-style: none;
+
+      li {
+        text-align: center;
+        transform: translateX(-50%);
+      }
+    }
   }
 }
