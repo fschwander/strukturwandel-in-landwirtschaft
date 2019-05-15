@@ -9,35 +9,32 @@ class App extends React.Component {
 
   constructor(params) {
     super(params);
-
     this.state = {}
   }
 
   componentWillMount() {
-    this.initData()
+    this.loadData()
   }
 
   render() {
-    const {fullData} = this.state;
-
-    let fullDataIsLoaded = fullData !== undefined;
+    const {data} = this.state;
+    const dataReady = data !== undefined;
 
     return (
       <div className="App">
-        <Header />
-        {fullDataIsLoaded ? <QuizPage data={fullData}/> : null}
-        {fullDataIsLoaded ? <FarmSizeRelationsChart fullData={fullData} /> : null}
-        {fullDataIsLoaded ? <FarmsCountChart data={fullData}/> : null}
+        <Header/>
+        {dataReady ? <div>
+          <QuizPage data={data}/>
+          <FarmSizeRelationsChart data={data}/>
+          <FarmsCountChart data={data}/>
+        </div> : null}
       </div>
     )
   }
 
-  async initData() {
-    const fullData = await DataService.getFullData();
-
-    this.setState({
-      fullData: fullData
-    })
+  async loadData() {
+    const data = await DataService.getFullData();
+    this.setState({data: data})
   }
 }
 

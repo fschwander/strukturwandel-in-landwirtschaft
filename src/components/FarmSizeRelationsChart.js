@@ -12,7 +12,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       max: 2017,
     };
     this.margin = {top: 20, right: 60, bottom: 40, left: 100};
-    this.width = 900 - this.margin.left - this.margin.right;
+    this.width = 800 - this.margin.left - this.margin.right;
     this.height = 400 - this.margin.top - this.margin.bottom;
   }
 
@@ -20,7 +20,7 @@ export default class FarmSizeRelationsChart extends React.Component {
    * Based on https://bl.ocks.org/mbostock/3887051
    */
   drawChart() {
-    const data = DataService.getCompareYearData(this.props.fullData, this.state.activeYear);
+    const data = DataService.getCompareYearData(this.props.data, this.state.activeYear);
 
     this.processedData = [
       data.map(d => d.minYearData),
@@ -109,7 +109,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   initLabels() {
-    const data = DataService.getCompareYearData(this.props.fullData, this.state.activeYear);
+    const data = DataService.getCompareYearData(this.props.data, this.state.activeYear);
     const {xScale, yScale, scaleWidth} = this;
 
     let sectorWidth = xScale.bandwidth();
@@ -135,9 +135,9 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   initLegend() {
-    const {fullData} = this.props;
+    const {data} = this.props;
 
-    const legendEntries = [fullData[0].year, fullData[fullData.length - 1].year];
+    const legendEntries = [data[0].year, data[data.length - 1].year];
 
     const lineHeight = 24;
     const padding = 18;
@@ -199,7 +199,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   getSliderDataListOptions() {
-    const data = this.props.fullData;
+    const data = this.props.data;
     const options = data.map(d => {
       return <option value={d.year}
                      key={d.year}
@@ -210,7 +210,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   getSliderLabels() {
-    const data = this.props.fullData;
+    const data = this.props.data;
     const labels = [];
     for (let i = data[0].year; i < data[data.length - 1].year; i++) {
       if (i % 5 === 0) {
