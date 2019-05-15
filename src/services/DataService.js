@@ -6,15 +6,14 @@ export default class DataService {
   static getReducedData(data, year) {
     let activeIndex = 0;
 
-    for(let i = 1; i < data.length; i++) {
-      // setting yer on last available data entry
-      if(data[i].year < year) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].year < year) {
+        // setting yer on last available data entry
         activeIndex = i;
-      }
-      // returning when exact same year was found
-      if(data[i].year === year) {
+      } else if (data[i].year === year) {
+        // returning when exact same year was found
         activeIndex = i;
-        return;
+        break;
       }
     }
 

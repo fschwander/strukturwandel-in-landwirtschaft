@@ -7,10 +7,10 @@ export default class FarmSizeRelationsChart extends React.Component {
   constructor(params) {
     super(params);
     this.state = {
-      activeYear: 1995,
-      min: 1990,
+      activeYear: 1990,
+      min: 1985,
       max: 2017,
-    }
+    };
     this.margin = {top: 20, right: 60, bottom: 40, left: 100};
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 400 - this.margin.top - this.margin.bottom;
@@ -194,7 +194,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
   setActiveYear() {
     let slider = document.getElementById('yearSlider');
-    let activeYear = slider.value;
+    let activeYear = parseInt(slider.value);
     this.setState({activeYear: activeYear})
   }
 
@@ -212,7 +212,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   getSliderLabels() {
     const data = this.props.fullData;
     const labels = [];
-    for (let i = data[0].year; i < data[data.length-1].year; i++) {
+    for (let i = data[0].year; i < data[data.length - 1].year; i++) {
       if (i % 5 === 0) {
         labels.push(<li key={i}>{i}</li>)
       }
@@ -223,6 +223,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   render() {
     return <div className='FarmSizeRelationsChart'>
       <h2>Veränderung der Bauernhöfe im Jahresvergleich</h2>
+
       <div className='chartContainer'/>
 
       <div className='sliderContainer'>
@@ -237,8 +238,6 @@ export default class FarmSizeRelationsChart extends React.Component {
         {this.getSliderDataListOptions()}
         {this.getSliderLabels()}
       </div>
-
-      <div>{this.state.activeYear}</div>
     </div>
   }
 }
