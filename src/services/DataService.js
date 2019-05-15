@@ -3,9 +3,23 @@ import dataSource from "../res/data/farm-sizes.csv";
 
 export default class DataService {
 
-  static getReducedData(data) {
+  static getReducedData(data, year) {
+    let activeIndex = 0;
+    for(let i = 0; i < data.length; i++) {
+      if(data[i].year < year) {
+        activeIndex = i;
+        console.log(year, data[i].year);
+
+      }
+      if(data[i].year === year) {
+        activeIndex = i;
+        console.log(year, data[i].year);
+        return;
+      }
+    }
+
     const yearMin = data[0];
-    const yearMax = data[data.length - 1];
+    const yearMax = data[activeIndex];
 
     return [
       {

@@ -36,7 +36,7 @@ class App extends React.Component {
 
   async initData() {
     const fullData = await DataService.getFullData();
-    const reducedData = DataService.getReducedData(fullData);
+    const reducedData = DataService.getReducedData(fullData, 1995);
 
     this.setState({
       reducedData: reducedData,
