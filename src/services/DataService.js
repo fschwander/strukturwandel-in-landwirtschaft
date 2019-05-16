@@ -29,39 +29,37 @@ export default class DataService {
       {
         value: 1,
         label: "Kleine Bauernhöfe",
-        size: "bis 20 ha",
+        label: "bis 20 ha",
         minYearData: minSmall,
         maxYearData: maxSmall,
         minYear: yearMin.year,
         maxYear: yearMax.year,
-        random1: Math.random() * 3,
-        random2: Math.random(),
-        random3: Math.random() * 2,
+        random1: 3.4,
+        random2: 0.1,
         maxInPct: maxSmall / minSmall
       },
       {
         value: 1,
         label: "Mittlere Bauernhöfe",
-        size: "20 bis 50 ha",
+        label: "20 bis 50 ha",
         minYearData: minMedium,
         maxYearData: maxMedium,
         minYear: yearMin.year,
         maxYear: yearMax.year,
-        random1: Math.random() * 3,
-        random2: Math.random(),
-        random3: Math.random() * 2,
+        random1: 0.4,
+        random2: 3.5,
         maxInPct: maxMedium / minMedium
       },
       {
         value: 1,
         label: "Grosse Bauernhöfe",
-        size: "ab 50 ha",
+        label: "ab 50 ha",
         minYearData: minLarge,
         maxYearData: maxLarge,
         minYear: yearMin.year,
         maxYear: yearMax.year,
-        random1: Math.random(),
-        random2: Math.random() * 3,
+        random1: 1.2,
+        random2: 3.0,
         maxInPct: maxLarge / minLarge
       }
     ]
@@ -86,8 +84,8 @@ export default class DataService {
 
     return [
       {
-        label: "0-1",
-        size: "0 bis 1 ha",
+        size: "0-1",
+        label: "0–1 ha",
         minYearData: yearMin.area_size_0_1,
         maxYearData: yearMax.area_size_0_1,
         minYear: yearMin.year,
@@ -95,8 +93,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_0_1 / yearMin.area_size_0_1
       },
       {
-        label: "1-3",
-        size: "1 bis 3 ha",
+        size: "1-3",
+        label: "1–3 ha",
         minYearData: yearMin.area_size_1_3,
         maxYearData: yearMax.area_size_1_3,
         minYear: yearMin.year,
@@ -104,8 +102,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_1_3 / yearMin.area_size_1_3
       },
       {
-        label: "3-5",
-        size: "3 bis 5 ha",
+        size: "3-5",
+        label: "3–5 ha",
         minYearData: yearMin.area_size_3_5,
         maxYearData: yearMax.area_size_3_5,
         minYear: yearMin.year,
@@ -113,8 +111,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_3_5 / yearMin.area_size_3_5
       },
       {
-        label: "5-10",
-        size: "5 bis 10 ha",
+        size: "5-10",
+        label: "5–10 ha",
         minYearData: yearMin.area_size_5_10,
         maxYearData: yearMax.area_size_5_10,
         minYear: yearMin.year,
@@ -122,8 +120,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_5_10 / yearMin.area_size_5_10
       },
       {
-        label: "10-20",
-        size: "10 bis 20 ha",
+        size: "10-20",
+        label: "10–20 ha",
         minYearData: yearMin.area_size_10_20,
         maxYearData: yearMax.area_size_10_20,
         minYear: yearMin.year,
@@ -131,8 +129,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_10_20 / yearMin.area_size_10_20
       },
       {
-        label: "20-30",
-        size: "20 bis 30 ha",
+        size: "20-30",
+        label: "20–30 ha",
         minYearData: yearMin.area_size_20_30,
         maxYearData: yearMax.area_size_20_30,
         minYear: yearMin.year,
@@ -140,8 +138,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_20_30 / yearMin.area_size_20_30
       },
       {
-        label: "30-50",
-        size: "30 bis 50 ha",
+        size: "30-50",
+        label: "30–50 ha",
         minYearData: yearMin.area_size_30_50,
         maxYearData: yearMax.area_size_30_50,
         minYear: yearMin.year,
@@ -149,8 +147,8 @@ export default class DataService {
         maxInPct: yearMax.area_size_30_50 / yearMin.area_size_30_50
       },
       {
-        label: "50+",
-        size: "50 ha und mehr",
+        size: "50+",
+        label: "50 ha+",
         minYearData: yearMin.area_size_50_n,
         maxYearData: yearMax.area_size_50_n,
         minYear: yearMin.year,

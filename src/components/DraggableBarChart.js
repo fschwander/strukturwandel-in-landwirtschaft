@@ -162,14 +162,9 @@ export default class DraggableBarChart extends React.Component {
         .attr('y', d => scaleY(d.random2))
         .transition()
         .duration(2000)
-        // .attr('height', d => chartHeight - scaleY(d.random3))
-        // .attr('y', d => scaleY(d.random3))
-        // .transition()
-        // .duration(2000)
         .attr('height', d => chartHeight - scaleY(d.value))
         .attr('y', d => scaleY(d.value))
 
-      // console.log(barContainer.selectAll('.label-top'));
       barContainer.selectAll('.label-top')
         .transition()
         .duration(2000)
@@ -195,17 +190,6 @@ export default class DraggableBarChart extends React.Component {
         })
         .transition()
         .duration(2000)
-        // .attr('y', d => scaleY(d.random3))
-        // .on("start", function () {
-        //   d3.active(this)
-        //     .tween("text", d => {
-        //       const that = d3.select(this);
-        //       const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random3);
-        //       return t => that.text(d3.format('.0%')(i(t)));
-        //     })
-        // })
-        // .transition()
-        // .duration(2000)
         .attr('y', d => scaleY(d.value))
         .on("start", function () {
           d3.active(this)
@@ -277,11 +261,6 @@ export default class DraggableBarChart extends React.Component {
       .text(d => d3.format('.0%')(d.value));
 
     this.mainGroup.selectAll('*').attr('pointer-events', 'none')
-  }
-
-  formatInPct(value) {
-    return d3.format(".0%")(value);
-
   }
 
   componentDidMount() {
