@@ -29,14 +29,14 @@
 
   @keyframes blink {
     0% {
-      opacity: 0.9;
+      transform: scale(1) translateY(8em);
     }
     50% {
       opacity: 1;
       transform: scale(1.04) translateY(8em);
     }
     100% {
-      opacity: 0.9;
+      transform: scale(1) translateY(8em);
     }
   }
 }

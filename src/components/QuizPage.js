@@ -33,7 +33,7 @@ export default class QuizPage extends React.Component {
                 variant="dark">Quiz starten!</Button>
 
         <div className={quizStarted ? 'show' : 'hide'}>
-          <DraggableBarChart showAnswer={this.state.showAnswer} data={data}/>
+          {quizStarted ? <DraggableBarChart showAnswer={showAnswer} data={data}/> : null }
 
           <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
             Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
