@@ -153,11 +153,11 @@ export default class DraggableBarChart extends React.Component {
     function animateBars() {
       barContainer.selectAll('.selection')
         .transition()
-        .duration(2000)
+        .duration(1000)
         .attr('height', d => chartHeight - scaleY(d.random1))
         .attr('y', d => scaleY(d.random1))
         .transition()
-        .duration(2000)
+        .duration(1500)
         .attr('height', d => chartHeight - scaleY(d.random2))
         .attr('y', d => scaleY(d.random2))
         .transition()
@@ -167,7 +167,7 @@ export default class DraggableBarChart extends React.Component {
 
       barContainer.selectAll('.label-top')
         .transition()
-        .duration(2000)
+        .duration(1000)
         .attr('y', d => scaleY(d.random1))
         .on("start", function () {
           d3.active(this)
@@ -178,7 +178,7 @@ export default class DraggableBarChart extends React.Component {
             })
         })
         .transition()
-        .duration(2000)
+        .duration(1500)
         .attr('y', d => scaleY(d.random2))
         .on("start", function () {
           d3.active(this)

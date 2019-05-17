@@ -11,7 +11,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       min: 1985,
       max: 2017,
     };
-    this.margin = {top: 20, right: 60, bottom: 40, left: 100};
+    this.margin = {top: 20, right: 60, bottom: 60, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
     this.height = 400 - this.margin.top - this.margin.bottom;
   }
@@ -101,11 +101,21 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('class', 'y-axis')
       .call(d3.axisLeft(yScale).ticks(5));
 
+    // y axis label
     mainGroup.append('text')
       .attr('class', 'header')
       .text('Anz. Bauernhöfe')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(-65,${height / 2}) rotate(-90)`)
+
+    // x axis label
+    mainGroup.select('.x-axis')
+      .append('text')
+      .attr('class', 'header')
+      .attr('x', width / 2)
+      .attr('y', 50)
+      .text('Hofgrössen in Hektar')
+      .style('text-anchor', 'middle');
   }
 
   initLabels() {
@@ -134,56 +144,8 @@ export default class FarmSizeRelationsChart extends React.Component {
       })
   }
 
-  initLegend() {
-    const {data} = this.props;
-
-    const legendEntries = [data[0].year, data[data.length - 1].year];
-
-    const lineHeight = 24;
-    const padding = 18;
-
-    const legendWidth = 70 + 2 * padding;
-    const legendHeight = legendEntries.length * lineHeight + padding;
-
-    const legend = this.mainGroup.append('g')
-      .attr('class', 'legend')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .attr('transform', `translate(${this.width - legendWidth - padding},${padding})`);
-
-    legend.append('rect')
-      .attr('class', 'background')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .attr('fill', 'white');
-
-    const legendEntry = legend.append('g')
-      .attr('class', 'entries')
-      .attr('transform', `translate(${padding},${padding})`)
-      .selectAll('rect')
-      .data(legendEntries)
-      .enter();
-
-    for (let j = 0; j < this.colorScale.length; j++) {
-      const scale = this.colorScale[j];
-
-      legendEntry.append('rect')
-        .attr('x', j * 14)
-        .attr('y', (d, i) => lineHeight * i)
-        .attr('width', 12)
-        .attr('height', 12)
-        .attr('fill', (d, i) => scale(i));
-    }
-
-    legendEntry.append('text')
-      .attr('x', 48)
-      .attr('y', (d, i) => lineHeight * i + 10)
-      .text((d, i) => legendEntries[i]);
-  }
-
   componentDidMount() {
     this.drawChart();
-    // this.initLegend();
     this.initLabels();
   }
 
