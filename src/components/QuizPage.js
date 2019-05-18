@@ -10,9 +10,35 @@ export default class QuizPage extends React.Component {
 
     this.state = {
       quizStarted: false,
-      showAnswer: false
-    }
+      showAnswer: false,
+      isAnimating: false
+    };
+    this.componentRef = React.createRef();
   }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = e => {
+    const scrollTop = e.target.scrollingElement.scrollTop;
+    const offsetTop = this.componentRef.current.offsetTop;
+    const elementHeight = this.componentRef.current.offsetHeight;
+
+    if (scrollTop > offsetTop - 400 && scrollTop < offsetTop + elementHeight / 2) {
+      if(this.state.isAnimating !== true) {
+        this.setState({isAnimating: true});
+      }
+    } else {
+      if(this.state.isAnimating !== false) {
+        this.setState({isAnimating: false});
+      }
+    }
+  };
 
   render() {
     const data = DataService.getQuizData(this.props.data);
@@ -20,7 +46,7 @@ export default class QuizPage extends React.Component {
     const quizStarted = this.state.quizStarted;
 
     return (
-      <div className='QuizPage'>
+      <div className='QuizPage' ref={this.componentRef} onScroll={this.handleScroll}>
         <h2>Quiz</h2>
 
         <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt
