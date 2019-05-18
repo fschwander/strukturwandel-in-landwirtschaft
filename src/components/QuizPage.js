@@ -54,12 +54,14 @@ export default class QuizPage extends React.Component {
 
         {/*<p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat!</p>*/}
 
-        <Button className={!quizStarted ? 'show quizButton' : 'hide'}
-                onClick={() => this.setState({quizStarted: true})}
-                variant="dark">Quiz starten!</Button>
+        {/*<Button className={!quizStarted ? 'show quizButton' : 'hide'}*/}
+        {/*        onClick={() => this.setState({quizStarted: true})}*/}
+        {/*        variant="dark">Quiz starten!</Button>*/}
 
-        <div className={quizStarted ? 'show' : 'hide'}>
-          {quizStarted ? <DraggableBarChart showAnswer={showAnswer} data={data}/> : null }
+        <div>
+          <DraggableBarChart showAnswer={showAnswer}
+                             isAnimating={this.state.isAnimating}
+                             data={data}/>
 
           <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
             Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben

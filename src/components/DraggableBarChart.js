@@ -9,6 +9,9 @@ export default class DraggableBarChart extends React.Component {
     this.state = {
       showAnswer: props.showAnswer
     };
+    this.chartWidth = 500;
+    this.chartHeight = 300;
+
     this.maxScaleValue = Math.round(d3.max(this.props.data, d => d.maxInPct)) * 1.2;
   }
 
@@ -17,10 +20,10 @@ export default class DraggableBarChart extends React.Component {
    */
   drawChart() {
     const {data} = this.props;
+    const {chartHeight, chartWidth} = this;
 
     let barsGap = 22;
-    let chartWidth = 500,
-      chartHeight = 300;
+
     let margin = {
       top: 20,
       right: 30,
@@ -127,7 +130,6 @@ export default class DraggableBarChart extends React.Component {
       .text("Antwort");
 
     drawHandleNorth();
-    animateBars();
 
     function brushmove() {
       if (!d3.event.sourceEvent) return;
@@ -150,57 +152,6 @@ export default class DraggableBarChart extends React.Component {
       }
     }
 
-    function animateBars() {
-      barContainer.selectAll('.selection')
-        .transition()
-        .duration(1000)
-        .attr('height', d => chartHeight - scaleY(d.random1))
-        .attr('y', d => scaleY(d.random1))
-        .transition()
-        .duration(1500)
-        .attr('height', d => chartHeight - scaleY(d.random2))
-        .attr('y', d => scaleY(d.random2))
-        .transition()
-        .duration(2000)
-        .attr('height', d => chartHeight - scaleY(d.value))
-        .attr('y', d => scaleY(d.value))
-
-      barContainer.selectAll('.label-top')
-        .transition()
-        .duration(1000)
-        .attr('y', d => scaleY(d.random1))
-        .on("start", function () {
-          d3.active(this)
-            .tween("text", d => {
-              const that = d3.select(this);
-              const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random1);
-              return t => that.text(d3.format('.0%')(i(t)));
-            })
-        })
-        .transition()
-        .duration(1500)
-        .attr('y', d => scaleY(d.random2))
-        .on("start", function () {
-          d3.active(this)
-            .tween("text", d => {
-              const that = d3.select(this);
-              const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random2);
-              return t => that.text(d3.format('.0%')(i(t)));
-            })
-        })
-        .transition()
-        .duration(2000)
-        .attr('y', d => scaleY(d.value))
-        .on("start", function () {
-          d3.active(this)
-            .tween("text", d => {
-              const that = d3.select(this);
-              const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.value);
-              return t => that.text(d3.format('.0%')(i(t)));
-            })
-        });
-    }
-
     function update() {
       barContainer
         .call(brushY.move, d => [d.value, 0].map(scaleY))
@@ -221,6 +172,63 @@ export default class DraggableBarChart extends React.Component {
         .attr('height', 20)
         .attr('dy', -10)
     }
+  }
+
+  animateBars() {
+    const {mainGroup, chartHeight} = this;
+
+    const scaleY = d3.scaleLinear()
+      .domain([0, this.maxScaleValue])
+      .rangeRound([chartHeight, 0]);
+
+    mainGroup.selectAll('.selection')
+      .transition()
+      .duration(1000)
+      .attr('height', d => chartHeight - scaleY(d.random1))
+      .attr('y', d => scaleY(d.random1))
+      .transition()
+      .duration(1500)
+      .attr('height', d => chartHeight - scaleY(d.random2))
+      .attr('y', d => scaleY(d.random2))
+      .transition()
+      .duration(2000)
+      .attr('height', d => chartHeight - scaleY(d.value))
+      .attr('y', d => scaleY(d.value))
+
+    mainGroup.selectAll('.label-top')
+      .transition()
+      .duration(1000)
+      .attr('y', d => scaleY(d.random1))
+      .on("start", function () {
+        d3.active(this)
+          .tween("text", d => {
+            const that = d3.select(this);
+            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random1);
+            return t => that.text(d3.format('.0%')(i(t)));
+          })
+      })
+      .transition()
+      .duration(1500)
+      .attr('y', d => scaleY(d.random2))
+      .on("start", function () {
+        d3.active(this)
+          .tween("text", d => {
+            const that = d3.select(this);
+            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random2);
+            return t => that.text(d3.format('.0%')(i(t)));
+          })
+      })
+      .transition()
+      .duration(2000)
+      .attr('y', d => scaleY(d.value))
+      .on("start", function () {
+        d3.active(this)
+          .tween("text", d => {
+            const that = d3.select(this);
+            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.value);
+            return t => that.text(d3.format('.0%')(i(t)));
+          })
+      });
   }
 
   showAnswer() {
@@ -269,6 +277,7 @@ export default class DraggableBarChart extends React.Component {
 
   componentDidUpdate() {
     if (this.props.showAnswer) this.showAnswer();
+    if (this.props.isAnimating) this.animateBars();
   }
 
   render() {
