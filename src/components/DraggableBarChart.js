@@ -187,7 +187,7 @@ export default class DraggableBarChart extends React.Component {
 
     const explanationContainer = this.mainGroup.append('g').attr('class', 'explanation-container')
       .data(this.props.data)
-      .attr('transform', d => `translate(200, ${scaleY(d.value) - containerHight / 2})`)
+      .attr('transform', d => `translate(208, ${scaleY(d.value) - containerHight / 2})`)
       .attr('dx', chartWidth / 2)
       .attr('pointer-events', 'none')
 
@@ -220,13 +220,13 @@ export default class DraggableBarChart extends React.Component {
 
     explanationContainer.transition()
       .duration(1000)
-      .attr('transform', d => `translate(200, ${scaleY(d.random1) - containerHight / 2})`)
+      .attr('transform', d => `translate(208, ${scaleY(d.random1) - containerHight / 2})`)
       .transition()
       .duration(1500)
-      .attr('transform', d => `translate(200, ${scaleY(d.random2) - containerHight / 2})`)
+      .attr('transform', d => `translate(208, ${scaleY(d.random2) - containerHight / 2})`)
       .transition()
       .duration(2000)
-      .attr('transform', d => `translate(200, ${scaleY(d.value) - containerHight / 2})`)
+      .attr('transform', d => `translate(208, ${scaleY(d.value) - containerHight / 2})`)
       .transition()
       .delay(200)
       .duration(1500)
@@ -236,14 +236,29 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .attr('fill', '#222')
       .transition()
-      .delay(5500)
+      .delay(4000)
+      .duration(1500)
       .attr('fill', 'transparent');
     explanationContainer.select('text')
       .transition()
       .attr('fill', '#fff')
       .transition()
-      .delay(5500)
-      .attr('fill', 'currentColor')
+      .delay(4000)
+      .duration(1500)
+      .attr('fill', 'black')
+
+    const arrow = explanationContainer.append('polygon')
+      .attr('points', '0,15 20,30 20,20 45,20 45,10 20,10, 20,0')
+      .attr('transform', 'translate(-50,15)')
+      .attr('fill', 'white')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1);
+
+    arrow.transition()
+      .delay(5300)
+      .duration(400)
+      .attr('opacity', 0)
+
   }
 
   animateBars() {
