@@ -189,7 +189,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('class', 'explanation-container')
       .attr('opacity', 1)
       .data(this.props.data)
-      .attr('transform', d => `translate(208, ${scaleY(d.value) - containerHight / 2})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.value) - 40})`)
       .attr('dx', chartWidth / 2)
       .attr('pointer-events', 'none')
 
@@ -212,7 +212,6 @@ export default class DraggableBarChart extends React.Component {
 
   animateExplanationLabel() {
     const {mainGroup, chartHeight} = this;
-    const containerHight = 58;
 
     const scaleY = d3.scaleLinear()
       .domain([0, this.maxScaleValue])
@@ -222,13 +221,13 @@ export default class DraggableBarChart extends React.Component {
 
     explanationContainer.transition()
       .duration(1000)
-      .attr('transform', d => `translate(208, ${scaleY(d.random1) - containerHight / 2})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.random1) - 40})`)
       .transition()
       .duration(1500)
-      .attr('transform', d => `translate(208, ${scaleY(d.random2) - containerHight / 2})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.random2) - 40})`)
       .transition()
       .duration(2000)
-      .attr('transform', d => `translate(208, ${scaleY(d.value) - containerHight / 2})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.value) - 40})`)
       .transition()
       .delay(200)
       .duration(1500)
@@ -250,15 +249,15 @@ export default class DraggableBarChart extends React.Component {
       .attr('fill', 'black')
 
     const arrow = explanationContainer.append('polygon')
-      .attr('points', '0,15 20,30 20,20 45,20 45,10 20,10, 20,0')
-      .attr('transform', 'translate(-50,15)')
+      .attr('points', '0,15 20,30 18,20 45,22 43,15 45,8 18,10 20,0')
+      .attr('transform', 'translate(-55,30) rotate(-10)')
       .attr('fill', 'white')
       .attr('stroke', 'black')
       .attr('stroke-width', 1);
 
     arrow.transition()
-      .delay(5300)
-      .duration(400)
+      .delay(5000)
+      .duration(100)
       .attr('opacity', 0)
 
   }
