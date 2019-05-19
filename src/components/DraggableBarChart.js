@@ -185,7 +185,9 @@ export default class DraggableBarChart extends React.Component {
     const containerWidth = 250;
     const containerHight = 58;
 
-    const explanationContainer = this.mainGroup.append('g').attr('class', 'explanation-container')
+    const explanationContainer = this.mainGroup.append('g')
+      .attr('class', 'explanation-container')
+      .attr('opacity', 1)
       .data(this.props.data)
       .attr('transform', d => `translate(208, ${scaleY(d.value) - containerHight / 2})`)
       .attr('dx', chartWidth / 2)
@@ -356,6 +358,11 @@ export default class DraggableBarChart extends React.Component {
       .text(d => d3.format('.0%')(d.value));
 
     this.mainGroup.selectAll('*').attr('pointer-events', 'none')
+
+    this.mainGroup.selectAll('.explanation-container')
+      .transition()
+      .duration(1000)
+      .attr('opacity', 0)
   }
 
   componentDidMount() {
@@ -363,8 +370,11 @@ export default class DraggableBarChart extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.showAnswer) this.showAnswer();
-    if (this.props.isAnimating) {
+    const showAnswer = this.props.showAnswer;
+    const isAnimating = this.props.isAnimating;
+
+    if (showAnswer) this.showAnswer();
+    if (!showAnswer && isAnimating) {
       this.animateBars();
       this.animateExplanationLabel();
     }
