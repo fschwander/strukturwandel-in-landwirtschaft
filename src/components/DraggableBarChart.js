@@ -244,8 +244,6 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .delay(5500)
       .attr('fill', 'currentColor')
-
-
   }
 
   animateBars() {

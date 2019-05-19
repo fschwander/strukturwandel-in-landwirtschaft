@@ -22,7 +22,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Header/>
+        {/*<Header/>*/}
         {dataReady ? <div>
           <QuizPage data={data}/>
           <FarmSizeRelationsChart data={data}/>

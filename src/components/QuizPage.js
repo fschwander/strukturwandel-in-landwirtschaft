@@ -43,7 +43,6 @@ export default class QuizPage extends React.Component {
   render() {
     const data = DataService.getQuizData(this.props.data);
     const showAnswer = this.state.showAnswer;
-    const isAnimating = this.state.isAnimating;
 
     return (
       <div className='QuizPage' ref={this.componentRef} onScroll={this.handleScroll}>
@@ -64,7 +63,7 @@ export default class QuizPage extends React.Component {
             gestiegen.</p>
         </div>
 
-        <Button className={!isAnimating && !showAnswer ? 'show' : 'hide'}
+        <Button className={!showAnswer ? 'show fade-in' : 'hide'}
                 onClick={() => this.setState({showAnswer: true})}
                 variant="dark">Antwort zeigen</Button>
       </div>

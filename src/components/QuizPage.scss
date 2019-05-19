@@ -11,10 +11,6 @@
     width: 50%;
     height: 8em;
     transform: translateY(8em);
-
-    &:not(:hover) {
-      animation: blink 2s ease-in-out infinite;
-    }
   }
 
   .show {
@@ -27,16 +23,19 @@
     transition: 200ms ease-out;
   }
 
-  @keyframes blink {
+  .fade-in {
+    animation: fade-in 6s ease-in;
+  }
+
+  @keyframes fade-in {
     0% {
-      transform: scale(1) translateY(8em);
+      opacity: 0;
     }
-    50% {
-      opacity: 1;
-      transform: scale(1.04) translateY(8em);
+    80% {
+      opacity: 0;
     }
     100% {
-      transform: scale(1) translateY(8em);
+      opacity: 1;
     }
   }
 }
