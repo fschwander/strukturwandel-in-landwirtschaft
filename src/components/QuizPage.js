@@ -43,7 +43,7 @@ export default class QuizPage extends React.Component {
   render() {
     const data = DataService.getQuizData(this.props.data);
     const showAnswer = this.state.showAnswer;
-    const quizStarted = this.state.quizStarted;
+    const isAnimating = this.state.isAnimating;
 
     return (
       <div className='QuizPage' ref={this.componentRef} onScroll={this.handleScroll}>
@@ -51,12 +51,6 @@ export default class QuizPage extends React.Component {
 
         <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt
           es heute?</p>
-
-        {/*<p>Schätze, wie sich die Anzahl der Bauernhöfe verändert hat!</p>*/}
-
-        {/*<Button className={!quizStarted ? 'show quizButton' : 'hide'}*/}
-        {/*        onClick={() => this.setState({quizStarted: true})}*/}
-        {/*        variant="dark">Quiz starten!</Button>*/}
 
         <div>
           <DraggableBarChart showAnswer={showAnswer}
@@ -70,7 +64,7 @@ export default class QuizPage extends React.Component {
             gestiegen.</p>
         </div>
 
-        <Button className={quizStarted && !showAnswer ? 'show' : 'hide'}
+        <Button className={!isAnimating && !showAnswer ? 'show' : 'hide'}
                 onClick={() => this.setState({showAnswer: true})}
                 variant="dark">Antwort zeigen</Button>
       </div>

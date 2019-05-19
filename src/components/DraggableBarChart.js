@@ -129,6 +129,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('dy', 12)
       .text("Antwort");
 
+    this.initExplanationContainer();
     drawHandleNorth();
 
     function brushmove() {
@@ -172,6 +173,79 @@ export default class DraggableBarChart extends React.Component {
         .attr('height', 20)
         .attr('dy', -10)
     }
+  }
+
+  initExplanationContainer() {
+    const {chartWidth, chartHeight} = this;
+
+    const scaleY = d3.scaleLinear()
+      .domain([0, this.maxScaleValue])
+      .rangeRound([chartHeight, 0]);
+
+    const containerWidth = 250;
+    const containerHight = 58;
+
+    const explanationContainer = this.mainGroup.append('g').attr('class', 'explanation-container')
+      .data(this.props.data)
+      .attr('transform', d => `translate(200, ${scaleY(d.value) - containerHight / 2})`)
+      .attr('dx', chartWidth / 2)
+      .attr('pointer-events', 'none')
+
+    explanationContainer.append('rect')
+      .attr('width', containerWidth)
+      .attr('height', containerHight)
+      .attr('fill', '#222');
+
+    const textContainer = explanationContainer.append('text')
+      .attr('x', 8)
+      .attr('y', 24)
+      .attr('fill', '#fff');
+    textContainer.append('tspan')
+      .text('Schätze, wie sich die Anzahl ');
+    textContainer.append('tspan')
+      .text('der Bauernhöfe verändert hat!')
+      .attr('dy', 20)
+      .attr('x', 8);
+  }
+
+  animateExplanationLabel() {
+    const {mainGroup, chartHeight} = this;
+    const containerHight = 58;
+
+    const scaleY = d3.scaleLinear()
+      .domain([0, this.maxScaleValue])
+      .rangeRound([chartHeight, 0]);
+
+    const explanationContainer = mainGroup.selectAll('.explanation-container');
+
+    explanationContainer.transition()
+      .duration(1000)
+      .attr('transform', d => `translate(200, ${scaleY(d.random1) - containerHight / 2})`)
+      .transition()
+      .duration(1500)
+      .attr('transform', d => `translate(200, ${scaleY(d.random2) - containerHight / 2})`)
+      .transition()
+      .duration(2000)
+      .attr('transform', d => `translate(200, ${scaleY(d.value) - containerHight / 2})`)
+      .transition()
+      .delay(200)
+      .duration(1500)
+      .attr('transform', 'translate(-38,-16)');
+
+    explanationContainer.select('rect')
+      .transition()
+      .attr('fill', '#222')
+      .transition()
+      .delay(5500)
+      .attr('fill', 'transparent');
+    explanationContainer.select('text')
+      .transition()
+      .attr('fill', '#fff')
+      .transition()
+      .delay(5500)
+      .attr('fill', 'currentColor')
+
+
   }
 
   animateBars() {
@@ -277,7 +351,10 @@ export default class DraggableBarChart extends React.Component {
 
   componentDidUpdate() {
     if (this.props.showAnswer) this.showAnswer();
-    if (this.props.isAnimating) this.animateBars();
+    if (this.props.isAnimating) {
+      this.animateBars();
+      this.animateExplanationLabel();
+    }
   }
 
   render() {
