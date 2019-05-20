@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default class FarmImg extends React.Component {
+export default class SvgImage extends React.Component {
 
   constructor(params) {
     super(params);
