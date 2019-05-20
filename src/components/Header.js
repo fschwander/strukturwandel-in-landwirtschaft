@@ -3,6 +3,7 @@ import FarmImg from "../res/imgs/FarmImg";
 import cowImg from "../res/imgs/cow.svg";
 import wheatImg from "../res/imgs/wheat.svg";
 import {Image} from "react-bootstrap";
+import {Icons} from "../res/imgs/Icons";
 
 export default class Header extends React.Component {
 
@@ -36,9 +37,9 @@ export default class Header extends React.Component {
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container top'>
-          <FarmImg width={'80px'} fill={'#4ec291'}/>
-          <FarmImg width={'100px'} fill={'#42a3f1'}/>
-          <FarmImg width={'120px'} fill={'#e396d1'}/>
+          <FarmImg src={Icons.farmSmall} width={'90px'} fill={'#4ec291'}/>
+          <FarmImg src={Icons.farmMedium} width={'100px'} fill={'#42a3f1'}/>
+          <FarmImg src={Icons.farmLarge} width={'110px'} fill={'#e396d1'}/>
         </div>
 
         <div className='horizontal-container bottom'>
