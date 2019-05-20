@@ -23,11 +23,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header/>
-        {dataReady ? <div>
-          <QuizPage data={data}/>
-          <FarmSizeRelationsChart data={data}/>
-          <FarmsCountChart data={data}/>
-        </div> : null}
+        {dataReady ? <QuizPage data={data}/> : null}
+        {dataReady ? <FarmSizeRelationsChart data={data}/> : null}
+        {dataReady ? <FarmsCountChart data={data}/> : null}
       </div>
     )
   }

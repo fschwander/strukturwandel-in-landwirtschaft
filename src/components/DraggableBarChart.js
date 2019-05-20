@@ -189,7 +189,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('class', 'explanation-container')
       .attr('opacity', 1)
       .data(this.props.data)
-      .attr('transform', d => `translate(190, ${scaleY(d.value) - 40})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.value) - 46})`)
       .attr('dx', chartWidth / 2)
       .attr('pointer-events', 'none')
 
@@ -221,13 +221,13 @@ export default class DraggableBarChart extends React.Component {
 
     explanationContainer.transition()
       .duration(1000)
-      .attr('transform', d => `translate(190, ${scaleY(d.random1) - 40})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.random1) - 46})`)
       .transition()
       .duration(1500)
-      .attr('transform', d => `translate(190, ${scaleY(d.random2) - 40})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.random2) - 46})`)
       .transition()
       .duration(2000)
-      .attr('transform', d => `translate(190, ${scaleY(d.value) - 40})`)
+      .attr('transform', d => `translate(190, ${scaleY(d.value) - 46})`)
       .transition()
       .delay(200)
       .duration(1500)
@@ -238,14 +238,14 @@ export default class DraggableBarChart extends React.Component {
       .attr('fill', '#222')
       .transition()
       .delay(4000)
-      .duration(1500)
+      .duration(1000)
       .attr('fill', 'transparent');
     explanationContainer.select('text')
       .transition()
       .attr('fill', '#fff')
       .transition()
       .delay(4000)
-      .duration(1500)
+      .duration(1000)
       .attr('fill', 'black')
 
     const arrow = explanationContainer.append('polygon')
@@ -257,7 +257,7 @@ export default class DraggableBarChart extends React.Component {
 
     arrow.transition()
       .delay(5000)
-      .duration(100)
+      .duration(500)
       .attr('opacity', 0)
 
   }

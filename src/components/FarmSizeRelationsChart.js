@@ -7,7 +7,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   constructor(params) {
     super(params);
     this.state = {
-      activeYear: 1990,
+      activeYear: 2017,
       min: 1985,
       max: 2017,
     };
