@@ -251,14 +251,14 @@ export default class DraggableBarChart extends React.Component {
 
     const arrow = explanationContainer.append('polygon')
       .attr('points', '0,15 20,30 18,20 45,22 43,15 45,8 18,10 20,0')
-      .attr('transform', 'translate(-55,30) rotate(-10)')
+      .attr('transform', 'translate(-50,32) rotate(-10)')
       .attr('fill', 'white')
       .attr('stroke', 'black')
       .attr('stroke-width', 1);
 
     arrow.transition()
-      .delay(durations.animSum)
-      .duration(500)
+      .delay(durations.animSum + 300)
+      .duration(300)
       .attr('opacity', 0)
   }
 
@@ -380,7 +380,8 @@ export default class DraggableBarChart extends React.Component {
 
     const textLeft = this.mainGroup.selectAll('.label-answer-left, .handle-bar')
       .classed('header-small', false)
-      .classed('on-hover-only', false);
+      .classed('on-hover-only', false)
+      .attr('opacity', 1);
 
     textLeft.selectAll('tspan').remove();
     textLeft.append('tspan')
