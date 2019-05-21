@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "f486af65b0884d452381",
-    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/css/main.a23923da.chunk.css"
+    "revision": "78c1afb4fb42d343635b",
+    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/css/main.38a1c3d7.chunk.css"
   },
   {
-    "revision": "f486af65b0884d452381",
-    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/main.f486af65.chunk.js"
+    "revision": "78c1afb4fb42d343635b",
+    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/main.78c1afb4.chunk.js"
   },
   {
     "revision": "613b1000b81bc90dd1f0",
     "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/runtime~main.613b1000.js"
   },
   {
-    "revision": "819db74f3d0c3a535b94",
-    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/2.819db74f.chunk.js"
+    "revision": "cdbad2d59650a85f284f",
+    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/2.cdbad2d5.chunk.js"
   },
   {
     "revision": "693a9c198644cc338f449c9566583900",
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/2019/FS/6iCbb/landwirtschaft/build/static/media/farm-sizes.bfe448e9.csv"
   },
   {
-    "revision": "b6226b21f093d29b73f4248d31806333",
+    "revision": "aefa574e4f4edb19d85be76e1aaaadf3",
     "url": "/2019/FS/6iCbb/landwirtschaft/build/index.html"
   }
 ];
