@@ -1,8 +1,9 @@
 import * as React from "react";
-import FarmImg from "../res/imgs/FarmImg";
+import SvgImage from "../res/imgs/SvgImage";
 import cowImg from "../res/imgs/cow.svg";
 import wheatImg from "../res/imgs/wheat.svg";
 import {Image} from "react-bootstrap";
+import {Icons} from "../res/imgs/Icons";
 
 export default class Header extends React.Component {
 
@@ -36,9 +37,9 @@ export default class Header extends React.Component {
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container top'>
-          <FarmImg width={'80px'} fill={'#4ec291'}/>
-          <FarmImg width={'100px'} fill={'#42a3f1'}/>
-          <FarmImg width={'120px'} fill={'#e396d1'}/>
+          <SvgImage src={Icons.farmSmall} width={'90px'} fill={'#4ec291'}/>
+          <SvgImage src={Icons.farmMedium} width={'100px'} fill={'#42a3f1'}/>
+          <SvgImage src={Icons.farmLarge} width={'110px'} fill={'#e396d1'}/>
         </div>
 
         <div className='horizontal-container bottom'>
@@ -57,15 +58,19 @@ export default class Header extends React.Component {
         </div>
 
         <div className='capacity-container'>
-          <div className='horizontal-container'>
+
+          <div className='horizontal-container centered'>
+            <p className='color-small'>0 bis 20 Kühe</p>
             <div className='arrow'>
               <i className='up'/>
               <div className='line'/>
             </div>
+            <p className='color-medium'>20 bis 50 Kühe</p>
             <div className='arrow'>
               <i className='up'/>
               <div className='line'/>
             </div>
+            <p className='color-large'>50 Kühe und mehr</p>
           </div>
 
           <div className='horizontal-container'>
@@ -77,6 +82,20 @@ export default class Header extends React.Component {
               <p>Auf Grossbetrieben können Herden von 60 Tieren oder mehr gehalten.</p>
               {this.printIcons('cowImg', cowImg, 60)}
             </div>
+          </div>
+
+          <div className='horizontal-container centered'>
+            <p className='color-small'>0 bis 60 t</p>
+            <div className='arrow'>
+              <i className='up'/>
+              <div className='line'/>
+            </div>
+            <p className='color-medium'>60 bis 180 t</p>
+            <div className='arrow'>
+              <i className='up'/>
+              <div className='line'/>
+            </div>
+            <p className='color-large'>180 t und mehr</p>
           </div>
 
           <div className='horizontal-container'>

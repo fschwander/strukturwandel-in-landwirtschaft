@@ -3,7 +3,7 @@ import dataSource from "../res/data/farm-sizes.csv";
 
 export default class DataService {
 
-  static getReducedData(data) {
+  static getQuizData(data) {
     const yearMin = data[0];
     const yearMax = data[data.length - 1];
 
@@ -34,6 +34,8 @@ export default class DataService {
         maxYearData: maxSmall,
         minYear: yearMin.year,
         maxYear: yearMax.year,
+        random1: 1.4,
+        random2: 0.1,
         maxInPct: maxSmall / minSmall
       },
       {
@@ -44,6 +46,8 @@ export default class DataService {
         maxYearData: maxMedium,
         minYear: yearMin.year,
         maxYear: yearMax.year,
+        random1: 0.6,
+        random2: 3.5,
         maxInPct: maxMedium / minMedium
       },
       {
@@ -54,9 +58,104 @@ export default class DataService {
         maxYearData: maxLarge,
         minYear: yearMin.year,
         maxYear: yearMax.year,
+        random1: 1.2,
+        random2: 3.0,
         maxInPct: maxLarge / minLarge
       }
     ]
+  }
+
+  static getCompareYearData(data, year) {
+    let activeIndex = 0;
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].year < year) {
+        // setting yer on last available data entry
+        activeIndex = i;
+      } else if (data[i].year === year) {
+        // returning when exact same year was found
+        activeIndex = i;
+        break;
+      }
+    }
+
+    const yearMin = data[0];
+    const yearMax = data[activeIndex];
+
+    return [
+      {
+        size: "0-1",
+        label: "0–1 ha",
+        minYearData: yearMin.area_size_0_1,
+        maxYearData: yearMax.area_size_0_1,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_0_1 / yearMin.area_size_0_1
+      },
+      {
+        size: "1-3",
+        label: "1–3 ha",
+        minYearData: yearMin.area_size_1_3,
+        maxYearData: yearMax.area_size_1_3,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_1_3 / yearMin.area_size_1_3
+      },
+      {
+        size: "3-5",
+        label: "3–5 ha",
+        minYearData: yearMin.area_size_3_5,
+        maxYearData: yearMax.area_size_3_5,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_3_5 / yearMin.area_size_3_5
+      },
+      {
+        size: "5-10",
+        label: "5–10 ha",
+        minYearData: yearMin.area_size_5_10,
+        maxYearData: yearMax.area_size_5_10,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_5_10 / yearMin.area_size_5_10
+      },
+      {
+        size: "10-20",
+        label: "10–20 ha",
+        minYearData: yearMin.area_size_10_20,
+        maxYearData: yearMax.area_size_10_20,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_10_20 / yearMin.area_size_10_20
+      },
+      {
+        size: "20-30",
+        label: "20–30 ha",
+        minYearData: yearMin.area_size_20_30,
+        maxYearData: yearMax.area_size_20_30,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_20_30 / yearMin.area_size_20_30
+      },
+      {
+        size: "30-50",
+        label: "30–50 ha",
+        minYearData: yearMin.area_size_30_50,
+        maxYearData: yearMax.area_size_30_50,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_30_50 / yearMin.area_size_30_50
+      },
+      {
+        size: "50+",
+        label: "50 ha+",
+        minYearData: yearMin.area_size_50_n,
+        maxYearData: yearMax.area_size_50_n,
+        minYear: yearMin.year,
+        maxYear: yearMax.year,
+        maxInPct: yearMax.area_size_50_n / yearMin.area_size_50_n
+      }
+    ];
   }
 
   static getFullData() {

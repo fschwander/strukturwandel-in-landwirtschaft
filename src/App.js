@@ -1,47 +1,38 @@
-import QuizPage from "./components/QuizPage";
 import * as React from "react";
 import DataService from "./services/DataService";
-import FarmsCountChart from "./components/FarmsCountChart";
 import FarmSizeRelationsChart from "./components/FarmSizeRelationsChart";
+import FarmsCountChart from "./components/FarmsCountChart";
 import Header from "./components/Header";
+import QuizPage from "./components/QuizPage";
 
 class App extends React.Component {
 
   constructor(params) {
     super(params);
-
     this.state = {}
   }
 
   componentWillMount() {
-    this.initData()
+    this.loadData()
   }
 
   render() {
-    const {reducedData, fullData} = this.state;
-
-    let reducedDataIsLoaded = reducedData !== undefined;
-    let fullDataIsLoaded = fullData !== undefined;
+    const {data} = this.state;
+    const dataReady = data !== undefined;
 
     return (
       <div className="App">
-        <Header />
-        {reducedDataIsLoaded ? <QuizPage data={reducedData}/> : null}
-        {reducedDataIsLoaded && fullDataIsLoaded ?
-          <FarmSizeRelationsChart fullData={fullData} data={reducedData}/> : null}
-        {fullDataIsLoaded ? <FarmsCountChart data={fullData}/> : null}
+        <Header/>
+        {dataReady ? <QuizPage data={data}/> : null}
+        {dataReady ? <FarmSizeRelationsChart data={data}/> : null}
+        {dataReady ? <FarmsCountChart data={data}/> : null}
       </div>
     )
   }
 
-  async initData() {
-    const fullData = await DataService.getFullData();
-    const reducedData = DataService.getReducedData(fullData);
-
-    this.setState({
-      reducedData: reducedData,
-      fullData: fullData
-    })
+  async loadData() {
+    const data = await DataService.getFullData();
+    this.setState({data: data})
   }
 }
 

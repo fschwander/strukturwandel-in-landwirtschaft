@@ -10,7 +10,7 @@ export default class FarmsCountChart extends React.Component {
     this.width = 780;
     this.height = 500;
     this.margin = {
-      top: 0,
+      top: 10,
       bottom: 60,
       left: 90,
       right: 70
@@ -122,7 +122,7 @@ export default class FarmsCountChart extends React.Component {
       .attr('class', 'legend')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('transform', `translate(${this.innerWidth - legendWidth - 48},${padding})`);
+      .attr('transform', `translate(${this.innerWidth - legendWidth -12},${padding - 18})`);
 
     legend.append('rect')
       .attr('class', 'background')

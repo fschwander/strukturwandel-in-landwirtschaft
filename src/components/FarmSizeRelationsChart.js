@@ -1,29 +1,36 @@
 import * as React from "react";
 import * as d3 from "d3";
+import DataService from "../services/DataService";
 
 export default class FarmSizeRelationsChart extends React.Component {
+
+  constructor(params) {
+    super(params);
+    this.state = {
+      activeYear: 2017,
+      min: 1985,
+      max: 2017,
+    };
+    this.margin = {top: 20, right: 60, bottom: 60, left: 100};
+    this.width = 800 - this.margin.left - this.margin.right;
+    this.height = 400 - this.margin.top - this.margin.bottom;
+  }
 
   /**
    * Based on https://bl.ocks.org/mbostock/3887051
    */
   drawChart() {
-    const {data} = this.props;
-
-    const margin = {top: 0, right: 60, bottom: 40, left: 100};
-
-    this.width = 660 - margin.left - margin.right;
-    this.height = 300 - margin.top - margin.bottom;
+    const data = DataService.getCompareYearData(this.props.data, this.state.activeYear);
 
     this.processedData = [
-      this.props.data.map(d => d.minYearData),
-      this.props.data.map(d => d.maxYearData)
+      data.map(d => d.minYearData),
+      data.map(d => d.maxYearData)
     ];
 
-    this.colorScale = [
-      d3.scaleOrdinal().range(['#7fd1af', '#1cb373']),
-      d3.scaleOrdinal().range(['#66bbff', '#1e8cd3']),
-      d3.scaleOrdinal().range(['#ebb0dd', '#d674c0'])
-    ];
+    this.colorScale = d3.scaleOrdinal()
+      .range(['#c2eedc', '#7fd1af', '#1cb373', '#168c5a',
+        '#66bbff', '#1e8cd3',
+        '#ebb0dd', '#d674c0']);
 
     this.yScale = d3.scaleLinear()
       .domain([0, d3.max(this.processedData, oldData => d3.max(oldData))])
@@ -39,13 +46,15 @@ export default class FarmSizeRelationsChart extends React.Component {
       .paddingInner(0.02)
       .paddingOuter(0.2);
 
-    const {width, height, xScale, yScale, scaleWidth, colorScale, processedData} = this;
+    const {width, height, margin, xScale, yScale, scaleWidth, colorScale, processedData} = this;
 
-    const svg = d3.select(".FarmSizeRelationsChart").append("svg")
+    d3.select(".chartContainer").selectAll("svg").remove('svg');
+
+    this.svg = d3.select(".chartContainer").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 
-    const mainGroup = svg.append("g")
+    const mainGroup = this.svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     this.mainGroup = mainGroup;
 
@@ -65,11 +74,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr("height", d => height - yScale(d))
       .attr("x", (d, i) => xScale(data[i].label))
       .attr("y", d => yScale(d))
-      .attr("fill", (d, i) => {
-        const scale = colorScale[i];
-        return scale(d)
-      });
-
+      .attr("fill", d => colorScale(d));
 
     barGroup.append('text')
       .text((d, i) => {
@@ -84,7 +89,7 @@ export default class FarmSizeRelationsChart extends React.Component {
       })
       .attr('class', 'header-small')
       .attr('x', scaleWidth.bandwidth() / 2)
-      .attr('y', height - 12)
+      .attr('y', height - 6)
       .attr('text-anchor', 'middle');
 
     mainGroup.append('g')
@@ -96,15 +101,25 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr('class', 'y-axis')
       .call(d3.axisLeft(yScale).ticks(5));
 
+    // y axis label
     mainGroup.append('text')
       .attr('class', 'header')
       .text('Anz. Bauernhöfe')
       .attr('text-anchor', 'middle')
-      .attr('transform', `translate(-70,${height / 2}) rotate(-90)`)
+      .attr('transform', `translate(-65,${height / 2}) rotate(-90)`)
+
+    // x axis label
+    mainGroup.select('.x-axis')
+      .append('text')
+      .attr('class', 'header')
+      .attr('x', width / 2)
+      .attr('y', 50)
+      .text('Hofgrössen in Hektar')
+      .style('text-anchor', 'middle');
   }
 
   initLabels() {
-    const {data} = this.props;
+    const data = DataService.getCompareYearData(this.props.data, this.state.activeYear);
     const {xScale, yScale, scaleWidth} = this;
 
     let sectorWidth = xScale.bandwidth();
@@ -129,63 +144,62 @@ export default class FarmSizeRelationsChart extends React.Component {
       })
   }
 
-  initLegend() {
-    const {fullData} = this.props;
-
-    const legendEntries = [fullData[0].year, fullData[fullData.length - 1].year];
-
-    const lineHeight = 24;
-    const padding = 18;
-
-    const legendWidth = 70 + 2 * padding;
-    const legendHeight = legendEntries.length * lineHeight + padding;
-
-    const legend = this.mainGroup.append('g')
-      .attr('class', 'legend')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .attr('transform', `translate(${this.width - legendWidth - padding},${padding})`);
-
-    legend.append('rect')
-      .attr('class', 'background')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .attr('fill', 'white');
-
-    const legendEntry = legend.append('g')
-      .attr('class', 'entries')
-      .attr('transform', `translate(${padding},${padding})`)
-      .selectAll('rect')
-      .data(legendEntries)
-      .enter();
-
-    for (let j = 0; j < this.colorScale.length; j++) {
-      const scale = this.colorScale[j];
-
-      legendEntry.append('rect')
-        .attr('x', j * 14)
-        .attr('y', (d, i) => lineHeight * i)
-        .attr('width', 12)
-        .attr('height', 12)
-        .attr('fill', (d, i) => scale(i));
-    }
-
-    legendEntry.append('text')
-      .attr('x', 48)
-      .attr('y', (d, i) => lineHeight * i + 10)
-      .text((d, i) => legendEntries[i]);
-
-  }
-
   componentDidMount() {
     this.drawChart();
-    // this.initLegend();
     this.initLabels();
+  }
+
+  componentDidUpdate() {
+    this.drawChart();
+    this.initLabels();
+  }
+
+  setActiveYear() {
+    let slider = document.getElementById('yearSlider');
+    let activeYear = parseInt(slider.value);
+    this.setState({activeYear: activeYear})
+  }
+
+  getSliderDataListOptions() {
+    const data = this.props.data;
+    const options = data.map(d => {
+      return <option value={d.year}
+                     key={d.year}
+                     label={d.year % 5 === 0 ? d.year : ''}
+      >{d.year % 5 === 0 ? d.year : ''}</option>
+    });
+    return <datalist id="tickMarks">{options}</datalist>
+  }
+
+  getSliderLabels() {
+    const data = this.props.data;
+    const labels = [];
+    for (let i = data[0].year; i < data[data.length - 1].year; i++) {
+      if (i % 5 === 0) {
+        labels.push(<li key={i}>{i}</li>)
+      }
+    }
+    return <ul>{labels}</ul>
   }
 
   render() {
     return <div className='FarmSizeRelationsChart'>
-      <h2>Anzahl Bauernhöfe im Vergleich 1985 zu 2017</h2>
+      <h2>Anzahl Bauernhöfe im Vergleich zu 1985</h2>
+
+      <div className='chartContainer'/>
+
+      <div className='sliderContainer'>
+        <input className="slider"
+               id='yearSlider'
+               type="range"
+               min={this.state.min}
+               max={this.state.max}
+               value={this.state.activeYear}
+               list='tickMarks'
+               onChange={() => this.setActiveYear()}/>
+        {this.getSliderDataListOptions()}
+        {this.getSliderLabels()}
+      </div>
     </div>
   }
 }
