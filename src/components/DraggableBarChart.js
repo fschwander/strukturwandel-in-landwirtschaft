@@ -13,6 +13,12 @@ export default class DraggableBarChart extends React.Component {
     this.chartHeight = 300;
 
     this.maxScaleValue = Math.round(d3.max(this.props.data, d => d.maxInPct)) * 1.2;
+    this.durations = {
+      anim1: 1000,
+      anim2: 1500,
+      anim3: 2000,
+      animSum: 4500
+    }
   }
 
   /**
@@ -158,8 +164,7 @@ export default class DraggableBarChart extends React.Component {
         .selectAll('.label-top, .label-answer-left')
         .attr('y', d => scaleY(d.value));
 
-      barContainer
-        .selectAll('.label-top')
+      barContainer.selectAll('.label-top')
         .text(d => d3.format('.0%')(d.value));
 
       barContainer.selectAll('.handle-bar')
@@ -210,7 +215,7 @@ export default class DraggableBarChart extends React.Component {
   }
 
   animateExplanationLabel() {
-    const {mainGroup, chartHeight} = this;
+    const {mainGroup, chartHeight, durations} = this;
 
     const scaleY = d3.scaleLinear()
       .domain([0, this.maxScaleValue])
@@ -219,13 +224,13 @@ export default class DraggableBarChart extends React.Component {
     const explanationContainer = mainGroup.selectAll('.explanation-container');
 
     explanationContainer.transition()
-      .duration(1000)
+      .duration(durations.anim1)
       .attr('transform', d => `translate(190, ${scaleY(d.random1) - 46})`)
       .transition()
-      .duration(1500)
+      .duration(durations.anim2)
       .attr('transform', d => `translate(190, ${scaleY(d.random2) - 46})`)
       .transition()
-      .duration(2000)
+      .duration(durations.anim3)
       .attr('transform', d => `translate(190, ${scaleY(d.value) - 46})`)
       .transition()
       .delay(200)
@@ -255,14 +260,13 @@ export default class DraggableBarChart extends React.Component {
       .attr('stroke-width', 1);
 
     arrow.transition()
-      .delay(5000)
+      .delay(durations.animSum)
       .duration(500)
       .attr('opacity', 0)
-
   }
 
   animateBars() {
-    const {mainGroup, chartHeight} = this;
+    const {mainGroup, chartHeight, durations} = this;
 
     const scaleY = d3.scaleLinear()
       .domain([0, this.maxScaleValue])
@@ -270,21 +274,21 @@ export default class DraggableBarChart extends React.Component {
 
     mainGroup.selectAll('.selection')
       .transition()
-      .duration(1000)
+      .duration(durations.anim1)
       .attr('height', d => chartHeight - scaleY(d.random1))
       .attr('y', d => scaleY(d.random1))
       .transition()
-      .duration(1500)
+      .duration(durations.anim2)
       .attr('height', d => chartHeight - scaleY(d.random2))
       .attr('y', d => scaleY(d.random2))
       .transition()
-      .duration(2000)
+      .duration(durations.anim3)
       .attr('height', d => chartHeight - scaleY(d.value))
       .attr('y', d => scaleY(d.value))
 
     mainGroup.selectAll('.label-top')
       .transition()
-      .duration(1000)
+      .duration(durations.anim1)
       .attr('y', d => scaleY(d.random1))
       .on("start", function () {
         d3.active(this)
@@ -295,7 +299,7 @@ export default class DraggableBarChart extends React.Component {
           })
       })
       .transition()
-      .duration(1500)
+      .duration(durations.anim2)
       .attr('y', d => scaleY(d.random2))
       .on("start", function () {
         d3.active(this)
@@ -306,7 +310,7 @@ export default class DraggableBarChart extends React.Component {
           })
       })
       .transition()
-      .duration(2000)
+      .duration(durations.anim3)
       .attr('y', d => scaleY(d.value))
       .on("start", function () {
         d3.active(this)
@@ -320,25 +324,28 @@ export default class DraggableBarChart extends React.Component {
     this.mainGroup.selectAll('.label-answer-left')
       .data(this.props.data)
       .transition()
-      .duration(1000)
+      .attr('opacity', 1)
+      .duration(durations.anim1)
       .attr('y', d => scaleY(d.random1))
       .transition()
-      .duration(1500)
+      .duration(durations.anim2)
       .attr('y', d => scaleY(d.random2))
       .transition()
-      .duration(2000)
+      .duration(durations.anim3)
       .attr('y', d => scaleY(d.value))
+      .attr('opacity', 0)
 
     this.mainGroup.selectAll('.handle-bar')
       .data(this.props.data)
       .transition()
-      .duration(1000)
+      .attr('opacity', 1)
+      .duration(durations.anim1)
       .attr('y', d => scaleY(d.random1))
       .transition()
-      .duration(1500)
+      .duration(durations.anim2)
       .attr('y', d => scaleY(d.random2))
       .transition()
-      .duration(2000)
+      .duration(durations.anim3)
       .attr('y', d => scaleY(d.value))
   }
 
