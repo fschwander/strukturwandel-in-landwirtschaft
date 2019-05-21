@@ -161,14 +161,11 @@ export default class DraggableBarChart extends React.Component {
     function update() {
       barContainer
         .call(brushY.move, d => [d.value, 0].map(scaleY))
-        .selectAll('.label-top, .label-answer-left')
+        .selectAll('.label-top, .label-answer-left, .handle-bar')
         .attr('y', d => scaleY(d.value));
-
       barContainer.selectAll('.label-top')
         .text(d => d3.format('.0%')(d.value));
 
-      barContainer.selectAll('.handle-bar')
-        .attr('y', d => scaleY(d.value));
       drawHandleNorth();
     }
 
@@ -322,7 +319,6 @@ export default class DraggableBarChart extends React.Component {
       });
 
     this.mainGroup.selectAll('.label-answer-left')
-      .data(this.props.data)
       .transition()
       .attr('opacity', 1)
       .duration(durations.anim1)
@@ -336,7 +332,6 @@ export default class DraggableBarChart extends React.Component {
       .attr('opacity', 0)
 
     this.mainGroup.selectAll('.handle-bar')
-      .data(this.props.data)
       .transition()
       .attr('opacity', 1)
       .duration(durations.anim1)
@@ -347,6 +342,12 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .duration(durations.anim3)
       .attr('y', d => scaleY(d.value))
+      .attr('opacity', 0)
+
+    setTimeout(() => {
+      this.mainGroup.selectAll('.handle-bar, .label-answer-left')
+        .classed('on-hover-only', true)
+    }, durations.animSum)
   }
 
   showAnswer() {
