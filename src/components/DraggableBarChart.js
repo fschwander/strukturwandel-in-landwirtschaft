@@ -87,7 +87,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('y', d => scaleY(d.value));
 
     barContainer.append('rect')
-      .attr('class', 'handle-bar on-hover-only')
+      .attr('class', 'handle-bar')
       .attr('width', scaleX.bandwidth() - barsGap)
       .attr('height', 2)
       .attr('y', d => scaleY(d.value))
@@ -114,7 +114,6 @@ export default class DraggableBarChart extends React.Component {
 
     const textLeft = barContainer.append('text')
       .attr('class', 'label-answer-left header-small')
-      .classed('on-hover-only', true)
       .attr('text-anchor', 'end')
       .attr('transform', 'translate(6,-2)')
       .attr('y', d => scaleY(d.value))
@@ -317,6 +316,30 @@ export default class DraggableBarChart extends React.Component {
             return t => that.text(d3.format('.0%')(i(t)));
           })
       });
+
+    this.mainGroup.selectAll('.label-answer-left')
+      .data(this.props.data)
+      .transition()
+      .duration(1000)
+      .attr('y', d => scaleY(d.random1))
+      .transition()
+      .duration(1500)
+      .attr('y', d => scaleY(d.random2))
+      .transition()
+      .duration(2000)
+      .attr('y', d => scaleY(d.value))
+
+    this.mainGroup.selectAll('.handle-bar')
+      .data(this.props.data)
+      .transition()
+      .duration(1000)
+      .attr('y', d => scaleY(d.random1))
+      .transition()
+      .duration(1500)
+      .attr('y', d => scaleY(d.random2))
+      .transition()
+      .duration(2000)
+      .attr('y', d => scaleY(d.value))
   }
 
   showAnswer() {
@@ -357,11 +380,6 @@ export default class DraggableBarChart extends React.Component {
       .text(d => d3.format('.0%')(d.value));
 
     this.mainGroup.selectAll('*').attr('pointer-events', 'none')
-
-    this.mainGroup.selectAll('.explanation-container')
-      .transition()
-      .duration(1000)
-      .attr('opacity', 0)
   }
 
   componentDidMount() {
