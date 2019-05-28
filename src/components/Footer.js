@@ -1,8 +1,6 @@
 import * as React from "react";
-import cowImg from "../res/imgs/cow.svg";
-import wheatImg from "../res/imgs/wheat.svg";
-import farmImg from "../res/imgs/farm.svg";
-import Image from "react-bootstrap/Image";
+import SvgImage from "../res/imgs/SvgImage";
+import {Icons} from "../res/imgs/Icons";
 
 
 export default class Footer extends React.Component {
@@ -16,22 +14,19 @@ export default class Footer extends React.Component {
           <a target='_blank' rel="noopener noreferrer"
              href='https://www.bfs.admin.ch/bfs/de/home/statistiken/kataloge-datenbanken/tabellen.assetdetail.8346709.html'> ></a>
         </p>
-        <div className='horizontal-container'>
-          <div>
-            <Image src={farmImg}/>
-            <p>by Symbolon (abgeändert)</p>
-          </div>
-          <div>
-            <Image src={cowImg} className='cowImg'/>
-            <p>by Dumitriu Robert</p>
-          </div>
-          <div>
-            <Image src={wheatImg}/>
-            <p>by Rose Alice Design</p>
-          </div>
 
+        <div className='horizontal-container centered'>
+            <SvgImage className='farmOrig' src={Icons.farmOriginal} width={60} vbWidth={155} vbHeight={110}/>
+            <SvgImage className='cow' src={Icons.cow} width={40} vbWidth={96} vbHeight={80}/>
+            <SvgImage className='wheat' src={Icons.wheat} width={50} vbWidth={38} vbHeight={80}/>
         </div>
-        <p>All icons from the Noun Project</p>
+
+        <div className='horizontal-container'>
+          <p>Symbolon (modifiziert)</p>
+          <p>Dumitriu Robert</p>
+          <p>Rose Alice Design</p>
+        </div>
+        <p>...alle Icons vom the Noun Project</p>
 
       </div>
     )

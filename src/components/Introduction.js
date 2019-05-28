@@ -37,9 +37,9 @@ export default class Introduction extends React.Component {
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container top'>
-          <SvgImage src={Icons.farmSmall} width={'90px'} fill={'#4ec291'}/>
-          <SvgImage src={Icons.farmMedium} width={'100px'} fill={'#42a3f1'}/>
-          <SvgImage src={Icons.farmLarge} width={'110px'} fill={'#e396d1'}/>
+          <SvgImage className='farmSmall' src={Icons.farmSmall} width={90} vbWidth={155} vbHeight={143} fill={'#4ec291'}/>
+          <SvgImage className='farmMedium' src={Icons.farmMedium} width={100} vbWidth={155} vbHeight={143}fill={'#42a3f1'}/>
+          <SvgImage className='farmLarge' src={Icons.farmLarge} width={110} vbWidth={155} vbHeight={143}fill={'#e396d1'}/>
         </div>
 
         <div className='horizontal-container bottom'>
