@@ -5,11 +5,11 @@ import wheatImg from "../res/imgs/wheat.svg";
 import {Image} from "react-bootstrap";
 import {Icons} from "../res/imgs/Icons";
 
-export default class Header extends React.Component {
+export default class Introduction extends React.Component {
 
   render() {
     return (
-      <div className='Header'>
+      <div className='Introduction'>
         <h1>Strukturwandel in der Landwirtschaft</h1>
 
         <p>Seit Jahren spricht man über einen Rückgang von Bauernhöfen: Für viele Bäuerinnen und Bauern lohnt sich

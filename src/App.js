@@ -1,8 +1,8 @@
 import * as React from "react";
 import DataService from "./services/DataService";
-import FarmSizeRelationsChart from "./components/FarmSizeRelationsChart";
-import FarmsCountChart from "./components/FarmsCountChart";
-import Header from "./components/Header";
+import FarmsCountBarChart from "./components/FarmsCountBarChart";
+import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
+import Introduction from "./components/Introduction";
 import QuizPage from "./components/QuizPage";
 
 class App extends React.Component {
@@ -22,10 +22,10 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Header/>
+        <Introduction/>
         {dataReady ? <QuizPage data={data}/> : null}
-        {dataReady ? <FarmSizeRelationsChart data={data}/> : null}
-        {dataReady ? <FarmsCountChart data={data}/> : null}
+        {dataReady ? <FarmsCountBarChart data={data}/> : null}
+        {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
       </div>
     )
   }

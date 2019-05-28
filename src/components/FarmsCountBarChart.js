@@ -2,7 +2,7 @@ import * as React from "react";
 import * as d3 from "d3";
 import DataService from "../services/DataService";
 
-export default class FarmSizeRelationsChart extends React.Component {
+export default class FarmsCountBarChart extends React.Component {
 
   constructor(params) {
     super(params);
@@ -127,7 +127,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     const formatInPct = d3.format('.0%');
 
-    d3.select('.FarmSizeRelationsChart')
+    d3.select('.FarmsCountBarChart')
       .select('.bars1')
       .selectAll('g')
       .append('text')
@@ -183,7 +183,7 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   render() {
-    return <div className='FarmSizeRelationsChart'>
+    return <div className='FarmsCountBarChart'>
       <h2>Anzahl Bauernhöfe im Vergleich zu 1985</h2>
 
       <div className='chartContainer'/>

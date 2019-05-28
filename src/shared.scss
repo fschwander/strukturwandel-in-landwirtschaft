@@ -1,11 +1,11 @@
 @import "variables";
 
 @import "App";
-@import "components/Header";
-@import "components/FarmsCountChart";
+@import "components/Introduction";
+@import "components/FarmsCountStackedAreaChart";
 @import "components/QuizPage";
 @import "components/DraggableBarCharts";
-@import "components/FarmSizeRelationsChart";
+@import "components/FarmsCountBarChart";
 
 body {
   margin: 0;
