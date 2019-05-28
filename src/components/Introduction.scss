@@ -1,32 +1,5 @@
 .Introduction {
 
-  .horizontal-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin: 1em 0;
-
-    & > * {
-      width: 33%;
-    }
-
-    p {
-      margin-bottom: 0.5em;
-    }
-
-    &.bottom {
-      margin: 0.5em 0;
-      justify-content: space-between;
-
-      & > * {
-        width: 29%;
-      }
-    }
-    &.centered {
-      align-items: center;
-    }
-  }
-
   .capacity-container {
     margin: auto;
 

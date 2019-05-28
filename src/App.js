@@ -4,6 +4,7 @@ import FarmsCountBarChart from "./components/FarmsCountBarChart";
 import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
 import Introduction from "./components/Introduction";
 import QuizPage from "./components/QuizPage";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
 
@@ -26,6 +27,7 @@ class App extends React.Component {
         {dataReady ? <QuizPage data={data}/> : null}
         {dataReady ? <FarmsCountBarChart data={data}/> : null}
         {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
+        <Footer/>
       </div>
     )
   }
