@@ -10,12 +10,6 @@ export default class Introduction extends React.Component {
   render() {
     return (
       <div className='Introduction'>
-        <h1>Strukturwandel in der Landwirtschaft</h1>
-
-        <p>Seit Jahren spricht man über einen Rückgang von Bauernhöfen: Für viele Bäuerinnen und Bauern lohnt sich
-          offenbar der Landwirtschaftsbetrieb nicht mehr und sie geben ihre Höfe auf.</p>
-        <p>Die folgenden Visualisierungen zeigen, wie sich die Schweizer Landwirtschaft in den letzten 35 Jahren
-          tatsächlich verändert hat.</p>
 
         <div>
           <h2>Anbaumöglichkeiten pro Hektar</h2>
