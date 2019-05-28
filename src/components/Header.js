@@ -65,21 +65,21 @@ export default class Header extends React.Component {
               <i className='up'/>
               <div className='line'/>
             </div>
-            <p className='color-medium'>20 bis 50 Kühe</p>
+            <p className='color-medium'>20 bis 60 Kühe</p>
             <div className='arrow'>
               <i className='up'/>
               <div className='line'/>
             </div>
-            <p className='color-large'>50 Kühe und mehr</p>
+            <p className='color-large'>60 Kühe und mehr</p>
           </div>
 
           <div className='horizontal-container'>
             <div className='relations-container'>
-              <p>In Kleinbetrieben können demnach bis zu 20 Kühe pro Hof gehalten werden.</p>
+              <p>Kleinbetriebe haben wenig Platz. In mittleren Betrieben werden zwischen 20 Kühen...</p>
               {this.printIcons('cowImg', cowImg, 20)}
             </div>
             <div className='relations-container'>
-              <p>Auf Grossbetrieben können Herden von 60 Tieren oder mehr gehalten.</p>
+              <p>...und 60 Kühen gehalten. Auf Grossbetrieben gibt es Herden von 60 Tieren und mehr.</p>
               {this.printIcons('cowImg', cowImg, 60)}
             </div>
           </div>
