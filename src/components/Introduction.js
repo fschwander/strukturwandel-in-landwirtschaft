@@ -67,7 +67,7 @@ export default class Introduction extends React.Component {
             <p className='color-large'>60 Kühe und mehr</p>
           </div>
 
-          <div className='horizontal-container'>
+          <div className='horizontal-container larger'>
             <div className='relations-container'>
               <p>Kleinbetriebe haben wenig Platz. In mittleren Betrieben werden zwischen 20 Kühen...</p>
               {this.printIcons('cowImg', cowImg, 20)}
@@ -92,7 +92,7 @@ export default class Introduction extends React.Component {
             <p className='color-large'>180 t und mehr</p>
           </div>
 
-          <div className='horizontal-container'>
+          <div className='horizontal-container larger'>
             <div className='relations-container'>
               <p>Kleinbetriebe reichen um bis zu 60 Tonnen Weizen anzubauen.</p>
               {this.printIcons('wheatImg', wheatImg, 60)}

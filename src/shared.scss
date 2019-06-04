@@ -21,14 +21,14 @@ body {
 
   h2 {
     font-size: 2em;
-    margin: 2.5em 0 1em;
+    margin: 1em 0;
   }
 
   h3 {
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 2em 0 1em;
+    margin: 1em 0 1em;
   }
 
   .color-small {
@@ -49,6 +49,10 @@ body {
 
     & > * {
       width: 33%;
+    }
+
+    &.larger > * {
+      width: 40%;
     }
 
     p {
