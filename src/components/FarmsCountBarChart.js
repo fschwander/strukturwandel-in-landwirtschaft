@@ -6,10 +6,14 @@ export default class FarmsCountBarChart extends React.Component {
 
   constructor(params) {
     super(params);
+
+    let maxYear = d3.max(this.props.data, d => d.year);
+    let minYear = d3.min(this.props.data, d => d.year);
+
     this.state = {
-      activeYear: 2017,
-      min: 1985,
-      max: 2017,
+      activeYear: maxYear,
+      min: minYear,
+      max: maxYear
     };
     this.margin = {top: 20, right: 60, bottom: 60, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
@@ -56,7 +60,6 @@ export default class FarmsCountBarChart extends React.Component {
 
     const mainGroup = this.svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    this.mainGroup = mainGroup;
 
     const barGroup = mainGroup.append("g")
       .attr('class', 'bars-container')
