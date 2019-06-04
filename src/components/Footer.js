@@ -21,16 +21,20 @@ export default class Footer extends React.Component {
         </p>
 
         <div className='horizontal-container centered'>
-            <SvgImage className='farmOrig' src={Icons.farmOriginal} width={60} vbWidth={155} vbHeight={110}/>
+            <div>
+              <SvgImage className='farmOrig' src={Icons.farmOriginal} width={65} vbWidth={155} vbHeight={110}/>
+              <p>Symbolon (modifiziert)</p>
+            </div>
+          <div>
             <SvgImage className='cow' src={Icons.cow} width={40} vbWidth={96} vbHeight={80}/>
-            <SvgImage className='wheat' src={Icons.wheat} width={50} vbWidth={38} vbHeight={80}/>
+            <p>Dumitriu Robert</p>
+          </div>
+          <div>
+            <SvgImage className='wheat' src={Icons.wheat} width={45} vbWidth={38} vbHeight={80}/>
+            <p>Rose Alice Design</p>
+          </div>
         </div>
 
-        <div className='horizontal-container'>
-          <p>Symbolon (modifiziert)</p>
-          <p>Dumitriu Robert</p>
-          <p>Rose Alice Design</p>
-        </div>
         <p>...alle Icons vom the Noun Project&nbsp;
         <a target='_blank' rel="noopener noreferrer"
            href='https://thenounproject.com/'>></a>

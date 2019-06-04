@@ -80,6 +80,10 @@ export default class FarmsCountBarChart extends React.Component {
       .attr("fill", d => colorScale(d));
 
     barGroup.append('text')
+      .attr('class', 'header-small')
+      .attr('x', scaleWidth.bandwidth() / 2)
+      .attr('y', height - 6)
+      .attr('text-anchor', 'middle')
       .text((d, i) => {
         switch (i) {
           case 0:
@@ -89,11 +93,7 @@ export default class FarmsCountBarChart extends React.Component {
           default:
             return '?';
         }
-      })
-      .attr('class', 'header-small')
-      .attr('x', scaleWidth.bandwidth() / 2)
-      .attr('y', height - 6)
-      .attr('text-anchor', 'middle');
+      });
 
     mainGroup.append('g')
       .attr('class', 'x-axis')
@@ -187,9 +187,11 @@ export default class FarmsCountBarChart extends React.Component {
 
   render() {
     return <div className='FarmsCountBarChart'>
-      <h2>Anzahl Bauernhöfe im Vergleich zu 1985</h2>
+      <h2>Anzahl Bauernhöfe im Vergleich</h2>
 
-      <div className='chartContainer'/>
+      <div className='chartContainer'>
+        <h3 className='inline-label'>{this.state.min} vs. {this.state.activeYear}</h3>
+      </div>
 
       <div className='sliderContainer'>
         <input className="slider"
