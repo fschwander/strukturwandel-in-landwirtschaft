@@ -61,7 +61,7 @@ export default class Introduction extends React.Component {
         <div className='capacity-container'>
           <AnimatedRelations name='farmSmall' animObjName='cow'
                              animObj={Icons.cow}
-                             animObjCount={100} animObjW={40} animObjH={27}
+                             animObjCount={20} animObjW={40} animObjH={27}
                              staticObj={Icons.farmSmall}
                              staticObjW={109} staticObjH={66} staticObjFill={'#4ec291'}/>
         </div>
