@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as d3 from "d3";
+import {Icons} from "../res/imgs/Icons";
 
 
 export default class AnimatedRelations extends React.Component {
@@ -30,6 +31,21 @@ export default class AnimatedRelations extends React.Component {
       .attr('height', innerHeight)
       .attr('class', 'main-group')
       .attr('transform', `translate(${padding.left},${padding.top})`);
+
+    const backgroundGroup = this.mainGroup.append('g')
+      .attr('class', 'background-group')
+    for (let i = 0; i < 30; i++) {
+      backgroundGroup.append('path')
+        .attr('d', Icons.grass)
+        .attr('fill', '#c2eedc')
+        .attr('transform', `translate(${this.getRandomInRange(0, innerWidth)},${this.getRandomInRange(0, innerHeight)})`)
+    }
+    backgroundGroup.append('rect')
+      .attr('width', 150)
+      .attr('height', 140)
+      .attr('fill', 'white')
+      .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH / 2})`);
+
 
     this.mainGroup.append('g')
       .attr('class', 'static-obj-group')
