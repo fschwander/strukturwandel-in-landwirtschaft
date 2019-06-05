@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/2019/FS/6iCbb/landwirtschaft/build/precache-manifest.0808bafeab138118d749f3eabd9ca4b4.js"
+  "/2019/FS/6iCbb/landwirtschaft/build/precache-manifest.56c4f01799e7435800e4994862ee1afd.js"
 );
 
 workbox.clientsClaim();
