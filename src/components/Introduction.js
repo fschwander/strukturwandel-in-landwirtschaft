@@ -8,6 +8,14 @@ import AnimatedRelations from "./AnimatedRelations";
 
 export default class Introduction extends React.Component {
 
+  constructor(params) {
+    super(params);
+
+    this.state = {
+      elementsCount: 20
+    }
+  }
+
   render() {
     return (
       <div className='Introduction'>
@@ -61,12 +69,24 @@ export default class Introduction extends React.Component {
         <div className='capacity-container'>
           <AnimatedRelations name='farmSmall' animObjName='cow'
                              animObj={Icons.cow}
-                             animObjCount={20} animObjW={40} animObjH={27}
+                             animObjCount={this.state.elementsCount} animObjW={40} animObjH={27}
                              staticObj={Icons.farmSmall}
                              staticObjW={109} staticObjH={66} staticObjFill={'#4ec291'}/>
+          <input id='elements-slider' type='range'
+                 min={1} max={100}
+                 value={this.state.elementsCount}
+                 onChange={() => this.changeElementsCount()}/>
         </div>
       </div>
     )
+  }
+
+  changeElementsCount() {
+    const slider = document.getElementById('elements-slider');
+    let newValue = parseInt(slider.value)
+    console.log(document.getElementById('elements-slider').value);
+    this.setState({elementsCount: newValue})
+
   }
 
   printIcons(name, type, count) {

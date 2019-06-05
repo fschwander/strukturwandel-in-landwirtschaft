@@ -95,7 +95,7 @@ export default class AnimatedRelations extends React.Component {
     this.prepareData()
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.drawAnimatedSvg();
   }
 
