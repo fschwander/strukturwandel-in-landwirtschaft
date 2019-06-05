@@ -18,6 +18,6 @@ Erstellt mit React.
 ## Status
 | Version               | Status |
 | ---                   |:---:   |
-| 0.1                   | --     |
+| 1.0                   | --     |
 | First prototype ready | yes    |
-| Final version ready   | no     |
+| Final version ready   | yes    |
