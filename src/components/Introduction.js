@@ -15,7 +15,7 @@ export default class Introduction extends React.Component {
         <div>
           <h2>Anbaumöglichkeiten pro Hektar</h2>
 
-          <div className='horizontal-container'>
+          <div className='horizontal-container relations-container'>
             <div>
               {this.printIcons('cow', cowImg, 2)}
               <p>In der Schweiz reicht ein Hektar Land zur Ernährung von rund 2 Kühen.</p>
@@ -32,9 +32,15 @@ export default class Introduction extends React.Component {
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container top'>
-          <SvgImage className='farmSmall' src={Icons.farmSmall} width={90} vbWidth={155} vbHeight={143} fill={'#4ec291'}/>
-          <SvgImage className='farmMedium' src={Icons.farmMedium} width={100} vbWidth={155} vbHeight={143}fill={'#42a3f1'}/>
-          <SvgImage className='farmLarge' src={Icons.farmLarge} width={110} vbWidth={155} vbHeight={143}fill={'#e396d1'}/>
+          <SvgImage className='farmSmall'
+                    src={Icons.farmSmall} width={90} vbWidth={155} vbHeight={143}
+                    fill={'#4ec291'}/>
+          <SvgImage className='farmMedium'
+                    src={Icons.farmMedium} width={100} vbWidth={155} vbHeight={143}
+                    fill={'#42a3f1'}/>
+          <SvgImage className='farmLarge'
+                    src={Icons.farmLarge} width={110} vbWidth={155} vbHeight={143}
+                    fill={'#e396d1'}/>
         </div>
 
         <div className='horizontal-container bottom'>
@@ -53,59 +59,11 @@ export default class Introduction extends React.Component {
         </div>
 
         <div className='capacity-container'>
-
-          <AnimatedRelations name='farmSmall' animObjName='cow' animObjCount={20} animObj={Icons.cow} staticObj={Icons.farmSmall}/>
-
-
-          {/*<div className='horizontal-container centered'>*/}
-          {/*  <p className='color-small'>0 bis 20 Kühe</p>*/}
-          {/*  <div className='arrow'>*/}
-          {/*    <i className='up'/>*/}
-          {/*    <div className='line'/>*/}
-          {/*  </div>*/}
-          {/*  <p className='color-medium'>20 bis 60 Kühe</p>*/}
-          {/*  <div className='arrow'>*/}
-          {/*    <i className='up'/>*/}
-          {/*    <div className='line'/>*/}
-          {/*  </div>*/}
-          {/*  <p className='color-large'>60 Kühe und mehr</p>*/}
-          {/*</div>*/}
-
-          {/*<div className='horizontal-container larger'>*/}
-          {/*  <div className='relations-container'>*/}
-          {/*    <p>Kleinbetriebe haben wenig Platz. In mittleren Betrieben werden zwischen 20 Kühen...</p>*/}
-          {/*    {this.printIcons('cowImg', cowImg, 20)}*/}
-          {/*  </div>*/}
-          {/*  <div className='relations-container'>*/}
-          {/*    <p>...und 60 Kühen gehalten. Auf Grossbetrieben gibt es Herden von 60 Tieren und mehr.</p>*/}
-          {/*    {this.printIcons('cowImg', cowImg, 60)}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
-          {/*<div className='horizontal-container centered'>*/}
-          {/*  <p className='color-small'>0 bis 60 t</p>*/}
-          {/*  <div className='arrow'>*/}
-          {/*    <i className='up'/>*/}
-          {/*    <div className='line'/>*/}
-          {/*  </div>*/}
-          {/*  <p className='color-medium'>60 bis 180 t</p>*/}
-          {/*  <div className='arrow'>*/}
-          {/*    <i className='up'/>*/}
-          {/*    <div className='line'/>*/}
-          {/*  </div>*/}
-          {/*  <p className='color-large'>180 t und mehr</p>*/}
-          {/*</div>*/}
-
-          {/*<div className='horizontal-container larger'>*/}
-          {/*  <div className='relations-container'>*/}
-          {/*    <p>Kleinbetriebe reichen um bis zu 60 Tonnen Weizen anzubauen.</p>*/}
-          {/*    {this.printIcons('wheatImg', wheatImg, 60)}*/}
-          {/*  </div>*/}
-          {/*  <div className='relations-container'>*/}
-          {/*    <p>Grossbetriebe ermöglichen den Anbau von über 180 Tonnen.</p>*/}
-          {/*    {this.printIcons('wheatImg', wheatImg, 180)}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          <AnimatedRelations name='farmSmall' animObjName='cow'
+                             animObj={Icons.cow}
+                             animObjCount={100} animObjW={40} animObjH={27}
+                             staticObj={Icons.farmSmall}
+                             staticObjW={109} staticObjH={66} staticObjFill={'#4ec291'}/>
         </div>
       </div>
     )

@@ -1,19 +1,18 @@
 .Introduction {
 
-  .capacity-container {
-    margin: auto;
-
-    .relations-container {
-      margin: 0.5em 0;
-      .cowImg {
-        img {
-          height: 20px;
-        }
+  .relations-container {
+    .cow {
+      img {
+        padding: 0.2em;
+        margin: 0.5em;
+        height: 50px;
       }
-      .wheatImg {
-        img {
-          height: 26px;
-        }
+    }
+
+    .wheat {
+      img {
+        margin: 0.5em 0.3em;
+        height: 50px;
       }
     }
   }
@@ -25,6 +24,7 @@
     flex-direction: column;
     margin: 0.5em 0;
     transform: translateY(5px);
+
     i {
       border: solid black;
       border-width: 0 2px 2px 0;

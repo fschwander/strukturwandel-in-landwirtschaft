@@ -26,11 +26,11 @@ export default class Footer extends React.Component {
               <p>Symbolon (modifiziert)</p>
             </div>
           <div>
-            <SvgImage className='cow' src={Icons.cow} width={40} vbWidth={96} vbHeight={80}/>
+            <SvgImage className='cow' src={Icons.cow} width={40} vbWidth={40} vbHeight={27}/>
             <p>Dumitriu Robert</p>
           </div>
           <div>
-            <SvgImage className='wheat' src={Icons.wheat} width={45} vbWidth={38} vbHeight={80}/>
+            <SvgImage className='wheat' src={Icons.wheat} width={45} vbWidth={10} vbHeight={28}/>
             <p>Rose Alice Design</p>
           </div>
         </div>

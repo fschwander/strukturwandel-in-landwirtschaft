@@ -7,13 +7,18 @@ export default class AnimatedRelations extends React.Component {
   constructor(params) {
     super(params);
 
+    const {animObjW, animObjH} = this.props;
+
     this.width = 700;
-    this.height = 400;
+    this.height = 300;
+    this.padding = {top: 0, right: animObjW, bottom: animObjH, left: animObjW};
+    this.innerWidth = this.width - this.padding.left - this.padding.right;
+    this.innerHeight = this.height - this.padding.top - this.padding.bottom;
   }
 
   drawAnimatedSvg() {
-    const {width, height} = this;
-    const {name, animObj, animObjCount, animObjName, staticObj} = this.props;
+    const {width, height, padding, innerWidth, innerHeight} = this;
+    const {name, animObj, staticObj, staticObjW, staticObjH, staticObjFill} = this.props;
 
     const svg = d3.select('.AnimatedRelations')
       .append('svg')
@@ -21,8 +26,15 @@ export default class AnimatedRelations extends React.Component {
       .attr('height', height);
 
     const mainGroup = svg.append('g')
-      .attr('width', width)
-      .attr('height', height);
+      .attr('width', innerWidth)
+      .attr('height', innerHeight)
+      .attr('transform', `translate(${padding.left},${padding.top})`);
+
+    mainGroup.append('path')
+      .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH / 2})`)
+      .attr('class', name)
+      .attr('d', staticObj)
+      .attr('fill', staticObjFill);
 
     const animObjGroup = mainGroup.append('g')
       .selectAll('g')
@@ -30,33 +42,24 @@ export default class AnimatedRelations extends React.Component {
       .enter();
 
     animObjGroup.append('g')
-        .attr('transform', d => `translate(${d.x},${d.y})`)
-        .attr('class', d => 'animIcon ' + d.class)
-        .append('g')
-        .append('path')
-        .attr('transform-origin', 'center')
-      .attr('opacity', 0)
-        .transition()
-        // .delay(Math.random() * 2000)
-      .attr('opacity', 1)
-        .attr('d', animObj)
-
-    mainGroup.append('path')
-      .attr('transform', `translate(${width / 2 - 50},${height / 2 - 30})`)
-      .attr('class', name)
-      .attr('d', staticObj)
+      .attr('transform', d => `translate(${d.x},${d.y})`)
+      .attr('class', d => 'animIcon ' + d.class)
+      .append('g')
+      .append('path')
+      .attr('transform-origin', 'center')
+      .attr('d', animObj)
   }
 
   prepareData() {
-    const {width, height} = this;
-    const {name, animObj, animObjCount, animObjName, staticObj} = this.props;
+    const {innerWidth, innerHeight} = this;
+    const {animObjCount, animObjName} = this.props;
 
     let data = [];
 
-    for(let i = 0; i < animObjCount; i++) {
+    for (let i = 0; i < animObjCount; i++) {
       data.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
+        x: Math.random() * innerWidth,
+        y: Math.random() * innerHeight,
         class: animObjName + Math.floor(Math.random() * 3)
       })
     }
