@@ -12,7 +12,7 @@ export default class Introduction extends React.Component {
     super(params);
 
     this.state = {
-      elementsCount: 25,
+      elementsCount: 20,
       sizeState: 0,
       staticObj: Icons.farmSmall,
       staticObjFill:'#4ec291'
@@ -83,13 +83,13 @@ export default class Introduction extends React.Component {
 
           <div className='slider-container'>
             <input id='elements-slider' type='range'
-                   min={1} max={50}
+                   min={1} max={100}
                    value={elementsCount}
                    list='tickMarks'
                    onChange={() => this.changeElementsCount()}/>
             <datalist id='tickMarks'>
-              <option value='10'/>
-              <option value='30'/>
+              <option value='20'/>
+              <option value='60'/>
             </datalist>
             <div className='tick-labels'>
               <p>10 ha</p>
@@ -118,13 +118,13 @@ export default class Introduction extends React.Component {
 
   changeElementsCount() {
     const newValue = document.getElementById('elements-slider').valueAsNumber;
-    if (newValue <= 10) {
+    if (newValue <= 20) {
       this.setState({
         sizeState: 0,
         staticObj: Icons.farmSmall,
         staticObjFill:'#4ec291'
       })
-    } else if (newValue > 10 && newValue <= 30) {
+    } else if (newValue > 20 && newValue < 60) {
       this.setState({
         sizeState: 1,
         staticObj: Icons.farmMedium,
