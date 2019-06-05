@@ -171,7 +171,7 @@ export default class FarmsCountBarChart extends React.Component {
                      label={d.year % 5 === 0 ? d.year : ''}
       >{d.year % 5 === 0 ? d.year : ''}</option>
     });
-    return <datalist id="tickMarks">{options}</datalist>
+    return <datalist id="yearMarks">{options}</datalist>
   }
 
   getSliderLabels() {
@@ -200,7 +200,7 @@ export default class FarmsCountBarChart extends React.Component {
                min={this.state.min}
                max={this.state.max}
                value={this.state.activeYear}
-               list='tickMarks'
+               list='yearMarks'
                onChange={() => this.setActiveYear()}/>
         {this.getSliderDataListOptions()}
         {this.getSliderLabels()}
