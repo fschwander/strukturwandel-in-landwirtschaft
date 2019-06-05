@@ -18,7 +18,7 @@ export default class AnimatedRelations extends React.Component {
 
   drawStaticSvg() {
     const {width, height, padding, innerWidth, innerHeight} = this;
-    const {name, staticObj, staticObjW, staticObjH, staticObjFill} = this.props;
+    const {staticObjW, staticObjH} = this.props;
 
     const svg = d3.select('.AnimatedRelations')
       .append('svg')
@@ -31,14 +31,24 @@ export default class AnimatedRelations extends React.Component {
       .attr('class', 'main-group')
       .attr('transform', `translate(${padding.left},${padding.top})`);
 
-    this.mainGroup.append('path')
-      .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH / 2})`)
-      .attr('class', name)
-      .attr('d', staticObj)
-      .attr('fill', staticObjFill);
+    this.mainGroup.append('g')
+      .attr('class', 'static-obj-group')
+      .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH / 2})`);
 
     this.mainGroup.append('g')
       .attr('class', 'anim-obj-group')
+  }
+
+  drawStaticObjects() {
+    const {name, staticObj, staticObjFill} = this.props;
+
+    const staticGroup = this.mainGroup.selectAll('.static-obj-group')
+    staticGroup.selectAll('path').remove()
+    staticGroup
+      .append('path')
+      .attr('class', name)
+      .attr('d', staticObj)
+      .attr('fill', staticObjFill);
   }
 
   drawDynamicObjects() {
@@ -113,6 +123,7 @@ export default class AnimatedRelations extends React.Component {
   componentDidUpdate() {
     this.prepareData();
     this.drawDynamicObjects();
+    this.drawStaticObjects();
   }
 
   render() {

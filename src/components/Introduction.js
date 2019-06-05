@@ -12,7 +12,10 @@ export default class Introduction extends React.Component {
     super(params);
 
     this.state = {
-      elementsCount: 20
+      elementsCount: 8,
+      sizeState: 0,
+      staticObj: Icons.farmSmall,
+      staticObjFill:'#4ec291'
     }
   }
 
@@ -70,22 +73,23 @@ export default class Introduction extends React.Component {
           <AnimatedRelations name='farmSmall' animObjName='cow'
                              animObj={Icons.cow}
                              animObjCount={this.state.elementsCount} animObjW={40} animObjH={27}
-                             staticObj={Icons.farmSmall}
-                             staticObjW={109} staticObjH={66} staticObjFill={'#4ec291'}/>
+                             staticObj={this.state.staticObj}
+                             staticObjW={109} staticObjH={66} staticObjFill={this.state.staticObjFill}/>
 
-                             <div className='slider-container'>
+          <div className='slider-container'>
             <input id='elements-slider' type='range'
-                   min={1} max={100}
+                   min={1} max={50}
                    value={this.state.elementsCount}
                    list='tickMarks'
                    onChange={() => this.changeElementsCount()}/>
             <datalist id='tickMarks'>
-              <option value='20'/>
-              <option value='60'/>
+              <option value='10'/>
+              <option value='30'/>
             </datalist>
             <div className='tick-labels'>
               <p>10 ha</p>
               <p>30 ha</p>
+              <p>50 ha+</p>
             </div>
           </div>
 
@@ -93,7 +97,7 @@ export default class Introduction extends React.Component {
             <SvgImage className='farmSmall'
                       src={Icons.farmSmall} width={120} vbWidth={155} vbHeight={143}
                       fill={'#4ec291'}/>
-            <p>Auf einem kleinen Hof werden zwischen 0 und 20 Kühen gehalten. Der gleiche Platz mit Acherkland würde
+            <p>Auf einem kleinen Hof werden zwischen 0 und 20 Kühen gehalten. Der gleiche Platz mit Ackerland würde
               auch reichen, um 60 Tonnen Weizen anzubauen.</p>
           </div>
 
@@ -104,6 +108,26 @@ export default class Introduction extends React.Component {
 
   changeElementsCount() {
     const newValue = document.getElementById('elements-slider').valueAsNumber;
+    console.log(newValue, this.state);
+    if (newValue <= 10) {
+      this.setState({
+        sizeState: 0,
+        staticObj: Icons.farmSmall,
+        staticObjFill:'#4ec291'
+      })
+    } else if (newValue > 10 && newValue <= 30) {
+      this.setState({
+        sizeState: 1,
+        staticObj: Icons.farmMedium,
+        staticObjFill:'#42a3f1'
+      })
+    } else {
+      this.setState({
+        sizeState: 2,
+        staticObj: Icons.farmLarge,
+        staticObjFill:'#e396d1'
+      })
+    }
     this.setState({elementsCount: newValue})
 
   }

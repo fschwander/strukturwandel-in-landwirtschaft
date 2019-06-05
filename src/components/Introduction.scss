@@ -33,14 +33,19 @@
         flex-direction: row;
         p {
           transform: translateX(-50%);
-        }
-        p:first-child {
-          position: absolute;
-          left: 20%;
-        }
-        p:nth-child(2) {
-          position: absolute;
-          left: 60%;
+          width: 100%;
+          &:first-child {
+            position: absolute;
+            left: 20%;
+          }
+          &:nth-child(2) {
+            position: absolute;
+            left: 60%;
+          }
+          &:nth-child(3) {
+            position: absolute;
+            left: 100%;
+          }
         }
 
       }
