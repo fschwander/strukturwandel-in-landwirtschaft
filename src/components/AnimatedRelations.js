@@ -31,14 +31,14 @@ export default class AnimatedRelations extends React.Component {
       .attr('class', 'main-group')
       .attr('transform', `translate(${padding.left},${padding.top})`);
 
-    this.mainGroup.append('g')
-      .attr('class', 'anim-obj-group')
-
     this.mainGroup.append('path')
       .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH / 2})`)
       .attr('class', name)
       .attr('d', staticObj)
       .attr('fill', staticObjFill);
+
+    this.mainGroup.append('g')
+      .attr('class', 'anim-obj-group')
   }
 
   drawDynamicObjects() {

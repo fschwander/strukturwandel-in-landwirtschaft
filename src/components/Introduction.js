@@ -72,10 +72,31 @@ export default class Introduction extends React.Component {
                              animObjCount={this.state.elementsCount} animObjW={40} animObjH={27}
                              staticObj={Icons.farmSmall}
                              staticObjW={109} staticObjH={66} staticObjFill={'#4ec291'}/>
-          <input id='elements-slider' type='range'
-                 min={1} max={100}
-                 value={this.state.elementsCount}
-                 onChange={() => this.changeElementsCount()}/>
+
+                             <div className='slider-container'>
+            <input id='elements-slider' type='range'
+                   min={1} max={100}
+                   value={this.state.elementsCount}
+                   list='tickMarks'
+                   onChange={() => this.changeElementsCount()}/>
+            <datalist id='tickMarks'>
+              <option value='20'/>
+              <option value='60'/>
+            </datalist>
+            <div className='tick-labels'>
+              <p>10 ha</p>
+              <p>30 ha</p>
+            </div>
+          </div>
+
+          <div className='horizontal-container img-label'>
+            <SvgImage className='farmSmall'
+                      src={Icons.farmSmall} width={120} vbWidth={155} vbHeight={143}
+                      fill={'#4ec291'}/>
+            <p>Auf einem kleinen Hof werden zwischen 0 und 20 Kühen gehalten. Der gleiche Platz mit Acherkland würde
+              auch reichen, um 60 Tonnen Weizen anzubauen.</p>
+          </div>
+
         </div>
       </div>
     )

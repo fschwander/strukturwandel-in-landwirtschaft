@@ -18,8 +18,32 @@
   }
 
   .capacity-container {
-    input {
-      width: 70%;
+
+    .slider-container {
+      position: relative;
+      width: 80%;
+      margin: auto;
+
+      input {
+        width: 100%;
+      }
+
+      .tick-labels {
+        display: flex;
+        flex-direction: row;
+        p {
+          transform: translateX(-50%);
+        }
+        p:first-child {
+          position: absolute;
+          left: 20%;
+        }
+        p:nth-child(2) {
+          position: absolute;
+          left: 60%;
+        }
+
+      }
     }
   }
 }
