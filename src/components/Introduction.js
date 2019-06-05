@@ -12,7 +12,7 @@ export default class Introduction extends React.Component {
     super(params);
 
     this.state = {
-      elementsCount: 8,
+      elementsCount: 10,
       sizeState: 0,
       staticObj: Icons.farmSmall,
       staticObjFill:'#4ec291'
@@ -20,6 +20,7 @@ export default class Introduction extends React.Component {
   }
 
   render() {
+    const {elementsCount, sizeState, staticObj, staticObjFill} = this.state;
     return (
       <div className='Introduction'>
 
@@ -72,14 +73,18 @@ export default class Introduction extends React.Component {
         <div className='capacity-container'>
           <AnimatedRelations name='farmSmall' animObjName='cow'
                              animObj={Icons.cow}
-                             animObjCount={this.state.elementsCount} animObjW={40} animObjH={27}
-                             staticObj={this.state.staticObj}
-                             staticObjW={109} staticObjH={66} staticObjFill={this.state.staticObjFill}/>
+                             animObjCount={elementsCount} animObjW={40} animObjH={27}
+                             staticObj={staticObj}
+                             staticObjW={109} staticObjH={66} staticObjFill={staticObjFill}/>
+
+          <div className='label-container'>
+            <p>{this.getExplanationText(sizeState)}</p>
+          </div>
 
           <div className='slider-container'>
             <input id='elements-slider' type='range'
                    min={1} max={50}
-                   value={this.state.elementsCount}
+                   value={elementsCount}
                    list='tickMarks'
                    onChange={() => this.changeElementsCount()}/>
             <datalist id='tickMarks'>
@@ -93,17 +98,22 @@ export default class Introduction extends React.Component {
             </div>
           </div>
 
-          <div className='horizontal-container img-label'>
-            <SvgImage className='farmSmall'
-                      src={Icons.farmSmall} width={120} vbWidth={155} vbHeight={143}
-                      fill={'#4ec291'}/>
-            <p>Auf einem kleinen Hof werden zwischen 0 und 20 Kühen gehalten. Der gleiche Platz mit Ackerland würde
-              auch reichen, um 60 Tonnen Weizen anzubauen.</p>
-          </div>
-
         </div>
       </div>
     )
+  }
+
+  getExplanationText(sizeState) {
+    switch (sizeState) {
+      case 0:
+        return 'Auf einem kleinen Hof werden zwischen 0 und 20 Kühen gehalten. Der gleiche Platz mit Ackerland würde auch reichen, um 60 Tonnen Weizen anzubauen.';
+      case 1:
+        return 'Bei einer mittleren Bauernhofsgrösse können bereits beachtliche Erträge erzielt werden: 10 bis 30 ha reichen aus, um entweder bis zu 60 Kühe zu halten oder 180 Tonnen Weizen zu ernten.';
+      case 2:
+        return 'Schweizer Grossbetriebe sind zwar nicht mit Grossbetrieben wie etwa aus den USA messbar. Doch auch in der Schweiz übertreffen die Grossbetriebe die Anbaumöglichkeiten von kleinen Höfen um das x-Fache.'
+      default:
+        return '?'
+    }
   }
 
   changeElementsCount() {

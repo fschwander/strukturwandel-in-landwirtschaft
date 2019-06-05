@@ -18,11 +18,13 @@
   }
 
   .capacity-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .slider-container {
       position: relative;
       width: 80%;
-      margin: auto;
 
       input {
         width: 100%;
@@ -31,6 +33,7 @@
       .tick-labels {
         display: flex;
         flex-direction: row;
+        height: 2em;
         p {
           transform: translateX(-50%);
           width: 100%;
@@ -47,8 +50,12 @@
             left: 100%;
           }
         }
-
       }
+    }
+
+    .label-container {
+      width: 80%;
+      height: 6em;
     }
   }
 }
