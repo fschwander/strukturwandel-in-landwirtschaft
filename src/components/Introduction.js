@@ -4,6 +4,7 @@ import cowImg from "../res/imgs/cow.svg";
 import wheatImg from "../res/imgs/wheat.svg";
 import {Image} from "react-bootstrap";
 import {Icons} from "../res/imgs/Icons";
+import AnimatedRelations from "./AnimatedRelations";
 
 export default class Introduction extends React.Component {
 
@@ -53,55 +54,58 @@ export default class Introduction extends React.Component {
 
         <div className='capacity-container'>
 
-          <div className='horizontal-container centered'>
-            <p className='color-small'>0 bis 20 Kühe</p>
-            <div className='arrow'>
-              <i className='up'/>
-              <div className='line'/>
-            </div>
-            <p className='color-medium'>20 bis 60 Kühe</p>
-            <div className='arrow'>
-              <i className='up'/>
-              <div className='line'/>
-            </div>
-            <p className='color-large'>60 Kühe und mehr</p>
-          </div>
+          <AnimatedRelations name='farmSmall' animObjName='cow' animObjCount={20} animObj={Icons.cow} staticObj={Icons.farmSmall}/>
 
-          <div className='horizontal-container larger'>
-            <div className='relations-container'>
-              <p>Kleinbetriebe haben wenig Platz. In mittleren Betrieben werden zwischen 20 Kühen...</p>
-              {this.printIcons('cowImg', cowImg, 20)}
-            </div>
-            <div className='relations-container'>
-              <p>...und 60 Kühen gehalten. Auf Grossbetrieben gibt es Herden von 60 Tieren und mehr.</p>
-              {this.printIcons('cowImg', cowImg, 60)}
-            </div>
-          </div>
 
-          <div className='horizontal-container centered'>
-            <p className='color-small'>0 bis 60 t</p>
-            <div className='arrow'>
-              <i className='up'/>
-              <div className='line'/>
-            </div>
-            <p className='color-medium'>60 bis 180 t</p>
-            <div className='arrow'>
-              <i className='up'/>
-              <div className='line'/>
-            </div>
-            <p className='color-large'>180 t und mehr</p>
-          </div>
+          {/*<div className='horizontal-container centered'>*/}
+          {/*  <p className='color-small'>0 bis 20 Kühe</p>*/}
+          {/*  <div className='arrow'>*/}
+          {/*    <i className='up'/>*/}
+          {/*    <div className='line'/>*/}
+          {/*  </div>*/}
+          {/*  <p className='color-medium'>20 bis 60 Kühe</p>*/}
+          {/*  <div className='arrow'>*/}
+          {/*    <i className='up'/>*/}
+          {/*    <div className='line'/>*/}
+          {/*  </div>*/}
+          {/*  <p className='color-large'>60 Kühe und mehr</p>*/}
+          {/*</div>*/}
 
-          <div className='horizontal-container larger'>
-            <div className='relations-container'>
-              <p>Kleinbetriebe reichen um bis zu 60 Tonnen Weizen anzubauen.</p>
-              {this.printIcons('wheatImg', wheatImg, 60)}
-            </div>
-            <div className='relations-container'>
-              <p>Grossbetriebe ermöglichen den Anbau von über 180 Tonnen.</p>
-              {this.printIcons('wheatImg', wheatImg, 180)}
-            </div>
-          </div>
+          {/*<div className='horizontal-container larger'>*/}
+          {/*  <div className='relations-container'>*/}
+          {/*    <p>Kleinbetriebe haben wenig Platz. In mittleren Betrieben werden zwischen 20 Kühen...</p>*/}
+          {/*    {this.printIcons('cowImg', cowImg, 20)}*/}
+          {/*  </div>*/}
+          {/*  <div className='relations-container'>*/}
+          {/*    <p>...und 60 Kühen gehalten. Auf Grossbetrieben gibt es Herden von 60 Tieren und mehr.</p>*/}
+          {/*    {this.printIcons('cowImg', cowImg, 60)}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+
+          {/*<div className='horizontal-container centered'>*/}
+          {/*  <p className='color-small'>0 bis 60 t</p>*/}
+          {/*  <div className='arrow'>*/}
+          {/*    <i className='up'/>*/}
+          {/*    <div className='line'/>*/}
+          {/*  </div>*/}
+          {/*  <p className='color-medium'>60 bis 180 t</p>*/}
+          {/*  <div className='arrow'>*/}
+          {/*    <i className='up'/>*/}
+          {/*    <div className='line'/>*/}
+          {/*  </div>*/}
+          {/*  <p className='color-large'>180 t und mehr</p>*/}
+          {/*</div>*/}
+
+          {/*<div className='horizontal-container larger'>*/}
+          {/*  <div className='relations-container'>*/}
+          {/*    <p>Kleinbetriebe reichen um bis zu 60 Tonnen Weizen anzubauen.</p>*/}
+          {/*    {this.printIcons('wheatImg', wheatImg, 60)}*/}
+          {/*  </div>*/}
+          {/*  <div className='relations-container'>*/}
+          {/*    <p>Grossbetriebe ermöglichen den Anbau von über 180 Tonnen.</p>*/}
+          {/*    {this.printIcons('wheatImg', wheatImg, 180)}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       </div>
     )

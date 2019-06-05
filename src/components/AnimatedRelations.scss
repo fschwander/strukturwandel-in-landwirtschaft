@@ -1,0 +1,80 @@
+.AnimatedRelations {
+
+  .farmSmall {
+    fill: deepskyblue;
+  }
+
+  .animIcon {
+    transform-origin: center;
+
+    &.cow0 {
+      g {
+        animation: move 5s infinite linear;
+        path {
+          animation: walk 0.9s infinite linear;
+        }
+      }
+    }
+
+    &.cow1 {
+      g {
+        animation: move 8s infinite linear;
+        path {
+          animation: walk 1.1s infinite linear;
+        }
+      }
+    }
+
+    &.cow2 {
+      g {
+        animation: move 11s infinite linear;
+        path {
+          animation: walk 1.3s infinite linear;
+        }
+      }
+    }
+  }
+
+
+
+
+  @keyframes walk {
+    0% {
+      transform: rotate(-6deg);
+    }
+    20% {
+      transform: rotate(-6deg);
+    }
+    30% {
+      transform: rotate(6deg);
+    }
+    70% {
+      transform: rotate(6deg);
+    }
+    80% {
+      transform: rotate(-6deg);
+    }
+    100% {
+      transform: rotate(-6deg);
+    }
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateX(-4em) scaleX(1);
+    }
+    45% {
+      transform: translateX(3em) scaleX(1);
+    }
+    50% {
+      transform: translateX(4em) scaleX(-1);
+    }
+
+    95% {
+      transform: translateX(-3em) scaleX(-1);
+    }
+    100% {
+      transform: translateX(-4em) scaleX(1);
+    }
+  }
+}

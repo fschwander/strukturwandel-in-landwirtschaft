@@ -25,7 +25,9 @@ export default class SvgImage extends React.Component {
         xmlns="http://www.w3.org/2000/svg"
         className={`icon ${this.props.className || ""}`}
         xmlnsXlink="http://www.w3.org/1999/xlink">
-        <g fill={fill}>{this.props.src}</g>
+        <g fill={fill}>{this.props.src}>
+          <path d={this.props.src} fill="" fillRule="nonzero"/>
+        </g>
       </svg>)
 
   }
