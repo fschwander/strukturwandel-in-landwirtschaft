@@ -118,7 +118,6 @@ export default class Introduction extends React.Component {
 
   changeElementsCount() {
     const newValue = document.getElementById('elements-slider').valueAsNumber;
-    console.log(newValue, this.state);
     if (newValue <= 10) {
       this.setState({
         sizeState: 0,

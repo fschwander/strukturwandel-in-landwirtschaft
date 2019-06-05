@@ -32,6 +32,11 @@ body {
     margin: 1em 0 1em;
   }
 
+  p {
+    max-width: 700px;
+    margin: auto auto 1em;
+  }
+
   .color-small {
     color: $clr_small;
   }
@@ -49,7 +54,7 @@ body {
     margin: 1em 0;
 
     & > * {
-      width: 33%;
+      width: 32%;
     }
 
     &.larger > * {
@@ -67,10 +72,6 @@ body {
     &.bottom {
       margin: 0.5em 0;
       justify-content: space-between;
-
-      & > * {
-        width: 29%;
-      }
     }
     &.centered {
       align-items: center;
