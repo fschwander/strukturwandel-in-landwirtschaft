@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "e44ff585e333fe4e5f9a",
+    "revision": "b521b7bb1aa2b5c9a64d",
     "url": "/2019/FS/6iCbb/landwirtschaft/build/static/css/main.134583b5.chunk.css"
   },
   {
-    "revision": "e44ff585e333fe4e5f9a",
-    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/main.e44ff585.chunk.js"
+    "revision": "b521b7bb1aa2b5c9a64d",
+    "url": "/2019/FS/6iCbb/landwirtschaft/build/static/js/main.b521b7bb.chunk.js"
   },
   {
     "revision": "613b1000b81bc90dd1f0",
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/2019/FS/6iCbb/landwirtschaft/build/static/media/wheat.2e463940.svg"
   },
   {
-    "revision": "f54a7120c5f06a82acf525ef0c47a47d",
+    "revision": "9030140e9196942a4dd340093c40e2e0",
     "url": "/2019/FS/6iCbb/landwirtschaft/build/index.html"
   }
 ];
