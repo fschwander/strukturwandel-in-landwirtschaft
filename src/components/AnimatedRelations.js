@@ -24,24 +24,48 @@ export default class AnimatedRelations extends React.Component {
       .attr('width', width)
       .attr('height', height);
 
-    const animObjGroup = mainGroup.append('g');
+    const animObjGroup = mainGroup.append('g')
+      .selectAll('g')
+      .data(this.state.data)
+      .enter();
 
-    for (let i = 0; i < animObjCount; i++) {
-      animObjGroup.append('g')
-        .attr('transform', `translate(${Math.random() * width},${Math.random() * height}) scale(0.5)`)
-        .attr('class', 'animIcon ' + animObjName + Math.floor(Math.random() * 3))
+    animObjGroup.append('g')
+        .attr('transform', d => `translate(${d.x},${d.y})`)
+        .attr('class', d => 'animIcon ' + d.class)
         .append('g')
         .append('path')
         .attr('transform-origin', 'center')
+      .attr('opacity', 0)
         .transition()
-        .delay(Math.random() * 4000)
+        // .delay(Math.random() * 2000)
+      .attr('opacity', 1)
         .attr('d', animObj)
-    }
 
     mainGroup.append('path')
       .attr('transform', `translate(${width / 2 - 50},${height / 2 - 30})`)
       .attr('class', name)
       .attr('d', staticObj)
+  }
+
+  prepareData() {
+    const {width, height} = this;
+    const {name, animObj, animObjCount, animObjName, staticObj} = this.props;
+
+    let data = [];
+
+    for(let i = 0; i < animObjCount; i++) {
+      data.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        class: animObjName + Math.floor(Math.random() * 3)
+      })
+    }
+    console.log(data);
+    this.setState({data: data})
+  }
+
+  componentWillMount() {
+    this.prepareData()
   }
 
   componentDidUpdate() {
