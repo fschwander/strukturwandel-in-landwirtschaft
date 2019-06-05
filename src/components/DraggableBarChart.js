@@ -183,31 +183,28 @@ export default class DraggableBarChart extends React.Component {
       .domain([0, this.maxScaleValue])
       .rangeRound([chartHeight, 0]);
 
-    const containerWidth = 250;
-    const containerHight = 58;
-
     const explanationContainer = this.mainGroup.append('g')
       .attr('class', 'explanation-container')
       .attr('opacity', 1)
       .data(this.props.data)
-      .attr('transform', d => `translate(190, ${scaleY(d.value) - 46})`)
+      .attr('transform', d => `translate(140, ${scaleY(d.value) - 92})`)
       .attr('dx', chartWidth / 2)
       .attr('pointer-events', 'none')
 
     explanationContainer.append('rect')
-      .attr('width', containerWidth)
-      .attr('height', containerHight)
-      .attr('fill', '#222');
+      .attr('width', 334)
+      .attr('height', 60)
+      .attr('fill', '#ebebe5');
 
     const textContainer = explanationContainer.append('text')
       .attr('x', 8)
       .attr('y', 24)
-      .attr('fill', '#fff');
+      .attr('fill', 'black');
     textContainer.append('tspan')
-      .text('Schätze, wie sich die Anzahl ');
+      .text('Schätze, wie sich die Anzahl der Bauernhöfe');
     textContainer.append('tspan')
-      .text('der Bauernhöfe verändert hat!')
-      .attr('dy', 20)
+      .text('relativ zum Jahr 1985 verändert hat!')
+      .attr('dy', 26)
       .attr('x', 8);
   }
 
@@ -222,38 +219,31 @@ export default class DraggableBarChart extends React.Component {
 
     explanationContainer.transition()
       .duration(durations.anim1)
-      .attr('transform', d => `translate(190, ${scaleY(d.random1) - 46})`)
+      .attr('transform', d => `translate(140, ${scaleY(d.random1) - 92})`)
       .transition()
       .duration(durations.anim2)
-      .attr('transform', d => `translate(190, ${scaleY(d.random2) - 46})`)
+      .attr('transform', d => `translate(140, ${scaleY(d.random2) - 92})`)
       .transition()
       .duration(durations.anim3)
-      .attr('transform', d => `translate(190, ${scaleY(d.value) - 46})`)
+      .attr('transform', d => `translate(140, ${scaleY(d.value) - 92})`)
       .transition()
       .delay(200)
       .duration(1500)
-      .attr('transform', 'translate(-38,-16)');
+      .attr('transform', 'translate(-38,-10)');
 
     explanationContainer.select('rect')
       .transition()
-      .attr('fill', '#222')
+      .attr('fill', '#ebebe5')
       .transition()
-      .delay(4000)
-      .duration(1000)
+      .delay(durations.animSum)
+      .duration(1500)
       .attr('fill', 'transparent');
-    explanationContainer.select('text')
-      .transition()
-      .attr('fill', '#fff')
-      .transition()
-      .delay(4000)
-      .duration(1000)
-      .attr('fill', 'black')
 
     const arrow = explanationContainer.append('polygon')
       .attr('points', '0,15 20,30 18,20 45,22 43,15 45,8 18,10 20,0')
-      .attr('transform', 'translate(-50,32) rotate(-10)')
+      .attr('transform', 'translate(-27,86) rotate(-60)')
       .attr('fill', 'white')
-      .attr('stroke', 'black')
+      .attr('stroke', '#222')
       .attr('stroke-width', 1);
 
     arrow.transition()
@@ -319,6 +309,7 @@ export default class DraggableBarChart extends React.Component {
       });
 
     this.mainGroup.selectAll('.label-answer-left')
+      .classed('on-hover-only', false)
       .transition()
       .attr('opacity', 1)
       .duration(durations.anim1)
@@ -332,6 +323,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('opacity', 0)
 
     this.mainGroup.selectAll('.handle-bar')
+      .classed('on-hover-only', false)
       .transition()
       .attr('opacity', 1)
       .duration(durations.anim1)

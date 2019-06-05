@@ -1,11 +1,13 @@
 @import "variables";
 
 @import "App";
-@import "components/Header";
-@import "components/FarmsCountChart";
+@import "components/Introduction";
+@import "components/FarmsCountStackedAreaChart";
 @import "components/QuizPage";
 @import "components/DraggableBarCharts";
-@import "components/FarmSizeRelationsChart";
+@import "components/FarmsCountBarChart";
+@import "components/Footer";
+@import "components/AnimatedRelations";
 
 body {
   margin: 0;
@@ -20,14 +22,19 @@ body {
 
   h2 {
     font-size: 2em;
-    margin: 2.5em 0 1em;
+    margin: 2em 0 1em;
   }
 
   h3 {
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 2em 0 1em;
+    margin: 1em 0 1em;
+  }
+
+  p {
+    max-width: 700px;
+    margin: auto auto 1em;
   }
 
   .color-small {
@@ -38,6 +45,37 @@ body {
   }
   .color-large {
     color: $clr_large;
+  }
+
+  .horizontal-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 1em 0;
+
+    & > * {
+      width: 32%;
+    }
+
+    &.larger > * {
+      width: 40%;
+    }
+
+    p {
+      margin-bottom: 0.5em;
+    }
+
+    &.top {
+      align-items: baseline;
+    }
+
+    &.bottom {
+      margin: 0.5em 0;
+      justify-content: space-between;
+    }
+    &.centered {
+      align-items: center;
+    }
   }
 
   svg {

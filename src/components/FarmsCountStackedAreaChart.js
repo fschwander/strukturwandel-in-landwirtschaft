@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as d3 from 'd3';
 import DataService from "../services/DataService";
 
-export default class FarmsCountChart extends React.Component {
+export default class FarmsCountStackedAreaChart extends React.Component {
 
   constructor(params) {
     super(params);
@@ -48,7 +48,7 @@ export default class FarmsCountChart extends React.Component {
       .y0(d => yScale(d[0]))
       .y1(d => yScale(d[1]));
 
-    const svg = d3.select('.FarmsCountChart')
+    const svg = d3.select('.FarmsCountStackedAreaChart')
       .append('svg')
       .attr('width', width)
       .attr('height', height);
@@ -155,8 +155,8 @@ export default class FarmsCountChart extends React.Component {
 
   render() {
     return (
-      <div className='FarmsCountChart'>
-        <h2>Veränderungsverlauf aller Bauernhofgrössen</h2>
+      <div className='FarmsCountStackedAreaChart'>
+        <h2>Gesamthafte Bauernhofsentwicklung</h2>
       </div>
     )
   }

@@ -1,0 +1,53 @@
+.Footer {
+  width: 90%;
+
+  .icon {
+    &.cow {
+      animation: move 14s infinite linear;
+      g {
+        animation: walk 1s infinite linear;
+        transform-origin: center;
+      }
+    }
+  }
+}
+
+@keyframes walk {
+  0% {
+    transform: rotate(-6deg);
+  }
+  20% {
+    transform: rotate(-6deg);
+  }
+  30% {
+    transform: rotate(6deg);
+  }
+  70% {
+    transform: rotate(6deg);
+  }
+  80% {
+    transform: rotate(-6deg);
+  }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(-4em) scaleX(1);
+  }
+  45% {
+    transform: translateX(3em) scaleX(1);
+  }
+  50% {
+    transform: translateX(4em) scaleX(-1);
+  }
+
+  95% {
+    transform: translateX(-3em) scaleX(-1);
+  }
+  100% {
+    transform: translateX(-4em) scaleX(1);
+  }
+}

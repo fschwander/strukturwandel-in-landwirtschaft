@@ -2,14 +2,18 @@ import * as React from "react";
 import * as d3 from "d3";
 import DataService from "../services/DataService";
 
-export default class FarmSizeRelationsChart extends React.Component {
+export default class FarmsCountBarChart extends React.Component {
 
   constructor(params) {
     super(params);
+
+    let maxYear = d3.max(this.props.data, d => d.year);
+    let minYear = d3.min(this.props.data, d => d.year);
+
     this.state = {
-      activeYear: 2017,
-      min: 1985,
-      max: 2017,
+      activeYear: maxYear,
+      min: minYear,
+      max: maxYear
     };
     this.margin = {top: 20, right: 60, bottom: 60, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
@@ -56,7 +60,6 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     const mainGroup = this.svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    this.mainGroup = mainGroup;
 
     const barGroup = mainGroup.append("g")
       .attr('class', 'bars-container')
@@ -77,6 +80,10 @@ export default class FarmSizeRelationsChart extends React.Component {
       .attr("fill", d => colorScale(d));
 
     barGroup.append('text')
+      .attr('class', 'header-small')
+      .attr('x', scaleWidth.bandwidth() / 2)
+      .attr('y', height - 6)
+      .attr('text-anchor', 'middle')
       .text((d, i) => {
         switch (i) {
           case 0:
@@ -86,11 +93,7 @@ export default class FarmSizeRelationsChart extends React.Component {
           default:
             return '?';
         }
-      })
-      .attr('class', 'header-small')
-      .attr('x', scaleWidth.bandwidth() / 2)
-      .attr('y', height - 6)
-      .attr('text-anchor', 'middle');
+      });
 
     mainGroup.append('g')
       .attr('class', 'x-axis')
@@ -127,7 +130,7 @@ export default class FarmSizeRelationsChart extends React.Component {
 
     const formatInPct = d3.format('.0%');
 
-    d3.select('.FarmSizeRelationsChart')
+    d3.select('.FarmsCountBarChart')
       .select('.bars1')
       .selectAll('g')
       .append('text')
@@ -168,7 +171,7 @@ export default class FarmSizeRelationsChart extends React.Component {
                      label={d.year % 5 === 0 ? d.year : ''}
       >{d.year % 5 === 0 ? d.year : ''}</option>
     });
-    return <datalist id="tickMarks">{options}</datalist>
+    return <datalist id="yearMarks">{options}</datalist>
   }
 
   getSliderLabels() {
@@ -183,10 +186,12 @@ export default class FarmSizeRelationsChart extends React.Component {
   }
 
   render() {
-    return <div className='FarmSizeRelationsChart'>
-      <h2>Anzahl Bauernhöfe im Vergleich zu 1985</h2>
+    return <div className='FarmsCountBarChart'>
+      <h2>Anzahl Bauernhöfe im Vergleich</h2>
 
-      <div className='chartContainer'/>
+      <div className='chartContainer'>
+        <h3 className='inline-label'>{this.state.min} vs. {this.state.activeYear}</h3>
+      </div>
 
       <div className='sliderContainer'>
         <input className="slider"
@@ -195,7 +200,7 @@ export default class FarmSizeRelationsChart extends React.Component {
                min={this.state.min}
                max={this.state.max}
                value={this.state.activeYear}
-               list='tickMarks'
+               list='yearMarks'
                onChange={() => this.setActiveYear()}/>
         {this.getSliderDataListOptions()}
         {this.getSliderLabels()}

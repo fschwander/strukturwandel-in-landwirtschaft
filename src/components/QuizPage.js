@@ -29,7 +29,7 @@ export default class QuizPage extends React.Component {
     const offsetTop = this.componentRef.current.offsetTop;
     const elementHeight = this.componentRef.current.offsetHeight;
 
-    if (scrollTop > offsetTop - 400 && scrollTop < offsetTop + elementHeight / 2) {
+    if (scrollTop > offsetTop - 200 && scrollTop < offsetTop + elementHeight / 2) {
       if(this.state.isAnimating !== true) {
         this.setState({isAnimating: true});
       }

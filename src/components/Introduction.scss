@@ -1,0 +1,61 @@
+.Introduction {
+
+  .relations-container {
+    .cow {
+      img {
+        padding: 0.2em;
+        margin: 0.5em;
+        height: 50px;
+      }
+    }
+
+    .wheat {
+      img {
+        margin: 0.5em 0.3em;
+        height: 50px;
+      }
+    }
+  }
+
+  .capacity-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .slider-container {
+      position: relative;
+      width: 80%;
+
+      input {
+        width: 100%;
+      }
+
+      .tick-labels {
+        display: flex;
+        flex-direction: row;
+        height: 2em;
+        p {
+          transform: translateX(-50%);
+          width: 100%;
+          &:first-child {
+            position: absolute;
+            left: 20%;
+          }
+          &:nth-child(2) {
+            position: absolute;
+            left: 60%;
+          }
+          &:nth-child(3) {
+            position: absolute;
+            left: 100%;
+          }
+        }
+      }
+    }
+
+    .label-container {
+      width: 80%;
+      height: 6em;
+    }
+  }
+}
