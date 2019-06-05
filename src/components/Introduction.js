@@ -12,7 +12,7 @@ export default class Introduction extends React.Component {
     super(params);
 
     this.state = {
-      elementsCount: 10,
+      elementsCount: 25,
       sizeState: 0,
       staticObj: Icons.farmSmall,
       staticObjFill:'#4ec291'
