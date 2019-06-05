@@ -82,9 +82,7 @@ export default class Introduction extends React.Component {
   }
 
   changeElementsCount() {
-    const slider = document.getElementById('elements-slider');
-    let newValue = parseInt(slider.value)
-    console.log(document.getElementById('elements-slider').value);
+    const newValue = document.getElementById('elements-slider').valueAsNumber;
     this.setState({elementsCount: newValue})
 
   }
