@@ -28,13 +28,14 @@ export default class QuizPage extends React.Component {
     const scrollTop = e.target.scrollingElement.scrollTop;
     const offsetTop = this.componentRef.current.offsetTop;
     const elementHeight = this.componentRef.current.offsetHeight;
+    const animStartPos = offsetTop + elementHeight * 0.75 - window.innerHeight;
 
-    if (scrollTop > offsetTop - 200 && scrollTop < offsetTop + elementHeight / 2) {
-      if(this.state.isAnimating !== true) {
+    if (scrollTop > animStartPos && scrollTop < offsetTop + elementHeight / 2) {
+      if (this.state.isAnimating !== true) {
         this.setState({isAnimating: true});
       }
     } else {
-      if(this.state.isAnimating !== false) {
+      if (this.state.isAnimating !== false) {
         this.setState({isAnimating: false});
       }
     }
@@ -48,7 +49,7 @@ export default class QuizPage extends React.Component {
       <div className='QuizPage' ref={this.componentRef} onScroll={this.handleScroll}>
         <h2>Quiz</h2>
 
-        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleinere, mittlere und grosse Bauernhöfe gibt
+        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleine, mittlere und grosse Bauernhöfe gibt
           es heute?</p>
 
         <div>
@@ -56,16 +57,18 @@ export default class QuizPage extends React.Component {
                              isAnimating={this.state.isAnimating}
                              data={data}/>
 
-          <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
-            Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
-            Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
-            Mehrfache
-            gestiegen.</p>
-        </div>
+          <div className='toggle-container'>
+            <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
+              Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
+              Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
+              Mehrfache
+              gestiegen.</p>
+            <Button className={!showAnswer ? 'show fade-in' : 'hide'}
+                    onClick={() => this.setState({showAnswer: true})}
+                    variant="dark">Antwort zeigen</Button>
+          </div>
 
-        <Button className={!showAnswer ? 'show fade-in' : 'hide'}
-                onClick={() => this.setState({showAnswer: true})}
-                variant="dark">Antwort zeigen</Button>
+        </div>
       </div>
     )
   }
