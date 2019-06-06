@@ -4,7 +4,7 @@
   flex-direction: column;
   background-color: #dadad2;
   padding: 3em 3em 5em 3em;
-  margin: 10em 0;
+  margin: 10em 0 6em;
   align-self: center;
   min-width: 840px;
 
@@ -22,7 +22,7 @@
     min-height: 100px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    //align-items: center;
 
     button {
       height: 46px;
