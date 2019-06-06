@@ -9,6 +9,7 @@ export default class AnimatedRelations extends React.Component {
     super(params);
 
     const {animObjW, animObjH} = this.props;
+    this.data = [];
 
     this.width = 800;
     this.height = 300;
@@ -110,18 +111,17 @@ export default class AnimatedRelations extends React.Component {
     const {innerWidth, innerHeight} = this;
     const {animObjName, animObjCount} = this.props;
 
-    let data = [];
+    this.data = [];
 
     for (let i = 0; i < animObjCount; i++) {
-      data.push({
+      this.data.push({
         x: Math.random() * innerWidth,
         y: Math.random() * innerHeight,
-        fill: '#' + 111 * (i % 10),
+        fill: '#' + 111 * this.getRandomInRange(1, 11),
         class: animObjName,
         randomDuration: this.getRandomInRange(3000, 6000)
       })
     }
-    this.data = data;
   }
 
   getRandomInRange(start, end) {

@@ -29,12 +29,12 @@ export default class QuizPage extends React.Component {
     const offsetTop = this.componentRef.current.offsetTop;
     const elementHeight = this.componentRef.current.offsetHeight;
 
-    if (scrollTop > offsetTop - 200 && scrollTop < offsetTop + elementHeight / 2) {
-      if(this.state.isAnimating !== true) {
+    if (scrollTop > offsetTop - 300 && scrollTop < offsetTop + elementHeight / 2) {
+      if (this.state.isAnimating !== true) {
         this.setState({isAnimating: true});
       }
     } else {
-      if(this.state.isAnimating !== false) {
+      if (this.state.isAnimating !== false) {
         this.setState({isAnimating: false});
       }
     }
@@ -56,16 +56,18 @@ export default class QuizPage extends React.Component {
                              isAnimating={this.state.isAnimating}
                              data={data}/>
 
-          <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
-            Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
-            Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
-            Mehrfache
-            gestiegen.</p>
-        </div>
+          <div className='toggle-container'>
+            <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
+              Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
+              Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
+              Mehrfache
+              gestiegen.</p>
+            <Button className={!showAnswer ? 'show fade-in' : 'hide'}
+                    onClick={() => this.setState({showAnswer: true})}
+                    variant="dark">Antwort zeigen</Button>
+          </div>
 
-        <Button className={!showAnswer ? 'show fade-in' : 'hide'}
-                onClick={() => this.setState({showAnswer: true})}
-                variant="dark">Antwort zeigen</Button>
+        </div>
       </div>
     )
   }
