@@ -15,7 +15,7 @@ export default class Footer extends React.Component {
              href='https://www.bfs.admin.ch/bfs/de/home/statistiken/kataloge-datenbanken/tabellen.assetdetail.8346709.html'>></a>
         </p>
         <p>
-          Daten zu Anbaumöglichkeiten: Daniel Erdin, Leiter Agristat (Statistischer Verband des Schweizerischen Bauernverbands)&nbsp;
+          Daten zu Anbaumöglichkeiten: Schweizer Bauernverband / Daniel Erdin, Leiter Agristat&nbsp;
           <a target='_blank' rel='noreferrer noopener'
           href='https://www.sbv-usp.ch/de/services/agristat/'>></a>
         </p>
