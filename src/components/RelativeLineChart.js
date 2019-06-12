@@ -11,14 +11,6 @@ export default class RelativeLineChart extends React.Component {
   constructor(params) {
     super(params);
 
-    let maxYear = d3.max(this.props.data, d => d.year);
-    let minYear = d3.min(this.props.data, d => d.year);
-
-    this.state = {
-      activeYear: maxYear,
-      min: minYear,
-      max: maxYear
-    };
     this.margin = {top: 20, right: 60, bottom: 60, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
     this.height = 400 - this.margin.top - this.margin.bottom;
@@ -35,50 +27,53 @@ export default class RelativeLineChart extends React.Component {
 
     const {width, height, margin} = this;
 
+    console.log(this.props.data);
+
+
     const data = [
       {
         name: "USA",
         values: [
-          {date: "2000", price: "100"},
-          {date: "2001", price: "110"},
-          {date: "2002", price: "145"},
-          {date: "2003", price: "241"},
-          {date: "2004", price: "101"},
-          {date: "2005", price: "90"},
-          {date: "2006", price: "10"},
-          {date: "2007", price: "35"},
-          {date: "2008", price: "21"},
-          {date: "2009", price: "201"}
+          {year: "2000", price: "100"},
+          {year: "2001", price: "110"},
+          {year: "2002", price: "145"},
+          {year: "2003", price: "241"},
+          {year: "2004", price: "101"},
+          {year: "2005", price: "90"},
+          {year: "2006", price: "10"},
+          {year: "2007", price: "35"},
+          {year: "2008", price: "21"},
+          {year: "2009", price: "201"}
         ]
       },
       {
         name: "Canada",
         values: [
-          {date: "2000", price: "200"},
-          {date: "2001", price: "120"},
-          {date: "2002", price: "33"},
-          {date: "2003", price: "21"},
-          {date: "2004", price: "51"},
-          {date: "2005", price: "190"},
-          {date: "2006", price: "120"},
-          {date: "2007", price: "85"},
-          {date: "2008", price: "221"},
-          {date: "2009", price: "101"}
+          {year: "2000", price: "200"},
+          {year: "2001", price: "120"},
+          {year: "2002", price: "33"},
+          {year: "2003", price: "21"},
+          {year: "2004", price: "51"},
+          {year: "2005", price: "190"},
+          {year: "2006", price: "120"},
+          {year: "2007", price: "85"},
+          {year: "2008", price: "221"},
+          {year: "2009", price: "101"}
         ]
       },
       {
         name: "Maxico",
         values: [
-          {date: "2000", price: "50"},
-          {date: "2001", price: "10"},
-          {date: "2002", price: "5"},
-          {date: "2003", price: "71"},
-          {date: "2004", price: "20"},
-          {date: "2005", price: "9"},
-          {date: "2006", price: "220"},
-          {date: "2007", price: "235"},
-          {date: "2008", price: "61"},
-          {date: "2009", price: "10"}
+          {year: "2000", price: "50"},
+          {year: "2001", price: "10"},
+          {year: "2002", price: "5"},
+          {year: "2003", price: "71"},
+          {year: "2004", price: "20"},
+          {year: "2005", price: "9"},
+          {year: "2006", price: "220"},
+          {year: "2007", price: "235"},
+          {year: "2008", price: "61"},
+          {year: "2009", price: "10"}
         ]
       }
     ];
@@ -88,14 +83,17 @@ export default class RelativeLineChart extends React.Component {
 
     data.forEach(function (d) {
       d.values.forEach(function (d) {
-        d.date = parseDate(d.date);
+        d.year = parseDate(d.year);
         d.price = +d.price;
       });
     });
 
+    console.log(data);
+
+
     /* Scale */
     const xScale = d3.scaleTime()
-      .domain(d3.extent(data[0].values, d => d.date))
+      .domain(d3.extent(data[0].values, d => d.year))
       .range([0, width]);
 
     const yScale = d3.scaleLinear()
@@ -103,7 +101,7 @@ export default class RelativeLineChart extends React.Component {
       .range([height, 0]);
 
     const line = d3.line()
-      .x(d => xScale(d.date))
+      .x(d => xScale(d.year))
       .y(d => yScale(d.price));
 
     const xAxis = g => g
@@ -131,7 +129,8 @@ export default class RelativeLineChart extends React.Component {
     mainGroup.append("g").call(yAxis);
 
     mainGroup.selectAll('.line-group')
-      .data(data).enter()
+      .data(data)
+      .enter()
       .append('g')
       .attr('class', 'line-group')
       .append("path")
