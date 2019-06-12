@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import dataSource from "../res/data/farm-sizes.csv";
+import farmsData from "../res/data/farm-sizes.csv";
 
 export default class DataService {
 
@@ -159,7 +159,7 @@ export default class DataService {
   }
 
   static getFullData() {
-    return d3.csv(dataSource,
+    return d3.csv(farmsData,
       d => ({
         year: +d.year,
         total_farms_count: +d.total_farms_count,
@@ -174,6 +174,30 @@ export default class DataService {
         area_size_30_50: +d.area_size_30_50,
         area_size_50_n: +d.area_size_50_n
       }))
+  }
+
+  static getNormalizedLineChartData(data) {
+    const parseDate = d3.timeParse("%Y");
+
+    const newData = [
+      {name: "area_size_0_1", values: []},
+      {name: "area_size_1_3", values: []},
+      {name: "area_size_3_5", values: []},
+      {name: "area_size_5_10", values: []},
+      {name: "area_size_10_20", values: []},
+      {name: "area_size_20_30", values: []},
+      {name: "area_size_30_50", values: []},
+      {name: "area_size_50_n", values: []}
+    ];
+
+    for (let i = 0; i < newData.length; i++) {
+
+      for (let j = 0; j < data.length; j++) {
+        let name = newData[i].name;
+        newData[i].values.push({year: parseDate(data[j].year), ratio: data[j][name]})
+      }
+    }
+    return newData
   }
 
   static getLabelMap() {
