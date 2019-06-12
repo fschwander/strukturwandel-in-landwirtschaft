@@ -1,8 +1,11 @@
 import * as React from "react";
 import * as d3 from "d3";
 // import DataService from "../services/DataService";
-import data from '../res/data/data.csv'
+// import data from '../res/data/farm-sizes.csv'
 
+/**
+ * Based on https://codepen.io/zakariachowdhury/pen/JEmjwq
+ */
 export default class RelativeLineChart extends React.Component {
 
   constructor(params) {
@@ -32,60 +35,112 @@ export default class RelativeLineChart extends React.Component {
 
     const {width, height, margin} = this;
 
-    d3.csv(data, d3.autoType).then(data => {
+    const data = [
+      {
+        name: "USA",
+        values: [
+          {date: "2000", price: "100"},
+          {date: "2001", price: "110"},
+          {date: "2002", price: "145"},
+          {date: "2003", price: "241"},
+          {date: "2004", price: "101"},
+          {date: "2005", price: "90"},
+          {date: "2006", price: "10"},
+          {date: "2007", price: "35"},
+          {date: "2008", price: "21"},
+          {date: "2009", price: "201"}
+        ]
+      },
+      {
+        name: "Canada",
+        values: [
+          {date: "2000", price: "200"},
+          {date: "2001", price: "120"},
+          {date: "2002", price: "33"},
+          {date: "2003", price: "21"},
+          {date: "2004", price: "51"},
+          {date: "2005", price: "190"},
+          {date: "2006", price: "120"},
+          {date: "2007", price: "85"},
+          {date: "2008", price: "221"},
+          {date: "2009", price: "101"}
+        ]
+      },
+      {
+        name: "Maxico",
+        values: [
+          {date: "2000", price: "50"},
+          {date: "2001", price: "10"},
+          {date: "2002", price: "5"},
+          {date: "2003", price: "71"},
+          {date: "2004", price: "20"},
+          {date: "2005", price: "9"},
+          {date: "2006", price: "220"},
+          {date: "2007", price: "235"},
+          {date: "2008", price: "61"},
+          {date: "2009", price: "10"}
+        ]
+      }
+    ];
 
-      const x = d3.scaleTime()
-        .domain(d3.extent(data, d => d.date))
-        .range([margin.left, width - margin.right])
+    /* Format Data */
+    const parseDate = d3.timeParse("%Y");
 
-      const y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.value)])
-        .nice()
-        .range([height - margin.bottom, margin.top])
+    data.forEach(function (d) {
+      d.values.forEach(function (d) {
+        d.date = parseDate(d.date);
+        d.price = +d.price;
+      });
+    });
 
-      const line = d3.line()
-        .defined(d => !isNaN(d.value))
-        .x(d => x(d.date))
-        .y(d => y(d.value))
+    /* Scale */
+    const xScale = d3.scaleTime()
+      .domain(d3.extent(data[0].values, d => d.date))
+      .range([0, width]);
 
-      const xAxis = g => g
-        .attr("transform", `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data[0].values, d => d.price)])
+      .range([height, 0]);
 
-      const yAxis = g => g
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(y))
-        .call(g => g.select(".domain").remove())
-        .call(g => g.select(".tick:last-of-type text").clone()
-          .attr("x", 3)
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-          .text(data.y))
+    const line = d3.line()
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.price));
 
-      this.svg = d3.select('.RelativeLineChart')
-        .select(".chartContainer").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom);
+    const xAxis = g => g
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(xScale).ticks(width / 80).tickSizeOuter(0))
 
-      const mainGroup = this.svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    const yAxis = g => g
+      .call(d3.axisLeft(yScale))
+      .call(g => g.select(".domain").remove())
+      .call(g => g.select(".tick:last-of-type text").clone()
+        .attr("x", 3)
+        .attr("text-anchor", "start")
+        .attr("font-weight", "bold")
+        .text(data.y))
 
-      mainGroup.append("g").call(xAxis);
-      mainGroup.append("g").call(yAxis);
+    this.svg = d3.select('.RelativeLineChart')
+      .select(".chartContainer").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
 
-      mainGroup.append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("d", (d) => {
-          return line(d)
-        });
-    })
+    const mainGroup = this.svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    mainGroup.append("g").call(xAxis);
+    mainGroup.append("g").call(yAxis);
 
+    mainGroup.selectAll('.line-group')
+      .data(data).enter()
+      .append('g')
+      .attr('class', 'line-group')
+      .append("path")
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2)
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("d", d => line(d.values));
   }
 
   componentDidMount() {
