@@ -29,11 +29,11 @@ export default class RelativeLineChart extends React.Component {
 
     /* Scale */
     const xScale = d3.scaleTime()
-      .domain(d3.extent(data[4].values, d => d.year))
+      .domain(d3.extent(data[7].values, d => d.year))
       .range([0, width]);
 
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(data[4].values, d => d.ratio)])
+      .domain([-1, 3.5])
       .range([height, 0]);
 
     const line = d3.line()

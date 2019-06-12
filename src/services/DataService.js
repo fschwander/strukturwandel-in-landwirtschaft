@@ -194,7 +194,8 @@ export default class DataService {
 
       for (let j = 0; j < data.length; j++) {
         let name = newData[i].name;
-        newData[i].values.push({year: parseDate(data[j].year), ratio: data[j][name]})
+        let perYearRatio = data[j][name]/data[0][name] -1;
+        newData[i].values.push({year: parseDate(data[j].year), ratio: perYearRatio})
       }
     }
     return newData
