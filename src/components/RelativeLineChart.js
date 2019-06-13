@@ -11,7 +11,7 @@ export default class RelativeLineChart extends React.Component {
 
     this.margin = {top: 20, right: 60, bottom: 60, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
-    this.height = 400 - this.margin.top - this.margin.bottom;
+    this.height = 500 - this.margin.top - this.margin.bottom;
   }
 
   /**
@@ -33,25 +33,18 @@ export default class RelativeLineChart extends React.Component {
       .range([0, width]);
 
     const yScale = d3.scaleLinear()
-      .domain([-1, 3.5])
+      .domain([-1, 3.6])
       .range([height, 0]);
 
     const line = d3.line()
       .x(d => xScale(d.year))
       .y(d => yScale(d.ratio));
 
-    const xAxis = g => g
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(xScale).ticks(width / 80).tickSizeOuter(0))
-
-    const yAxis = g => g
-      .call(d3.axisLeft(yScale))
-      .call(g => g.select(".domain").remove())
-      .call(g => g.select(".tick:last-of-type text").clone()
-        .attr("x", 3)
-        .attr("text-anchor", "start")
-        .attr("font-weight", "bold")
-        .text(data.y))
+    const xAxis = d3.axisBottom(xScale)
+      .ticks(width / 80)
+      .tickSizeOuter(0)
+    const yAxis = d3.axisLeft(yScale)
+      .tickFormat(d3.format("+.0%"))
 
     this.svg = d3.select('.RelativeLineChart')
       .select(".chartContainer").append("svg")
@@ -61,8 +54,14 @@ export default class RelativeLineChart extends React.Component {
     const mainGroup = this.svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    mainGroup.append("g").call(xAxis);
-    mainGroup.append("g").call(yAxis);
+    const axisGroup = mainGroup.append('g').attr('class', 'axis-group')
+    axisGroup.append("g")
+      .attr('class', 'x-axis')
+      .attr("transform", `translate(0,${height})`)
+      .call(xAxis);
+    axisGroup.append("g")
+      .attr('class', 'y-axis')
+      .call(yAxis);
 
     mainGroup.selectAll('.line-group')
       .data(data)
