@@ -178,8 +178,8 @@ export default class DataService {
 
   static getNormalizedLineChartData(data) {
     const parseDate = d3.timeParse("%Y");
-    let maxRatio = 0;
-    let minRatio = 0;
+    let maxRatio = -Infinity;
+    let minRatio = Infinity;
 
     const newData = [
       {name: "area_size_0_1", values: []},
@@ -196,7 +196,7 @@ export default class DataService {
 
       for (let j = 0; j < data.length; j++) {
         let name = newData[i].name;
-        let perYearRatio = data[j][name]/data[0][name] -1;
+        let perYearRatio = data[j][name]/data[0][name];
 
         if(perYearRatio > maxRatio) maxRatio = perYearRatio;
         else if(perYearRatio < minRatio) minRatio = perYearRatio;

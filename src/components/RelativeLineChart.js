@@ -9,7 +9,7 @@ export default class RelativeLineChart extends React.Component {
   constructor(params) {
     super(params);
 
-    this.margin = {top: 20, right: 60, bottom: 60, left: 100};
+    this.margin = {top: 20, right: 100, bottom: 60, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
@@ -29,8 +29,8 @@ export default class RelativeLineChart extends React.Component {
       .domain(d3.extent(data[7].values, d => d.year))
       .range([0, width]);
 
-    const yScale = d3.scaleLinear()
-      .domain([Math.round(metaData.ratio.min), Math.round(metaData.ratio.max)])
+    const yScale = d3.scaleLog()
+      .domain([Math.round(metaData.ratio.min * 10) / 10, Math.round(metaData.ratio.max * 10) / 10])
       .range([height, 0]);
 
     const line = d3.line()
@@ -89,10 +89,10 @@ export default class RelativeLineChart extends React.Component {
       });
 
     const xAxis = d3.axisBottom(xScale)
-      .ticks(width / 80)
       .tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale)
-      .tickFormat(d3.format("+.0%"));
+      .tickValues([0.25, 0.5, 1, 2, 4])
+      .tickFormat(d => d3.format("+.0%")(d - 1));
 
     // draw axis
 
