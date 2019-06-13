@@ -16,6 +16,7 @@ export default class RelativeLineChart extends React.Component {
 
   drawChart() {
     const {data} = this.props;
+    const metaData = data.pop();
 
     const colorScale = d3.scaleOrdinal()
       .range(['#c2eedc', '#7fd1af', '#1cb373', '#168c5a',
@@ -29,7 +30,7 @@ export default class RelativeLineChart extends React.Component {
       .range([0, width]);
 
     const yScale = d3.scaleLinear()
-      .domain([-1, 3.6])
+      .domain([Math.round(metaData.ratio.min), Math.round(metaData.ratio.max)])
       .range([height, 0]);
 
     const line = d3.line()
