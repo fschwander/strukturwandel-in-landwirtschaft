@@ -15,7 +15,7 @@ export default class RelativeLineChart extends React.Component {
   }
 
   drawChart() {
-    const {data} = this.props;
+    const {data, labelMap} = this.props;
     const metaData = data.pop();
 
     const colorScale = d3.scaleOrdinal()
@@ -57,13 +57,14 @@ export default class RelativeLineChart extends React.Component {
       .append('g')
       .attr('class', 'line-group')
       .on("mouseover", function (d, i) {
+        const mouse = d3.mouse(this);
         svg.append("text")
           .attr("class", "title-text")
           .style("fill", colorScale(i))
-          .text(d.name)
+          .text(labelMap[d.name])
           .attr("text-anchor", "middle")
-          .attr("x", width / 2)
-          .attr("y", 5);
+          .attr("x", mouse[0] + margin.left - 20)
+          .attr("y", mouse[1] + margin.top - 20);
       })
       .on("mouseout", () => svg.select(".title-text").remove())
       .append('path')

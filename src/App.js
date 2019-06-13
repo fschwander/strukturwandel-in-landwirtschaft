@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {data, lineChartData} = this.state;
+    const {data, lineChartData, labelMap} = this.state;
     const dataReady = data !== undefined;
 
     return (
@@ -24,7 +24,7 @@ class App extends React.Component {
         {/*{dataReady ? <QuizPage data={data}/> : null}*/}
         {/*/!*{dataReady ? <FarmsCountBarChart data={data}/> : null}*!/*/}
         {/*{dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}*/}
-        {dataReady ? <RelativeLineChart data={lineChartData}/> : null}
+        {dataReady ? <RelativeLineChart data={lineChartData} labelMap={labelMap}/> : null}
         {/*<Footer/>*/}
       </div>
     )
@@ -33,8 +33,14 @@ class App extends React.Component {
   async loadData() {
     const data = await DataService.getFullData();
     const lineChartData = DataService.getNormalizedLineChartData(data);
+    const labelMap = DataService.getLabelMap()
 
-    this.setState({data: data, lineChartData: lineChartData})
+
+    this.setState({
+      data: data,
+      lineChartData: lineChartData,
+      labelMap: labelMap
+    })
   }
 }
 
