@@ -1,12 +1,11 @@
 import * as React from "react";
 import DataService from "./services/DataService";
-// import FarmsCountBarChart from "./components/FarmsCountBarChart";
-// import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
-// import Introduction from "./components/Introduction";
-// import QuizPage from "./components/QuizPage";
-// import Footer from "./components/Footer";
-// import Header from "./components/Header";
+import Introduction from "./components/Introduction";
+import QuizPage from "./components/QuizPage";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import RelativeLineChart from "./components/RelativeLineChart";
+import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
 
 class App extends React.Component {
 
@@ -25,13 +24,13 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/*<Header/>*/}
-        {/*<Introduction/>*/}
-        {dataReady ? <RelativeLineChart data={lineChartData}/> : null}
-        {/*{dataReady ? <QuizPage data={data}/> : null}*/}
+        <Header/>
+        <Introduction/>
+        {dataReady ? <QuizPage data={data}/> : null}
         {/*{dataReady ? <FarmsCountBarChart data={data}/> : null}*/}
-        {/*{dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}*/}
-        {/*<Footer/>*/}
+        {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
+        {dataReady ? <RelativeLineChart data={lineChartData}/> : null}
+        <Footer/>
       </div>
     )
   }

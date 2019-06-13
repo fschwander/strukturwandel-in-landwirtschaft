@@ -27,7 +27,6 @@ export default class RelativeLineChart extends React.Component {
 
     const {width, height, margin} = this;
 
-    /* Scale */
     const xScale = d3.scaleTime()
       .domain(d3.extent(data[7].values, d => d.year))
       .range([0, width]);
@@ -40,11 +39,7 @@ export default class RelativeLineChart extends React.Component {
       .x(d => xScale(d.year))
       .y(d => yScale(d.ratio));
 
-    const xAxis = d3.axisBottom(xScale)
-      .ticks(width / 80)
-      .tickSizeOuter(0)
-    const yAxis = d3.axisLeft(yScale)
-      .tickFormat(d3.format("+.0%"))
+    // init svg
 
     this.svg = d3.select('.RelativeLineChart')
       .select(".chartContainer").append("svg")
@@ -54,14 +49,7 @@ export default class RelativeLineChart extends React.Component {
     const mainGroup = this.svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    const axisGroup = mainGroup.append('g').attr('class', 'axis-group')
-    axisGroup.append("g")
-      .attr('class', 'x-axis')
-      .attr("transform", `translate(0,${height})`)
-      .call(xAxis);
-    axisGroup.append("g")
-      .attr('class', 'y-axis')
-      .call(yAxis);
+    // draw lines
 
     mainGroup.selectAll('.line-group')
       .data(data)
@@ -70,11 +58,43 @@ export default class RelativeLineChart extends React.Component {
       .attr('class', 'line-group')
       .append("path")
       .attr("fill", "none")
-      .attr("stroke", (d,i) => this.colorScale(i))
+      .attr("stroke", (d, i) => this.colorScale(i))
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("d", d => line(d.values));
+      .attr("d", d => line(d.values))
+
+    const xAxis = d3.axisBottom(xScale)
+      .ticks(width / 80)
+      .tickSizeOuter(0)
+    const yAxis = d3.axisLeft(yScale)
+      .tickFormat(d3.format("+.0%"))
+
+    // draw axis
+
+    const axisGroup = mainGroup.append('g').attr('class', 'axis-group')
+
+    axisGroup.append("g")
+      .attr('class', 'x-axis')
+      .attr("transform", `translate(0,${height})`)
+      .call(xAxis)
+      .append('text')
+      .attr('class', 'header')
+      .attr('x', width / 2)
+      .attr('y', 50)
+      .text('Jahr')
+      .style('text-anchor', 'middle');
+
+    axisGroup.append("g")
+      .attr('class', 'y-axis')
+      .call(yAxis)
+      .append('text')
+      .attr('class', 'header')
+      .attr('x', -height / 2)
+      .attr('y', -70)
+      .attr('transform', 'rotate(-90)')
+      .text('Prozentuale Entwicklung')
+      .attr('text-anchor', 'middle');
   }
 
   componentDidMount() {
@@ -83,7 +103,7 @@ export default class RelativeLineChart extends React.Component {
 
   render() {
     return <div className='RelativeLineChart'>
-      <h2>Anzahl Bauernhöfe im Vergleich</h2>
+      <h2>Relative Entwicklung der Bauernhöfe</h2>
       <div className='chartContainer'/>
     </div>
   }
