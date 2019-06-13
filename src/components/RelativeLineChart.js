@@ -14,13 +14,10 @@ export default class RelativeLineChart extends React.Component {
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
 
-  /**
-   * Based on https://bl.ocks.org/mbostock/3887051
-   */
   drawChart() {
     const {data} = this.props;
 
-    this.colorScale = d3.scaleOrdinal()
+    const colorScale = d3.scaleOrdinal()
       .range(['#c2eedc', '#7fd1af', '#1cb373', '#168c5a',
         '#66bbff', '#1e8cd3',
         '#ebb0dd', '#d674c0']);
@@ -41,38 +38,63 @@ export default class RelativeLineChart extends React.Component {
 
     // init svg
 
-    this.svg = d3.select('.RelativeLineChart')
+    const svg = d3.select('.RelativeLineChart')
       .select(".chartContainer").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 
-    const mainGroup = this.svg.append("g")
+    const mainGroup = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // draw lines
 
+    const lineOpacity = "1";
+    const otherLinesOpacityHover = "0.2";
+
     mainGroup.selectAll('.line-group')
-      .data(data)
-      .enter()
+      .data(data).enter()
       .append('g')
       .attr('class', 'line-group')
-      .append("path")
-      .attr("fill", "none")
-      .attr("stroke", (d, i) => this.colorScale(i))
-      .attr("stroke-width", 3)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("d", d => line(d.values))
+      .on("mouseover", function (d, i) {
+        svg.append("text")
+          .attr("class", "title-text")
+          .style("fill", colorScale(i))
+          .text(d.name)
+          .attr("text-anchor", "middle")
+          .attr("x", width / 2)
+          .attr("y", 5);
+      })
+      .on("mouseout", () => svg.select(".title-text").remove())
+      .append('path')
+      .attr('class', 'line')
+      .attr('d', d => line(d.values))
+      .style('stroke', (d, i) => colorScale(i))
+      .style('stroke-width', '2.5')
+      .style('fill', 'none')
+      .style('opacity', lineOpacity)
+      .on("mouseover", function () {
+        mainGroup.selectAll('.line')
+          .style('opacity', otherLinesOpacityHover);
+        d3.select(this)
+          .style('opacity', lineOpacity)
+          .style("cursor", "pointer");
+      })
+      .on("mouseout", function () {
+        mainGroup.selectAll(".line")
+          .style('opacity', lineOpacity);
+        d3.select(this)
+          .style("cursor", "none");
+      });
 
     const xAxis = d3.axisBottom(xScale)
       .ticks(width / 80)
-      .tickSizeOuter(0)
+      .tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale)
-      .tickFormat(d3.format("+.0%"))
+      .tickFormat(d3.format("+.0%"));
 
     // draw axis
 
-    const axisGroup = mainGroup.append('g').attr('class', 'axis-group')
+    const axisGroup = mainGroup.append('g').attr('class', 'axis-group');
 
     axisGroup.append("g")
       .attr('class', 'x-axis')
