@@ -15,12 +15,13 @@ export default class Introduction extends React.Component {
       elementsCount: 20,
       sizeState: 0,
       staticObj: Icons.farmSmall,
+      staticObjBackground: Icons.farmSmallBackground,
       staticObjFill:'#4ec291'
     }
   }
 
   render() {
-    const {elementsCount, sizeState, staticObj, staticObjFill} = this.state;
+    const {elementsCount, sizeState, staticObj, staticObjBackground, staticObjFill} = this.state;
     return (
       <div className='Introduction'>
 
@@ -75,6 +76,7 @@ export default class Introduction extends React.Component {
                              animObj={Icons.cow}
                              animObjCount={elementsCount} animObjW={40} animObjH={27}
                              staticObj={staticObj}
+                             staticObjBackground={staticObjBackground}
                              staticObjW={109} staticObjH={66} staticObjFill={staticObjFill}/>
 
           <div className='label-container'>
@@ -122,18 +124,21 @@ export default class Introduction extends React.Component {
       this.setState({
         sizeState: 0,
         staticObj: Icons.farmSmall,
+        staticObjBackground: Icons.farmSmallBackground,
         staticObjFill:'#4ec291'
       })
     } else if (newValue > 20 && newValue < 60) {
       this.setState({
         sizeState: 1,
         staticObj: Icons.farmMedium,
+        staticObjBackground: Icons.farmMediumBackround,
         staticObjFill:'#42a3f1'
       })
     } else {
       this.setState({
         sizeState: 2,
         staticObj: Icons.farmLarge,
+        staticObjBackground: Icons.farmLargeBackround,
         staticObjFill:'#e396d1'
       })
     }

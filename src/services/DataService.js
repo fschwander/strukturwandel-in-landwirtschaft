@@ -221,7 +221,7 @@ export default class DataService {
       area_size_10_20: '10 bis 20 ha',
       area_size_20_30: '20 bis 30 ha',
       area_size_30_50: '30 bis 50 ha',
-      area_size_50_n: '> 50 ha'
+      area_size_50_n: '50 ha +'
     };
   }
 

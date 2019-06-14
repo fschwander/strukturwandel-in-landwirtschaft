@@ -120,15 +120,9 @@ export default class FarmsCountStackedAreaChart extends React.Component {
       .attr('height', legendHeight)
       .attr('transform', `translate(${this.innerWidth - legendWidth - 12},${padding - 18})`);
 
-    legend.append('rect')
-      .attr('class', 'background')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .attr('fill', 'white');
-
     const legendEntry = legend.append('g')
       .attr('class', 'entries')
-      .attr('transform', `translate(${padding},${padding})`)
+      .attr('transform', `translate(${padding},${padding-8})`)
       .selectAll('rect')
       .data(keys.reverse())
       .enter();
