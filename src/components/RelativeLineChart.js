@@ -41,7 +41,7 @@ export default class RelativeLineChart extends React.Component {
     const yAxis = d3.axisLeft(yScale)
       .tickValues([1 / 4, 1 / 3, 1 / 2, 1, 2, 3, 4])
       .tickFormat(d => d3.format(".0%")(d));
-      // .tickFormat(d => d3.format(".2")(d));
+    // .tickFormat(d => d3.format(".2")(d));
 
     const line = d3.line()
       .x(d => xScale(d.year))
@@ -66,20 +66,20 @@ export default class RelativeLineChart extends React.Component {
         const mouse = d3.mouse(this);
 
         const text = svg.append('g')
-          .attr("class", "hover-label")
-          .attr('transform', `translate(${margin.left + mouse[0] - 20},${margin.top + mouse[1] - 20})`);
+          .attr("class", "hover-label");
         text.append("text")
           .attr("text-anchor", "end");
         text.append('text')
+          .attr('transform', `translate(${width + margin.left},${margin.top + yScale(d.values[d.values.length - 1].ratio)})`)
+          .attr('x', 8)
+          .attr('dy', 4)
           .style("fill", colorScale(i))
           .attr('font-weight', 500)
-          .attr("text-anchor", "end")
           .attr('dx', 0)
           .text(() => labelMap[d.name]);
         text.append('text')
+          .attr('transform', `translate(${margin.left + mouse[0]},${margin.top + mouse[1] - 10})`)
           .attr("text-anchor", "end")
-          .attr('dx', 0)
-          .attr('dy', 16)
           .text(d3.format("+.0%")(yScale.invert(mouse[1]) - 1));
 
         // line mouse over
@@ -98,6 +98,7 @@ export default class RelativeLineChart extends React.Component {
         // line mouse out
         svg.select(".hover-label").remove()
       });
+
     lineGroup
       .append('path')
       .attr('class', 'line')
