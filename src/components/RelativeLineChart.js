@@ -57,14 +57,14 @@ export default class RelativeLineChart extends React.Component {
       .append('g')
       .attr('class', 'line-group')
       .on("mouseover", function (d, i) {
-        const mouse = d3.mouse(this);
         svg.append("text")
           .attr("class", "title-text")
+          .attr('font-weight', 500)
           .style("fill", colorScale(i))
           .text(labelMap[d.name])
-          .attr("text-anchor", "middle")
-          .attr("x", mouse[0] + margin.left - 20)
-          .attr("y", mouse[1] + margin.top - 20);
+          .attr("text-anchor", "central")
+          .attr("x", width + margin.left + 4)
+          .attr("y",  yScale(d.values[d.values.length-1].ratio) + margin.top + 4);
       })
       .on("mouseout", () => svg.select(".title-text").remove())
       .append('path')
@@ -91,8 +91,9 @@ export default class RelativeLineChart extends React.Component {
     const xAxis = d3.axisBottom(xScale)
       .tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale)
-      .tickValues([0.25, 0.5, 1, 2, 4])
-      .tickFormat(d => d3.format("+.0%")(d - 1));
+      .tickValues([1/4, 1/3, 1/2, 1, 2, 3, 4])
+      // .tickFormat(d => d3.format(".0%")(d));
+      .tickFormat(d => d3.format(".2")(d));
 
     // draw axis
 
