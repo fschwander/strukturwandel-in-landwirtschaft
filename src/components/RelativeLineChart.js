@@ -9,7 +9,7 @@ export default class RelativeLineChart extends React.Component {
   constructor(params) {
     super(params);
 
-    this.margin = {top: 20, right: 100, bottom: 60, left: 100};
+    this.margin = {top: 20, right: 100, bottom: 80, left: 100};
     this.width = 800 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
@@ -39,7 +39,7 @@ export default class RelativeLineChart extends React.Component {
     const xAxis = d3.axisBottom(xScale)
       .tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale)
-      .tickValues([1/4, 1/3, 1/2, 1, 2, 3, 4])
+      .tickValues([1 / 4, 1 / 3, 1 / 2, 1, 2, 3, 4])
       .tickFormat(d => d3.format(".0%")(d - 1));
     // .tickFormat(d => d3.format(".2")(d));
 
@@ -49,7 +49,7 @@ export default class RelativeLineChart extends React.Component {
 
     // init svg
     const svg = d3.select('.RelativeLineChart')
-      .select(".chartContainer").append("svg")
+      .select(".chart-container").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 
@@ -155,7 +155,17 @@ export default class RelativeLineChart extends React.Component {
   render() {
     return <div className='RelativeLineChart'>
       <h2>Relative Entwicklung der Bauernhöfe</h2>
-      <div className='chartContainer'/>
+      <p>Die Grossen werden immer grösser, die kleinen leiden: Während die <span className='color50-plus'> grösste Kategorie</span> um
+        das fast 4-fache zugenommen hat,
+        gibt es von den Bauernhöfen mit <span className='color1-3'>1 bis 3 Hektar</span> heute weniger 1/4 des Bestandes
+        um 1985.</p>
+
+      <div className='chart-container'/>
+
+      <p>Bis vor wenigen Jahren galt es auch, dass Bauernhöfe ab <span className='color20-30'>ab 20 Hektar</span> noch
+        rentabel sind. Dies gilt heute nicht mehr: Höfe, die kleiner als 30 Hektar sind, müssen um ihre Existenz
+        fürchten.</p>
+
     </div>
   }
 }
