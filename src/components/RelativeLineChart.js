@@ -18,6 +18,9 @@ export default class RelativeLineChart extends React.Component {
     const {data, labelMap} = this.props;
     const metaData = data.pop();
 
+    const lineOpacity = "1";
+    const otherLinesOpacityHover = "0.2";
+
     const colorScale = d3.scaleOrdinal()
       .range(['#c2eedc', '#7fd1af', '#1cb373', '#168c5a',
         '#66bbff', '#1e8cd3',
@@ -37,15 +40,14 @@ export default class RelativeLineChart extends React.Component {
       .tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale)
       .tickValues([1 / 4, 1 / 3, 1 / 2, 1, 2, 3, 4])
-      // .tickFormat(d => d3.format(".0%")(d));
-      .tickFormat(d => d3.format(".2")(d));
+      .tickFormat(d => d3.format(".0%")(d));
+      // .tickFormat(d => d3.format(".2")(d));
 
     const line = d3.line()
       .x(d => xScale(d.year))
       .y(d => yScale(d.ratio));
 
     // init svg
-
     const svg = d3.select('.RelativeLineChart')
       .select(".chartContainer").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -55,58 +57,65 @@ export default class RelativeLineChart extends React.Component {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // draw lines
-
-    const lineOpacity = "1";
-    const otherLinesOpacityHover = "0.2";
-
-    mainGroup.selectAll('.line-group')
+    const lineGroup = mainGroup.selectAll('.line-group')
       .data(data).enter()
       .append('g')
       .attr('class', 'line-group')
       .on("mouseover", function (d, i) {
+        // label mouse over
         const mouse = d3.mouse(this);
+
         const text = svg.append('g')
           .attr("class", "hover-label")
-          .attr('transform', `translate(${margin.left + mouse[0] - 20},${margin.top + mouse[1] - 20})`)
+          .attr('transform', `translate(${margin.left + mouse[0] - 20},${margin.top + mouse[1] - 20})`);
         text.append("text")
-          .attr("text-anchor", "end")
+          .attr("text-anchor", "end");
         text.append('text')
           .style("fill", colorScale(i))
           .attr('font-weight', 500)
           .attr("text-anchor", "end")
           .attr('dx', 0)
-          .text(() => labelMap[d.name])
+          .text(() => labelMap[d.name]);
         text.append('text')
           .attr("text-anchor", "end")
           .attr('dx', 0)
           .attr('dy', 16)
-          .text(d3.format("+.0%")(yScale.invert(mouse[1])))
+          .text(d3.format("+.0%")(yScale.invert(mouse[1]) - 1));
 
-      })
-      .on("mouseout", () => svg.select(".hover-label").remove())
-      .append('path')
-      .attr('class', 'line')
-      .attr('d', d => line(d.values))
-      .style('stroke', (d, i) => colorScale(i))
-      .style('stroke-width', '2.5')
-      .style('fill', 'none')
-      .style('opacity', lineOpacity)
-      .on("mouseover", function () {
+        // line mouse over
         mainGroup.selectAll('.line')
           .style('opacity', otherLinesOpacityHover);
-        d3.select(this)
+        d3.select(this).selectAll('.line')
           .style('opacity', lineOpacity)
           .style("cursor", "pointer");
       })
       .on("mouseout", function () {
+        // label mouse out
         mainGroup.selectAll(".line")
           .style('opacity', lineOpacity);
-        d3.select(this)
+        d3.select(this).selectAll('.line')
           .style("cursor", "none");
+        // line mouse out
+        svg.select(".hover-label").remove()
       });
+    lineGroup
+      .append('path')
+      .attr('class', 'line')
+      .attr('d', d => line(d.values))
+      .style('stroke', 'transparent')
+      .style('stroke-width', '10')
+      .style('fill', 'none');
+
+    lineGroup
+      .append('path')
+      .attr('class', 'line top-line')
+      .attr('d', d => line(d.values))
+      .style('stroke', (d, i) => colorScale(i))
+      .style('stroke-width', '2.5')
+      .style('fill', 'none')
+      .style('opacity', lineOpacity);
 
     // draw axis
-
     const axisGroup = mainGroup.append('g').attr('class', 'axis-group');
 
     axisGroup.append("g")
