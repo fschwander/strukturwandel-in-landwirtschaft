@@ -33,6 +33,13 @@ export default class RelativeLineChart extends React.Component {
       .domain([Math.round(metaData.ratio.min * 10) / 10, Math.round(metaData.ratio.max * 10) / 10])
       .range([height, 0]);
 
+    const xAxis = d3.axisBottom(xScale)
+      .tickSizeOuter(0);
+    const yAxis = d3.axisLeft(yScale)
+      .tickValues([1 / 4, 1 / 3, 1 / 2, 1, 2, 3, 4])
+      // .tickFormat(d => d3.format(".0%")(d));
+      .tickFormat(d => d3.format(".2")(d));
+
     const line = d3.line()
       .x(d => xScale(d.year))
       .y(d => yScale(d.ratio));
@@ -57,16 +64,26 @@ export default class RelativeLineChart extends React.Component {
       .append('g')
       .attr('class', 'line-group')
       .on("mouseover", function (d, i) {
-        svg.append("text")
-          .attr("class", "title-text")
-          .attr('font-weight', 500)
+        const mouse = d3.mouse(this);
+        const text = svg.append('g')
+          .attr("class", "hover-label")
+          .attr('transform', `translate(${margin.left + mouse[0] - 20},${margin.top + mouse[1] - 20})`)
+        text.append("text")
+          .attr("text-anchor", "end")
+        text.append('text')
           .style("fill", colorScale(i))
-          .text(labelMap[d.name])
-          .attr("text-anchor", "central")
-          .attr("x", width + margin.left + 4)
-          .attr("y",  yScale(d.values[d.values.length-1].ratio) + margin.top + 4);
+          .attr('font-weight', 500)
+          .attr("text-anchor", "end")
+          .attr('dx', 0)
+          .text(() => labelMap[d.name])
+        text.append('text')
+          .attr("text-anchor", "end")
+          .attr('dx', 0)
+          .attr('dy', 16)
+          .text(d3.format("+.0%")(yScale.invert(mouse[1])))
+
       })
-      .on("mouseout", () => svg.select(".title-text").remove())
+      .on("mouseout", () => svg.select(".hover-label").remove())
       .append('path')
       .attr('class', 'line')
       .attr('d', d => line(d.values))
@@ -87,13 +104,6 @@ export default class RelativeLineChart extends React.Component {
         d3.select(this)
           .style("cursor", "none");
       });
-
-    const xAxis = d3.axisBottom(xScale)
-      .tickSizeOuter(0);
-    const yAxis = d3.axisLeft(yScale)
-      .tickValues([1/4, 1/3, 1/2, 1, 2, 3, 4])
-      // .tickFormat(d => d3.format(".0%")(d));
-      .tickFormat(d => d3.format(".2")(d));
 
     // draw axis
 
