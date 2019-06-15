@@ -12,16 +12,16 @@ export default class Introduction extends React.Component {
     super(params);
 
     this.state = {
-      elementsCount: 20,
+      areaSize: 8,
       sizeState: 0,
       staticObj: Icons.farmSmall,
       staticObjBackground: Icons.farmSmallBackground,
-      staticObjFill:'#4ec291'
+      staticObjFill: '#4ec291'
     }
   }
 
   render() {
-    const {elementsCount, sizeState, staticObj, staticObjBackground, staticObjFill} = this.state;
+    const {areaSize, sizeState, staticObj, staticObjBackground, staticObjFill} = this.state;
     return (
       <div className='Introduction'>
 
@@ -74,7 +74,7 @@ export default class Introduction extends React.Component {
         <div className='capacity-container'>
           <AnimatedRelations name='farmSmall' animObjName='cow'
                              animObj={Icons.cow}
-                             animObjCount={elementsCount} animObjW={40} animObjH={27}
+                             animObjCount={areaSize * 2} animObjW={40} animObjH={27}
                              staticObj={staticObj}
                              staticObjBackground={staticObjBackground}
                              staticObjW={109} staticObjH={66} staticObjFill={staticObjFill}/>
@@ -85,13 +85,13 @@ export default class Introduction extends React.Component {
 
           <div className='slider-container'>
             <input id='elements-slider' type='range'
-                   min={1} max={100}
-                   value={elementsCount}
+                   min={0} max={50}
+                   value={areaSize}
                    list='tickMarks'
                    onChange={() => this.changeElementsCount()}/>
             <datalist id='tickMarks'>
-              <option value='20'/>
-              <option value='60'/>
+              <option value='10'/>
+              <option value='30'/>
             </datalist>
             <div className='tick-labels'>
               <p>10 ha</p>
@@ -106,13 +106,14 @@ export default class Introduction extends React.Component {
   }
 
   getExplanationText(sizeState) {
+    const {areaSize} = this.state;
     switch (sizeState) {
       case 0:
-        return 'Auf einem kleinen Hof werden bis zu 20 Kühe gehalten. Auf der gleichen Fläche könnten auch 60 Tonnen Weizen angebaut werden.';
+        return `Auf einem kleinen Hof mit ${areaSize} Hektar können ${areaSize * 2} Kühe gehalten werden. Auf der gleichen Fläche wäre es auch möglich ${areaSize * 6} Tonnen Weizen angebaut werden.`;
       case 1:
-        return 'Bei einer mittleren Bauernhofsgrösse können bereits beachtliche Erträge erzielt werden: 10 bis 30 Hektar reichen aus, um entweder bis zu 60 Kühe zu halten oder 180 Tonnen Weizen zu ernten.';
+        return `Bei einer mittleren Bauernhofsgrösse können bereits beachtliche Erträge erzielt werden: ${areaSize} reichen aus, um entweder ${areaSize * 2} Kühe zu halten oder ${areaSize * 6} Tonnen Weizen zu ernten.`;
       case 2:
-        return 'Schweizer Grossbetriebe sind zwar nicht mit Grossbetrieben wie jenen aus den USA vergleichbar. Doch auch in der Schweiz übertreffen die Grossbetriebe die Anbaumöglichkeiten von kleinen Höfen um das x-fache.'
+        return `Schweizer Grossbetriebe sind zwar nicht mit Grossbetrieben wie jenen aus den USA vergleichbar. Doch auch in der Schweiz übertreffen die Grossbetriebe die Anbaumöglichkeiten von kleinen Höfen um das x-fache.`
       default:
         return '?'
     }
@@ -125,24 +126,24 @@ export default class Introduction extends React.Component {
         sizeState: 0,
         staticObj: Icons.farmSmall,
         staticObjBackground: Icons.farmSmallBackground,
-        staticObjFill:'#4ec291'
+        staticObjFill: '#4ec291'
       })
-    } else if (newValue > 20 && newValue < 60) {
+    } else if (newValue > 10 && newValue < 30) {
       this.setState({
         sizeState: 1,
         staticObj: Icons.farmMedium,
         staticObjBackground: Icons.farmMediumBackround,
-        staticObjFill:'#42a3f1'
+        staticObjFill: '#42a3f1'
       })
     } else {
       this.setState({
         sizeState: 2,
         staticObj: Icons.farmLarge,
         staticObjBackground: Icons.farmLargeBackround,
-        staticObjFill:'#e396d1'
+        staticObjFill: '#e396d1'
       })
     }
-    this.setState({elementsCount: newValue})
+    this.setState({areaSize: newValue})
 
   }
 
