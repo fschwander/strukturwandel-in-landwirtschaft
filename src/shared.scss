@@ -1,5 +1,4 @@
 @import "variables";
-
 @import "App";
 @import "components/Introduction";
 @import "components/FarmsCountStackedAreaChart";
@@ -38,16 +37,6 @@ body {
     margin: auto auto 1em;
   }
 
-  .color-small {
-    color: $clr_small;
-  }
-  .color-medium {
-    color: $clr_medium;
-  }
-  .color-large {
-    color: $clr_large;
-  }
-
   .horizontal-container {
     display: flex;
     flex-direction: row;
@@ -74,6 +63,7 @@ body {
       margin: 0.5em 0;
       justify-content: space-between;
     }
+
     &.centered {
       align-items: center;
     }
@@ -86,23 +76,59 @@ body {
   .color1-3 {
     color: #7fd1af;
   }
-  .color3-5 {
+
+  .color3-5, .color-small {
     color: #1cb373;
   }
+
   .color5-10 {
     color: #168c5a;
   }
+
   .color10-20 {
     color: #66bbff;
   }
-  .color20-30 {
+
+  .color20-30, .color-medium {
     color: #1e8cd3;
   }
+
   .color30-50 {
     color: #ebb0dd;
   }
-  .color50-plus {
+
+  .color50-plus, .color-large {
     color: #d674c0;
+  }
+
+  input {
+    &[type=range]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: $clr_background;
+    }
+
+    &[type=range]:focus::-webkit-slider-runnable-track {
+      background: $clr_background;
+    }
+
+    &[type=range]::-moz-range-track {
+      height: 4px;
+      background: $clr_background;
+    }
+
+    &[type=range]::-webkit-slider-thumb {
+      height: 18px;
+      width: 18px;
+      background: $clr_background;
+      margin-top: -6px;
+    }
+
+    &[type=range]::-moz-range-thumb {
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: #fff;
+    }
   }
 
   svg {
