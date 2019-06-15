@@ -214,7 +214,7 @@ export default class DataService {
       total_farms_count: 'Total Anz. Farmen',
       area_valley_in_percent: 'Talgebiet in %',
       area_mountain_in_percent: 'Berggebiet in %',
-      area_size_0_1: '< 1 ha',
+      area_size_0_1: 'bis 1 ha',
       area_size_1_3: '1 bis 3 ha',
       area_size_3_5: '3 bis 5 ha',
       area_size_5_10: '5 bis 10 ha',

@@ -56,6 +56,12 @@ export default class RelativeLineChart extends React.Component {
     const mainGroup = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    mainGroup.append('rect')
+      .attr('width', width)
+      .attr('height', 2)
+      .attr('y', yScale(1))
+      .attr('fill', '#ebebe5')
+
     // draw lines
     const lineGroup = mainGroup.selectAll('.line-group')
       .data(data).enter()
