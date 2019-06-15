@@ -4,6 +4,11 @@ export default class Header extends React.Component {
   render() {
     return(
       <div className='Header'>
+
+        <div className='screen-size-warn-container'>
+          Diese Website ist nicht für kleine Bildschirme optimiert. Daheim auf dem grossen Bildschirm macht sie wesentlich mehr Spass. :)
+        </div>
+
         <h1>Strukturwandel in der Landwirtschaft</h1>
 
         <p>Seit Jahren spricht man über einen Rückgang von Bauernhöfen: Für viele Bäuerinnen und Bauern lohnt sich
