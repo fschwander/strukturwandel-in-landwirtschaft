@@ -12,7 +12,7 @@ export default class Introduction extends React.Component {
     super(params);
 
     this.state = {
-      areaSize: 8,
+      areaSize: 10,
       sizeState: 0,
       staticObj: Icons.farmSmall,
       staticObjBackground: Icons.farmSmallBackground,
@@ -96,7 +96,7 @@ export default class Introduction extends React.Component {
             <div className='tick-labels'>
               <p>10 ha</p>
               <p>30 ha</p>
-              <p>50 ha+</p>
+              <p>50 ha und mehr</p>
             </div>
           </div>
 
@@ -121,7 +121,7 @@ export default class Introduction extends React.Component {
 
   changeElementsCount() {
     const newValue = document.getElementById('elements-slider').valueAsNumber;
-    if (newValue <= 20) {
+    if (newValue <= 10) {
       this.setState({
         sizeState: 0,
         staticObj: Icons.farmSmall,

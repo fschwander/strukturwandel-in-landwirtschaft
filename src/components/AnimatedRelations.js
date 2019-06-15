@@ -116,7 +116,7 @@ export default class AnimatedRelations extends React.Component {
       this.data.push({
         x: Math.random() * innerWidth,
         y: Math.random() * innerHeight,
-        fill: '#' + 111 * this.getRandomInRange(1, 11),
+        fill: '#' + (111 * this.getRandomInRange(0, 9) + 222),
         class: animObjName,
         randomDuration: this.getRandomInRange(3000, 6000)
       })
