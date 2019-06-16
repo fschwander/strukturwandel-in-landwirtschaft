@@ -171,8 +171,7 @@ export default class DraggableBarChart extends React.Component {
 
     function drawHandleNorth() {
       barContainer.selectAll('.handle--n')
-        .attr('height', 20)
-        .attr('dy', -10)
+        .attr('height', 30);
     }
   }
 
