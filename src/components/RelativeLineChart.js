@@ -150,7 +150,7 @@ export default class RelativeLineChart extends React.Component {
       .attr('x', -height / 2)
       .attr('y', -70)
       .attr('transform', 'rotate(-90)')
-      .text('Prozentuale Entwicklung')
+      .text('Veränderung in Prozent')
       .attr('text-anchor', 'middle');
   }
 
@@ -161,15 +161,15 @@ export default class RelativeLineChart extends React.Component {
   render() {
     return <div className='RelativeLineChart'>
       <h2>Relative Entwicklung der Bauernhöfe</h2>
-      <p>Die Grossen werden immer grösser, die kleinen leiden: Während die <span className='color50-plus'> grösste Kategorie</span> um
-        das fast 4-fache zugenommen hat,
-        gibt es von den Bauernhöfen mit <span className='color1-3'>1 bis 3 Hektar</span> heute weniger 1/4 des Bestandes
-        um 1985.</p>
+
 
       <div className='chart-container'/>
 
-      <p>Bis vor wenigen Jahren galt es auch, dass Bauernhöfe ab <span className='color20-30'>ab 20 Hektar</span> noch
-        rentabel sind. Dies gilt heute nicht mehr: Höfe, die kleiner als 30 Hektar sind, müssen um ihre Existenz
+      <p>Die Grossen werden immer mehr, die Kleinen verschwinden: Während die <span className='color50-plus'>Grossbetriebe</span> fast
+        um das 4-fache zugenommen haben, gibt es heute von den Bauernhöfen mit <span
+          className='color1-3'> 1 bis 3 Hektar</span> nur noch 1/4 des Bestandes wie um 1985.</p>
+      <p>Bis in die ersten Nullerjahre galten Betriebe <span className='color20-30'>ab 20 Hektar</span> noch als
+        rentabel. Dies trifft heute nicht mehr zu: Höfe, die kleiner als 30 Hektar sind, müssen um ihre Existenz
         fürchten.</p>
 
     </div>

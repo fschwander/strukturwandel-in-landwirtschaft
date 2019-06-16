@@ -85,7 +85,7 @@ export default class Introduction extends React.Component {
 
           <div className='slider-container'>
             <input id='elements-slider' type='range'
-                   min={0} max={50}
+                   min={1} max={50}
                    value={areaSize}
                    list='tickMarks'
                    onChange={() => this.changeElementsCount()}/>
@@ -109,11 +109,11 @@ export default class Introduction extends React.Component {
     const {areaSize} = this.state;
     switch (sizeState) {
       case 0:
-        return `Auf einem kleinen Hof mit ${areaSize} Hektar können ${areaSize * 2} Kühe gehalten werden. Auf der gleichen Fläche wäre es auch möglich ${areaSize * 6} Tonnen Weizen angebaut werden.`;
+        return `Auf einem kleinen Hof mit ${areaSize} Hektar können ${areaSize * 2} Kühe gehalten werden. Auf der gleichen Fläche wäre es auch möglich ${areaSize * 6} Tonnen Weizen anzubauen.`;
       case 1:
         return `Bei einer mittleren Bauernhofsgrösse können bereits beachtliche Erträge erzielt werden: ${areaSize} reichen aus, um entweder ${areaSize * 2} Kühe zu halten oder ${areaSize * 6} Tonnen Weizen zu ernten.`;
       case 2:
-        return `Schweizer Grossbetriebe sind zwar nicht mit Grossbetrieben wie jenen aus den USA vergleichbar. Doch auch in der Schweiz übertreffen die Grossbetriebe die Anbaumöglichkeiten von kleinen Höfen um das x-fache.`
+        return `Schweizer Grossbetriebe sind zwar nicht mit Grossbetrieben wie jenen aus den USA vergleichbar. Ein Hof mit ${areaSize} Hektar übertrifft die Wirtschaftlichkeit von kleinen Betrieben aber um das x-fache.`
       default:
         return '?'
     }

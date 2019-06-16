@@ -44,7 +44,7 @@ export default class AnimatedRelations extends React.Component {
 
     this.mainGroup.append('g')
       .attr('class', 'static-obj-group')
-      .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH / 2})`);
+      .attr('transform', `translate(${innerWidth / 2 - staticObjW / 2},${innerHeight / 2 - staticObjH})`);
 
     this.mainGroup.append('g')
       .attr('class', 'anim-obj-group')
