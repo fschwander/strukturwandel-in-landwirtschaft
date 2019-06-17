@@ -67,7 +67,18 @@ export default class RelativeLineChart extends React.Component {
       .data(data).enter()
       .append('g')
       .attr('class', 'line-group')
-      .on("mouseover", function (d, i) {
+    lineGroup
+      .append('path')
+      .attr('class', 'line top-line')
+      .attr('d', d => line(d.values))
+      .style('stroke', (d, i) => colorScale(i))
+      .style('stroke-width', '2.5')
+      .style('fill', 'none')
+      .style('opacity', lineOpacity);
+    lineGroup
+      .on("mousemove", function (d, i) {
+        svg.selectAll(".hover-label").remove()
+
         // label mouse over
         const mouse = d3.mouse(this);
 
@@ -88,6 +99,7 @@ export default class RelativeLineChart extends React.Component {
           .attr("text-anchor", "end")
           .text(d3.format("+.0%")(yScale.invert(mouse[1]) - 1));
         labelGroup.append('circle')
+          .attr('class', 'marker')
           .attr('pointer-events', 'none')
           .attr('cx', margin.left + mouse[0])
           .attr('cy', margin.top + mouse[1])
@@ -101,32 +113,15 @@ export default class RelativeLineChart extends React.Component {
           .style('opacity', lineOpacity)
           .style("cursor", "pointer");
       })
-      .on("mouseout", function () {
+      .on("mouseleave", function () {
         // label mouse out
         mainGroup.selectAll(".line")
           .style('opacity', lineOpacity);
         d3.select(this).selectAll('.line')
           .style("cursor", "none");
         // line mouse out
-        svg.select(".hover-label").remove()
+        svg.selectAll(".hover-label").remove()
       });
-
-    lineGroup
-      .append('path')
-      .attr('class', 'line')
-      .attr('d', d => line(d.values))
-      .style('stroke', 'transparent')
-      .style('stroke-width', '6')
-      .style('fill', 'none');
-
-    lineGroup
-      .append('path')
-      .attr('class', 'line top-line')
-      .attr('d', d => line(d.values))
-      .style('stroke', (d, i) => colorScale(i))
-      .style('stroke-width', '2.5')
-      .style('fill', 'none')
-      .style('opacity', lineOpacity);
 
     // draw axis
     const axisGroup = mainGroup.append('g').attr('class', 'axis-group');
@@ -165,7 +160,8 @@ export default class RelativeLineChart extends React.Component {
 
       <div className='chart-container'/>
 
-      <p>Die Grossen werden immer mehr, die Kleinen verschwinden: Während die <span className='color50-plus'>Grossbetriebe</span> fast
+      <p>Die Grossen werden immer mehr, die Kleinen verschwinden: Während die <span
+        className='color50-plus'>Grossbetriebe</span> fast
         um das 4-fache zugenommen haben, gibt es heute von den Bauernhöfen mit <span
           className='color1-3'> 1 bis 3 Hektar</span> nur noch 1/4 des Bestandes wie um 1985.</p>
       <p>Bis in die ersten Nullerjahre galten Betriebe <span className='color20-30'>ab 20 Hektar</span> noch als
