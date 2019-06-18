@@ -40,8 +40,8 @@ export default class RelativeLineChart extends React.Component {
       .tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale)
       .tickValues([1 / 4, 1 / 3, 1 / 2, 1, 2, 3, 4])
-      .tickFormat(d => d3.format(".0%")(d - 1));
-    // .tickFormat(d => d3.format(".2")(d));
+      .tickFormat(d => d !== 1 ? d3.format("+.0%")(d - 1) : d3.format(".0%")(d - 1));
+    // .tickFormat(d => d >= 1 ? d3.format(".2")(d) : '1/' + Math.pow(d , -1));
 
     const line = d3.line()
       .x(d => xScale(d.year))
@@ -90,10 +90,21 @@ export default class RelativeLineChart extends React.Component {
           .attr('transform', `translate(${width + margin.left},${margin.top + yScale(d.values[d.values.length - 1].ratio)})`)
           .attr('x', 8)
           .attr('dy', 4)
+          .append('tspan')
           .style("fill", colorScale(i))
           .attr('font-weight', 500)
+          .text(() => labelMap[d.name])
+          .append('tspan')
+          .attr('x', 8)
+          .attr('y', 20)
+          .style("fill", 'currentColor')
           .attr('dx', 0)
-          .text(() => labelMap[d.name]);
+          .text(() => {
+            let value = data[i].values[data[i].values.length - 1];
+            let formattedRratio = d3.format("+.0%")(value.ratio - 1);
+            let year = d3.timeFormat("%Y")(value.year);
+            return `${formattedRratio} (${year})`
+          });
         labelGroup.append('text')
           .attr('transform', `translate(${margin.left + mouse[0]},${margin.top + mouse[1] - 10})`)
           .attr("text-anchor", "end")
@@ -164,7 +175,7 @@ export default class RelativeLineChart extends React.Component {
         className='color50-plus'>Grossbetriebe</span> fast
         um das 4-fache zugenommen haben, gibt es heute von den Bauernhöfen mit <span
           className='color1-3'> 1 bis 3 Hektar</span> nur noch 1/4 des Bestandes wie um 1985.</p>
-      <p>Bis in die ersten Nullerjahre galten Betriebe <span className='color20-30'>ab 20 Hektar</span> noch als
+      <p>Bis um die Jahrtausendwende galten Betriebe <span className='color20-30'>ab 20 Hektar</span> noch als
         rentabel. Dies trifft heute nicht mehr zu: Höfe, die kleiner als 30 Hektar sind, müssen um ihre Existenz
         fürchten.</p>
 
