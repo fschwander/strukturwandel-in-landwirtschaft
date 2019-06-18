@@ -9,6 +9,7 @@
 @import "components/AnimatedRelations";
 @import "components/RelativeLineChart";
 @import "components/Header";
+@import "components/GrowPossibilities";
 
 body {
   margin: 0;
@@ -30,7 +31,7 @@ body {
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 1em 0 1em;
+    margin: 0.4em 0;
   }
 
   p {
@@ -42,10 +43,10 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 1em 0;
+    margin: 1em auto;
 
     & > * {
-      width: 32%;
+      width: 33%;
     }
 
     &.larger > * {
@@ -57,12 +58,12 @@ body {
     }
 
     &.top {
+      width: 85%;
       align-items: baseline;
     }
 
     &.bottom {
-      margin: 0.5em 0;
-      justify-content: space-between;
+      width: 85%;
     }
 
     &.centered {

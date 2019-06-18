@@ -1,7 +1,5 @@
 import * as React from "react";
 import SvgImage from "../res/imgs/SvgImage";
-import cowImg from "../res/imgs/cow.svg";
-import wheatImg from "../res/imgs/wheat.svg";
 import {Image} from "react-bootstrap";
 import {Icons} from "../res/imgs/Icons";
 import AnimatedRelations from "./AnimatedRelations";
@@ -24,24 +22,6 @@ export default class Introduction extends React.Component {
     const {areaSize, sizeState, staticObj, staticObjBackground, staticObjFill} = this.state;
     return (
       <div className='Introduction'>
-
-        <div>
-          <h2>Anbaumöglichkeiten pro Hektar</h2>
-
-          <div className='horizontal-container relations-container'>
-            <div>
-              {this.printIcons('cow', cowImg, 2)}
-              <p>In der Schweiz reicht ein Hektar Land zur Ernährung von rund 2 Kühen.</p>
-            </div>
-
-            <div>
-              {this.printIcons('wheat', wheatImg, 6)}
-              <p>Auf einem Hektar Ackerland können 6 Tonnen Weizen angebaut werden.</p>
-            </div>
-
-          </div>
-        </div>
-
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container top'>
@@ -59,15 +39,15 @@ export default class Introduction extends React.Component {
         <div className='horizontal-container bottom'>
           <div>
             <h3>kleine Betriebe</h3>
-            <p>Bauernhöfe, die eine Betriebsfläche von weniger als 10 Hektar haben.</p>
+            <p>bis 10 Hektar</p>
           </div>
           <div>
             <h3>mittlere Betriebe</h3>
-            <p>Mittelgrosse Höfe haben eine Fläche zwischen 10 und 30 Hektar.</p>
+            <p>zwischen 10 un 30 Hektar</p>
           </div>
           <div>
             <h3>Grossbetriebe</h3>
-            <p>Die grössten Betriebe haben eine Fläche von 30 Hektar oder mehr.</p>
+            <p>50 Hektar und mehr</p>
           </div>
         </div>
 
@@ -96,7 +76,7 @@ export default class Introduction extends React.Component {
             <div className='tick-labels'>
               <p>10 ha</p>
               <p>30 ha</p>
-              <p>50 ha und mehr</p>
+              <p>50+ ha</p>
             </div>
           </div>
 
@@ -145,13 +125,5 @@ export default class Introduction extends React.Component {
     }
     this.setState({areaSize: newValue})
 
-  }
-
-  printIcons(name, type, count) {
-    let container = [];
-    for (let i = 0; i < count; i++) {
-      container[i] = <Image src={type} key={name + i}/>
-    }
-    return <div className={name}>{container}</div>;
   }
 }
