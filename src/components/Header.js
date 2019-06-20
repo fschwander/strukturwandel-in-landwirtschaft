@@ -2,11 +2,14 @@ import * as React from "react";
 
 export default class Header extends React.Component {
   render() {
-    return(
+    return (
       <div className='Header'>
 
         <div className='screen-size-warn-container'>
-          Diese Website ist nicht für kleine Bildschirme optimiert. Daheim auf dem grossen Bildschirm macht sie wesentlich mehr Spass. :)
+          <p>
+            Diese Website ist nicht für Mobiltelefone optimiert. Daheim auf dem grossen Bildschirm macht sie
+            wesentlich mehr Spass. :)
+          </p>
         </div>
 
         <h1>Strukturwandel in der Landwirtschaft</h1>

@@ -1,6 +1,5 @@
 import * as React from "react";
 import SvgImage from "../res/imgs/SvgImage";
-import {Image} from "react-bootstrap";
 import {Icons} from "../res/imgs/Icons";
 import AnimatedRelations from "./AnimatedRelations";
 
@@ -43,7 +42,7 @@ export default class Introduction extends React.Component {
           </div>
           <div>
             <h3>mittlere Betriebe</h3>
-            <p>zwischen 10 un 30 Hektar</p>
+            <p>zwischen 10 und 30 Hektar</p>
           </div>
           <div>
             <h3>Grossbetriebe</h3>
