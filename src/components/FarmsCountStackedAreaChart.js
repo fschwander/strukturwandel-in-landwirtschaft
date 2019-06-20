@@ -9,12 +9,7 @@ export default class FarmsCountStackedAreaChart extends React.Component {
 
     this.width = 780;
     this.height = 500;
-    this.margin = {
-      top: 10,
-      bottom: 60,
-      left: 90,
-      right: 70
-    };
+    this.margin = {top: 10, bottom: 80, left: 90, right: 70};
     this.innerHeight = this.height - this.margin.top - this.margin.bottom;
     this.innerWidth = this.width - this.margin.left - this.margin.right;
     this.labelMap = DataService.getLabelMap();
@@ -49,6 +44,7 @@ export default class FarmsCountStackedAreaChart extends React.Component {
       .y1(d => yScale(d[1]));
 
     const svg = d3.select('.FarmsCountStackedAreaChart')
+      .select('.chart-container')
       .append('svg')
       .attr('width', width)
       .attr('height', height);
@@ -122,17 +118,11 @@ export default class FarmsCountStackedAreaChart extends React.Component {
       .attr('class', 'legend')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .attr('transform', `translate(${this.innerWidth - legendWidth -12},${padding - 18})`);
-
-    legend.append('rect')
-      .attr('class', 'background')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .attr('fill', 'white');
+      .attr('transform', `translate(${this.innerWidth - legendWidth - 12},${padding - 18})`);
 
     const legendEntry = legend.append('g')
       .attr('class', 'entries')
-      .attr('transform', `translate(${padding},${padding})`)
+      .attr('transform', `translate(${padding},${padding-8})`)
       .selectAll('rect')
       .data(keys.reverse())
       .enter();
@@ -157,6 +147,9 @@ export default class FarmsCountStackedAreaChart extends React.Component {
     return (
       <div className='FarmsCountStackedAreaChart'>
         <h2>Gesamthafte Bauernhofsentwicklung</h2>
+        <div className='chart-container'/>
+        <p>Tendenz stark sinkend: Seit 1985 sind die Hälfte der Bauernhöfe verschwunden oder wurden in andere Höfe
+          integriert.</p>
       </div>
     )
   }

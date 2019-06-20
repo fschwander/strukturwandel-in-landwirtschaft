@@ -52,9 +52,9 @@ export default class FarmsCountBarChart extends React.Component {
 
     const {width, height, margin, xScale, yScale, scaleWidth, colorScale, processedData} = this;
 
-    d3.select(".chartContainer").selectAll("svg").remove('svg');
+    d3.select('.FarmsCountBarChart').select(".chartContainer").selectAll("svg").remove('svg');
 
-    this.svg = d3.select(".chartContainer").append("svg")
+    this.svg = d3.select('.FarmsCountBarChart').select(".chartContainer").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 

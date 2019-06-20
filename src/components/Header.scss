@@ -1,0 +1,25 @@
+.Header{
+  .screen-size-warn-container {
+    visibility: hidden;
+  }
+
+  @media screen and (max-device-width: 600px){
+    .screen-size-warn-container {
+      width: 80%;
+      height: 30vh;
+      display: flex;
+      align-content: center;
+      margin: auto auto 7em;
+      visibility: visible;
+      padding: 2em;
+      border: #f28b02 dashed 4px;
+
+      p {
+        font-size: 5vw;
+        align-self: center;
+        margin: unset;
+      }
+
+    }
+  }
+}

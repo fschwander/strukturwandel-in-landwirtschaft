@@ -58,11 +58,10 @@ export default class QuizPage extends React.Component {
                              data={data}/>
 
           <div className='toggle-container'>
-            <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders unter den kleineren
-              Bauernhöfen ein regelrechtes Massensterben beobachtet werden kann. Auch mittelgrosse Betriebe haben
-              Schwierigkeiten. Nur grosse oder zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
-              Mehrfache
-              gestiegen.</p>
+            <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders kleine Betriebe leiden:
+              Ihr Land und die Höfe werden von grösseren Betrieben übernommen. Auch mittelgrosse Betriebe haben
+              Schwierigkeiten. Nur grosse und zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
+              Mehrfache gestiegen.</p>
             <Button className={!showAnswer ? 'show fade-in' : 'hide'}
                     onClick={() => this.setState({showAnswer: true})}
                     variant="dark">Antwort zeigen</Button>

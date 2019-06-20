@@ -1,5 +1,4 @@
 @import "variables";
-
 @import "App";
 @import "components/Introduction";
 @import "components/FarmsCountStackedAreaChart";
@@ -8,6 +7,9 @@
 @import "components/FarmsCountBarChart";
 @import "components/Footer";
 @import "components/AnimatedRelations";
+@import "components/RelativeLineChart";
+@import "components/Header";
+@import "components/GrowPossibilities";
 
 body {
   margin: 0;
@@ -29,7 +31,7 @@ body {
     font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 1em 0 1em;
+    margin: 0.4em 0;
   }
 
   p {
@@ -37,24 +39,14 @@ body {
     margin: auto auto 1em;
   }
 
-  .color-small {
-    color: $clr_small;
-  }
-  .color-medium {
-    color: $clr_medium;
-  }
-  .color-large {
-    color: $clr_large;
-  }
-
   .horizontal-container {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 1em 0;
+    margin: 1em auto;
 
     & > * {
-      width: 32%;
+      width: 33%;
     }
 
     &.larger > * {
@@ -66,15 +58,78 @@ body {
     }
 
     &.top {
+      width: 85%;
       align-items: baseline;
     }
 
     &.bottom {
-      margin: 0.5em 0;
-      justify-content: space-between;
+      width: 85%;
     }
+
     &.centered {
       align-items: center;
+    }
+  }
+
+  .color-0-1 {
+    color: #c2eedc;
+  }
+
+  .color1-3 {
+    color: #7fd1af;
+  }
+
+  .color3-5, .color-small {
+    color: #1cb373;
+  }
+
+  .color5-10 {
+    color: #168c5a;
+  }
+
+  .color10-20 {
+    color: #66bbff;
+  }
+
+  .color20-30, .color-medium {
+    color: #1e8cd3;
+  }
+
+  .color30-50 {
+    color: #ebb0dd;
+  }
+
+  .color50-plus, .color-large {
+    color: #d674c0;
+  }
+
+  input {
+    &[type=range]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: $clr_background;
+    }
+
+    &[type=range]:focus::-webkit-slider-runnable-track {
+      background: $clr_background;
+    }
+
+    &[type=range]::-moz-range-track {
+      height: 4px;
+      background: $clr_background;
+    }
+
+    &[type=range]::-webkit-slider-thumb {
+      height: 18px;
+      width: 18px;
+      background: $clr_background;
+      margin-top: -6px;
+    }
+
+    &[type=range]::-moz-range-thumb {
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: #fff;
     }
   }
 

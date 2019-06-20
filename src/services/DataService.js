@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import dataSource from "../res/data/farm-sizes.csv";
+import farmsData from "../res/data/farm-sizes.csv";
 
 export default class DataService {
 
@@ -159,7 +159,7 @@ export default class DataService {
   }
 
   static getFullData() {
-    return d3.csv(dataSource,
+    return d3.csv(farmsData,
       d => ({
         year: +d.year,
         total_farms_count: +d.total_farms_count,
@@ -176,20 +176,52 @@ export default class DataService {
       }))
   }
 
+  static getNormalizedLineChartData(data) {
+    const parseDate = d3.timeParse("%Y");
+    let maxRatio = -Infinity;
+    let minRatio = Infinity;
+
+    const newData = [
+      {name: "area_size_0_1", values: []},
+      {name: "area_size_1_3", values: []},
+      {name: "area_size_3_5", values: []},
+      {name: "area_size_5_10", values: []},
+      {name: "area_size_10_20", values: []},
+      {name: "area_size_20_30", values: []},
+      {name: "area_size_30_50", values: []},
+      {name: "area_size_50_n", values: []}
+    ];
+
+    for (let i = 0; i < newData.length; i++) {
+
+      for (let j = 0; j < data.length; j++) {
+        let name = newData[i].name;
+        let perYearRatio = data[j][name]/data[0][name];
+
+        if(perYearRatio > maxRatio) maxRatio = perYearRatio;
+        else if(perYearRatio < minRatio) minRatio = perYearRatio;
+
+        newData[i].values.push({year: parseDate(data[j].year), ratio: perYearRatio})
+      }
+    }
+    newData.push({ratio: {min: minRatio, max: maxRatio}})
+    return newData
+  }
+
   static getLabelMap() {
     return {
       year: 'Jahr',
       total_farms_count: 'Total Anz. Farmen',
       area_valley_in_percent: 'Talgebiet in %',
       area_mountain_in_percent: 'Berggebiet in %',
-      area_size_0_1: '< 1 ha',
+      area_size_0_1: 'bis 1 ha',
       area_size_1_3: '1 bis 3 ha',
       area_size_3_5: '3 bis 5 ha',
       area_size_5_10: '5 bis 10 ha',
       area_size_10_20: '10 bis 20 ha',
       area_size_20_30: '20 bis 30 ha',
       area_size_30_50: '30 bis 50 ha',
-      area_size_50_n: '> 50 ha'
+      area_size_50_n: '50 ha und mehr'
     };
   }
 
