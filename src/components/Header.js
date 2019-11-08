@@ -5,13 +5,6 @@ export default class Header extends React.Component {
     return (
       <div className='Header'>
 
-        <div className='screen-size-warn-container'>
-          <p>
-            Diese Website ist nicht für Mobiltelefone optimiert. Daheim auf dem grossen Bildschirm macht sie
-            wesentlich mehr Spass. :)
-          </p>
-        </div>
-
         <h1>Strukturwandel in der Landwirtschaft</h1>
 
         <p>Seit Jahren spricht man über einen Rückgang von Bauernhöfen: Für viele Bäuerinnen und Bauern lohnt sich
