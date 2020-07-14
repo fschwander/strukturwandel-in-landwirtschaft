@@ -21,6 +21,19 @@ export default class DraggableBarChart extends React.Component {
     }
   }
 
+  formatChangeInPct(value) {
+    return d3.format('+.0%')(value - 1)
+  }
+
+  formatPctInText(d, i, nodes, value) {
+    d3.active(nodes[i])
+      .tween("text", (d, i, nodes) => {
+        const node = d3.select(nodes[i]);
+        const interpolate = d3.interpolateNumber(node.text().replace(/%/g, "") / 100, value - 1);
+        return t => node.text(d3.format('+.0%')(interpolate(t)))
+      })
+  }
+
   /**
    * Based on https://bl.ocks.org/AlainRo/9264cd08e341f2c92f020c39642c34d1
    */
@@ -107,7 +120,7 @@ export default class DraggableBarChart extends React.Component {
       .attr('x', (d, i) => x(i) + x(0.5))
       .attr('dy', -4)
       .style('fill', 'currentColor')
-      .text(d => d3.format('.0%')(d.value));
+      .text(d => this.formatChangeInPct(d.value));
 
     barContainer.append('text')
       .attr('text-anchor', 'middle')
@@ -158,13 +171,13 @@ export default class DraggableBarChart extends React.Component {
       }
     }
 
-    function update() {
+    const update = () => {
       barContainer
         .call(brushY.move, d => [d.value, 0].map(scaleY))
         .selectAll('.label-top, .label-answer-left, .handle-bar')
         .attr('y', d => scaleY(d.value));
       barContainer.selectAll('.label-top')
-        .text(d => d3.format('.0%')(d.value));
+        .text(d => this.formatChangeInPct(d.value));
 
       drawHandleNorth();
     }
@@ -276,36 +289,15 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .duration(durations.anim1)
       .attr('y', d => scaleY(d.random1))
-      .on("start", function () {
-        d3.active(this)
-          .tween("text", d => {
-            const that = d3.select(this);
-            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random1);
-            return t => that.text(d3.format('.0%')(i(t)));
-          })
-      })
+      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.random1))
       .transition()
       .duration(durations.anim2)
       .attr('y', d => scaleY(d.random2))
-      .on("start", function () {
-        d3.active(this)
-          .tween("text", d => {
-            const that = d3.select(this);
-            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.random2);
-            return t => that.text(d3.format('.0%')(i(t)));
-          })
-      })
+      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.random2))
       .transition()
       .duration(durations.anim3)
       .attr('y', d => scaleY(d.value))
-      .on("start", function () {
-        d3.active(this)
-          .tween("text", d => {
-            const that = d3.select(this);
-            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.value);
-            return t => that.text(d3.format('.0%')(i(t)));
-          })
-      });
+      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.value))
 
     this.mainGroup.selectAll('.label-answer-left')
       .classed('on-hover-only', false)
@@ -360,14 +352,7 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .duration(2000)
       .attr('y', d => scaleY(d.maxInPct))
-      .on("start", function () {
-        d3.active(this)
-          .tween("text", d => {
-            const that = d3.select(this);
-            const i = d3.interpolateNumber(that.text().replace(/%/g, "") / 100, d.maxInPct);
-            return t => that.text(d3.format('.0%')(i(t)));
-          })
-      });
+      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.maxInPct));
 
     const textLeft = this.mainGroup.selectAll('.label-answer-left, .handle-bar')
       .classed('header-small', false)
@@ -377,7 +362,7 @@ export default class DraggableBarChart extends React.Component {
     textLeft.selectAll('tspan').remove();
     textLeft.append('tspan')
       .attr('dy', 8)
-      .text(d => d3.format('.0%')(d.value));
+      .text(d => this.formatChangeInPct(d.value));
 
     this.mainGroup.selectAll('*').attr('pointer-events', 'none')
   }
