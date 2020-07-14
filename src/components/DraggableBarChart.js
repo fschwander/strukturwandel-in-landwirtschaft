@@ -25,7 +25,7 @@ export default class DraggableBarChart extends React.Component {
     return d3.format('+.0%')(value - 1)
   }
 
-  formatPctInText(d, i, nodes, value) {
+  tweenFormattedPctValue(d, i, nodes, value) {
     d3.active(nodes[i])
       .tween("text", (d, i, nodes) => {
         const node = d3.select(nodes[i]);
@@ -289,15 +289,15 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .duration(durations.anim1)
       .attr('y', d => scaleY(d.random1))
-      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.random1))
+      .on("start", (d, i, nodes) => this.tweenFormattedPctValue(d, i, nodes, d.random1))
       .transition()
       .duration(durations.anim2)
       .attr('y', d => scaleY(d.random2))
-      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.random2))
+      .on("start", (d, i, nodes) => this.tweenFormattedPctValue(d, i, nodes, d.random2))
       .transition()
       .duration(durations.anim3)
       .attr('y', d => scaleY(d.value))
-      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.value))
+      .on("start", (d, i, nodes) => this.tweenFormattedPctValue(d, i, nodes, d.value))
 
     this.mainGroup.selectAll('.label-answer-left')
       .classed('on-hover-only', false)
@@ -352,7 +352,7 @@ export default class DraggableBarChart extends React.Component {
       .transition()
       .duration(2000)
       .attr('y', d => scaleY(d.maxInPct))
-      .on("start", (d, i, nodes) => this.formatPctInText(d, i, nodes, d.maxInPct));
+      .on("start", (d, i, nodes) => this.tweenFormattedPctValue(d, i, nodes, d.maxInPct));
 
     const textLeft = this.mainGroup.selectAll('.label-answer-left, .handle-bar')
       .classed('header-small', false)
