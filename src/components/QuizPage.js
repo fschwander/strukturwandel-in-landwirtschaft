@@ -55,13 +55,13 @@ export default class QuizPage extends React.Component {
                              data={data}/>
 
           <div className='toggle-container'>
-            <p className={showAnswer ? 'show' : 'hide'}>Tatsächlich ist es so, dass besonders kleine Betriebe leiden:
-              Ihr Land und die Höfe werden von grösseren Betrieben übernommen. Auch mittelgrosse Betriebe haben
+            <p className={showAnswer ? 'show' : 'hide'}>Antwort: Tatsächlich ist es so, dass besonders kleine Betriebe
+              leiden. Ihr Land und die Höfe werden von grösseren Betrieben übernommen. Auch mittelgrosse Betriebe haben
               Schwierigkeiten. Nur grosse und zusammengelegte Höfe können sich behaupten: Ihre Anzahl ist um das
               Mehrfache gestiegen.</p>
             <Button className={!showAnswer ? 'show fade-in' : 'hide'}
                     onClick={() => this.setState({showAnswer: true})}
-                    variant="dark">Fertig geraten? Lösung zeigen!</Button>
+                    variant="dark">Hast du fertig geraten? Lösung zeigen!</Button>
           </div>
 
         </div>

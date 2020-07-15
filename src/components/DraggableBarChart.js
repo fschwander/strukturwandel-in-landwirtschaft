@@ -14,10 +14,10 @@ export default class DraggableBarChart extends React.Component {
 
     this.maxScaleValue = Math.round(d3.max(this.props.data, d => d.maxInPct)) * 1.2;
     this.durations = {
-      anim1: 1000,
+      anim1: 2000,
       anim2: 1500,
       anim3: 2000,
-      animSum: 4500
+      animSum: 5500
     }
   }
 
@@ -184,7 +184,13 @@ export default class DraggableBarChart extends React.Component {
 
     function drawHandleNorth() {
       barContainer.selectAll('.handle--n')
-        .attr('height', 30);
+        .attr('height', 30)
+        .on('mousedown', () => {
+          barContainer.attr('cursor', 'grabbing');
+        })
+        .on('mouseup', () => {
+          barContainer.attr('cursor', 'grab');
+        });
     }
   }
 

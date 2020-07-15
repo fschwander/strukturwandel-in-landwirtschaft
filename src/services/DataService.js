@@ -35,7 +35,7 @@ export default class DataService {
         minYear: yearMin.year,
         maxYear: yearMax.year,
         random1: 2.5,
-        random2: 0.6,
+        random2: 0.1,
         maxInPct: maxSmall / minSmall
       },
       {
