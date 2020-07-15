@@ -13,12 +13,12 @@ export default class GrowPossibilities extends React.Component {
         <div className='horizontal-container relations-container'>
           <div>
             {this.printIcons('cow', cowImg, 2)}
-            <p>In der Schweiz reicht ein Hektar Land zur Ernährung von rund 2 Kühen.</p>
+            <p>In der Schweiz reicht ein Hektar Land zur Ernährung von rund 2 Kühen</p>
           </div>
 
           <div>
             {this.printIcons('wheat', wheatImg, 6)}
-            <p>Auf einem Hektar Ackerland können 6 Tonnen Weizen angebaut werden.</p>
+            <p>Auf einem Hektar Ackerland können 6 Tonnen Weizen angebaut werden</p>
           </div>
 
         </div>

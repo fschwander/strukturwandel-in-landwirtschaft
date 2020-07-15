@@ -47,10 +47,7 @@ export default class QuizPage extends React.Component {
 
     return (
       <div className='QuizPage' ref={this.componentRef} onScroll={this.handleScroll}>
-        <h2>Quiz</h2>
-
-        <p>Ausgehend vom Jahr 1985, wo der Bestand 100% betrug: Wie viele kleine, mittlere und grosse Bauernhöfe gibt
-          es heute?</p>
+        <h2>Das Bauernhof-Quiz</h2>
 
         <div>
           <DraggableBarChart showAnswer={showAnswer}
@@ -64,7 +61,7 @@ export default class QuizPage extends React.Component {
               Mehrfache gestiegen.</p>
             <Button className={!showAnswer ? 'show fade-in' : 'hide'}
                     onClick={() => this.setState({showAnswer: true})}
-                    variant="dark">Antwort zeigen</Button>
+                    variant="dark">Fertig geraten? Lösung zeigen!</Button>
           </div>
 
         </div>
