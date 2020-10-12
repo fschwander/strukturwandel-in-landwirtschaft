@@ -7,6 +7,7 @@ import QuizPage from "./components/QuizPage";
 import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
 import Footer from "./components/Footer";
 import GrowPossibilities from "./components/GrowPossibilities";
+import {FullPage, Slide} from "react-full-page";
 
 class App extends React.Component {
 
@@ -25,13 +26,34 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Header/>
-        <GrowPossibilities/>
-        <Introduction/>
-        {dataReady ? <QuizPage data={data}/> : null}
-        {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
-        {dataReady ? <RelativeLineChart data={lineChartData} labelMap={labelMap}/> : null}
-        <Footer/>
+        <FullPage>
+          <Slide>
+            <Header/>
+          </Slide>
+          <Slide>
+            <GrowPossibilities/>
+          </Slide>
+          <Slide>
+            <Introduction/>
+          </Slide>
+
+          <Slide>
+            {dataReady ? <QuizPage data={data}/> : null}
+          </Slide>
+
+          <Slide>
+            {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
+          </Slide>
+
+          <Slide>
+            {dataReady ? <RelativeLineChart data={lineChartData} labelMap={labelMap}/> : null}
+          </Slide>
+
+          <Slide>
+            <Footer/>
+          </Slide>
+
+        </FullPage>
       </div>
     )
   }
