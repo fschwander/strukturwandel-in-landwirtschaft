@@ -26,13 +26,16 @@ class App extends React.Component {
 
     return (
       <div className="App">
+
         <FullPage>
           <Slide>
             <Header/>
           </Slide>
+
           <Slide>
             <GrowPossibilities/>
           </Slide>
+
           <Slide>
             <Introduction/>
           </Slide>
@@ -52,7 +55,6 @@ class App extends React.Component {
           <Slide>
             <Footer/>
           </Slide>
-
         </FullPage>
       </div>
     )

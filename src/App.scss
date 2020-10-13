@@ -1,13 +1,11 @@
 .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   max-width: 840px;
   text-align: center;
   margin: auto;
-  padding: 5em 0;
 
-  & > * {
-    margin: 2em 0;
+  & > div > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

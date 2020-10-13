@@ -11,19 +11,17 @@
 @import "components/GrowPossibilities";
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: Avenir, "Helvetica Neue", Helvetica, sans-serif;
 
   h1 {
     font-size: 3em;
     font-weight: bold;
-    margin: 1em 0 1em;
+    margin: 0 0 1em;
   }
 
   h2 {
     font-size: 2em;
-    margin: 2em 0 1em;
+    margin-top: unset;
   }
 
   h3 {
