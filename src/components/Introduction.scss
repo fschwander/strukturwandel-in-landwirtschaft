@@ -1,9 +1,18 @@
 .Introduction {
+  .relations-container {
+    svg {
+      max-height: 5.5em;
+    }
+  }
 
   .capacity-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .label-container {
+      width: 90%;
+    }
 
     .slider-container {
       position: relative;
@@ -39,11 +48,6 @@
           }
         }
       }
-    }
-
-    .label-container {
-      width: 80%;
-      height: 6em;
     }
   }
 }

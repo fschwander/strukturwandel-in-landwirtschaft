@@ -23,7 +23,7 @@ export default class Introduction extends React.Component {
       <div className='Introduction'>
         <h2>Grössenkategorien</h2>
 
-        <div className='horizontal-container top'>
+        <div className='horizontal-container relations-container top'>
           <SvgImage className='farmSmall'
                     src={Icons.farmSmall} width={90} vbWidth={155} vbHeight={143}
                     fill={'#4ec291'}/>
