@@ -7,6 +7,7 @@
 
     .slider-container {
       position: relative;
+      padding-bottom: 2em;
       width: 80%;
 
       input {
@@ -17,17 +18,21 @@
         display: flex;
         flex-direction: row;
         height: 2em;
+
         p {
           transform: translateX(-50%);
-          //width: 100%;
+          width: fit-content;
+
           &:first-child {
             position: absolute;
             left: 20%;
           }
+
           &:nth-child(2) {
             position: absolute;
             left: 60%;
           }
+
           &:nth-child(3) {
             position: absolute;
             left: 100%;
