@@ -166,7 +166,7 @@ export default class RelativeLineChart extends React.Component {
 
   render() {
     return <div className='RelativeLineChart'>
-      <h2>Relative Entwicklung der Bauernhöfe</h2>
+      <h2>Entwicklung der Bauernhöfe (relativ zum Messstart)</h2>
 
 
       <div className='chart-container'/>
