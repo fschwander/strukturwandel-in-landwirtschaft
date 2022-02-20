@@ -80,7 +80,7 @@ export default class RelativeLineChart extends React.Component {
         svg.selectAll(".hover-label").remove()
 
         // label mouse over
-        const mouse = d3.mouse(this);
+        const mouse = d3.pointer(this);
 
         const labelGroup = svg.append('g')
           .attr("class", "hover-label");

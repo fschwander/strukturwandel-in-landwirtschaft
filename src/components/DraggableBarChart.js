@@ -150,12 +150,13 @@ export default class DraggableBarChart extends React.Component {
     this.initExplanationContainer();
     drawHandleNorth();
 
-    function brushmove() {
-      if (!d3.event.sourceEvent) return;
-      if (d3.event.sourceEvent.type === 'brush') return;
-      if (!d3.event.selection) return;
+    function brushmove(event) {
+      console.log(event);
+      if (!event.sourceEvent) return;
+      if (event.sourceEvent.type === 'brush') return;
+      if (!event.selection) return;
 
-      const d0 = d3.event.selection.map(scaleY.invert);
+      const d0 = event.selection.map(scaleY.invert);
       const d = d3.select(this).select('.selection');
 
       d0[0] > 0 ? d.datum().value = d0[0] : d.datum().value = 0.01; // Change the value of the original data
@@ -163,10 +164,10 @@ export default class DraggableBarChart extends React.Component {
       update();
     }
 
-    function brushend() {
-      if (!d3.event.sourceEvent) return;
-      if (d3.event.sourceEvent.type === 'brush') return;
-      if (!d3.event.selection) { // just in case of click with no move
+    function brushend(event) {
+      if (!event.sourceEvent) return;
+      if (event.sourceEvent.type === 'brush') return;
+      if (!event.selection) { // just in case of click with no move
         barContainer.call(brushY.move, d => [d.value, 0].map(scaleY))
       }
     }
