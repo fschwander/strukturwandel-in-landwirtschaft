@@ -151,7 +151,6 @@ export default class DraggableBarChart extends React.Component {
     drawHandleNorth();
 
     function brushmove(event) {
-      console.log(event);
       if (!event.sourceEvent) return;
       if (event.sourceEvent.type === 'brush') return;
       if (!event.selection) return;

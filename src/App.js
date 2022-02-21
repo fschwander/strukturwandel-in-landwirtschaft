@@ -1,4 +1,3 @@
-import * as React from "react";
 import DataService from "./services/DataService";
 import RelativeLineChart from "./components/RelativeLineChart";
 import Header from "./components/Header";
@@ -7,71 +6,61 @@ import QuizPage from "./components/QuizPage";
 import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
 import Footer from "./components/Footer";
 import GrowPossibilities from "./components/GrowPossibilities";
+import {useEffect, useState} from "react";
 import {FullPage, Slide} from "react-full-page";
 
-class App extends React.Component {
+const App = () => {
+  const [data, setData] = useState(undefined);
+  const [lineChartData, setLineChartData] = useState(undefined)
+  const [labelMap, setLabelMap] = useState(undefined)
 
-  constructor(params) {
-    super(params);
-    this.state = {}
-  }
+  useEffect(() => {
+    DataService.getFullData().then(data => {
+      const normalized = DataService.getNormalizedLineChartData(data)
+      const labels = DataService.getLabelMap()
+      setData(data)
+      setLineChartData(normalized);
+      setLabelMap(labels)
 
-  componentWillMount() {
-    this.loadData()
-  }
-
-  render() {
-    const {data, lineChartData, labelMap} = this.state;
-    const dataReady = data !== undefined;
-
-    return (
-      <div className="App">
-
-        <FullPage>
-          <Slide>
-            <Header/>
-          </Slide>
-
-          <Slide>
-            <GrowPossibilities/>
-          </Slide>
-
-          <Slide>
-            <Introduction/>
-          </Slide>
-
-          <Slide>
-            {dataReady ? <QuizPage data={data}/> : null}
-          </Slide>
-
-          <Slide>
-            {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
-          </Slide>
-
-          <Slide>
-            {dataReady ? <RelativeLineChart data={lineChartData} labelMap={labelMap}/> : null}
-          </Slide>
-
-          <Slide>
-            <Footer/>
-          </Slide>
-        </FullPage>
-      </div>
-    )
-  }
-
-  async loadData() {
-    const data = await DataService.getFullData();
-    const lineChartData = DataService.getNormalizedLineChartData(data);
-    const labelMap = DataService.getLabelMap()
-
-
-    this.setState({
-      data: data,
-      lineChartData: lineChartData,
-      labelMap: labelMap
+      return data
+    }).catch((err) => {
+      console.error(err)
     })
-  }
+  }, [])
+
+  return (
+    <div className="App">
+      <FullPage>
+        <Slide>
+          <Header/>
+        </Slide>
+
+        <Slide>
+          <GrowPossibilities/>
+        </Slide>
+
+        <Slide>
+          <Introduction/>
+        </Slide>
+
+        <Slide>
+          {data && <QuizPage data={data}/>}
+        </Slide>
+
+        <Slide>
+          {data && <FarmsCountStackedAreaChart data={data}/>}
+        </Slide>
+
+        <Slide>
+          {lineChartData && <RelativeLineChart data={lineChartData} labelMap={labelMap}/>}
+        </Slide>
+
+        <Slide>
+          <Footer/>
+        </Slide>
+      </FullPage>
+    </div>
+  )
 }
 
 export default App;
