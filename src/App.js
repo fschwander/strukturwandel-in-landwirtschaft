@@ -10,9 +10,9 @@ import {useEffect, useState} from "react";
 import {FullPage, Slide} from "react-full-page";
 
 const App = () => {
-  const [data, setData] = useState(undefined);
-  const [lineChartData, setLineChartData] = useState(undefined)
-  const [labelMap, setLabelMap] = useState(undefined)
+  const [data, setData] = useState();
+  const [lineChartData, setLineChartData] = useState()
+  const [labelMap, setLabelMap] = useState()
 
   useEffect(() => {
     DataService.getFullData().then(data => {
@@ -21,8 +21,6 @@ const App = () => {
       setData(data)
       setLineChartData(normalized);
       setLabelMap(labels)
-
-      return data
     }).catch((err) => {
       console.error(err)
     })
