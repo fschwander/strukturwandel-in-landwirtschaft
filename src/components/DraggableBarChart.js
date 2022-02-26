@@ -29,7 +29,7 @@ export default class DraggableBarChart extends React.Component {
     d3.active(nodes[i])
       .tween("text", (d, i, nodes) => {
         const node = d3.select(nodes[i]);
-        const interpolate = d3.interpolateNumber(node.text().replace(/%/g, "") / 100, value - 1);
+        const interpolate = d3.interpolateNumber(parseInt(node.text().replace(/%/g, "").replace("−", "-")) / 100, value - 1);
         return t => node.text(d3.format('+.0%')(interpolate(t)))
       })
   }
