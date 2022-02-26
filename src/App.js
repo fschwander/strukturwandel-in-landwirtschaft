@@ -1,4 +1,3 @@
-import * as React from "react";
 import DataService from "./services/DataService";
 import RelativeLineChart from "./components/RelativeLineChart";
 import Header from "./components/Header";
@@ -8,49 +7,38 @@ import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart"
 import Footer from "./components/Footer";
 import GrowPossibilities from "./components/GrowPossibilities";
 import ReactPageScroller from 'react-page-scroller';
+import {useEffect, useState} from "react";
 
-class App extends React.Component {
+const App = () => {
+  const [data, setData] = useState(null);
+  const [lineChartData, setLineChartData] = useState(null);
+  const [labelMap, setLabelMap] = useState(null);
 
-  constructor(params) {
-    super(params);
-    this.state = {}
+  const loadData = () => {
+    DataService.getFullData().then((data) => {
+      setData(data);
+      setLineChartData(DataService.getNormalizedLineChartData(data));
+      setLabelMap(DataService.getLabelMap())
+    });
   }
 
-  componentWillMount() {
-    this.loadData()
-  }
+  useEffect(() => {
+    loadData();
+  }, [])
 
-  render() {
-    const {data, lineChartData, labelMap} = this.state;
-    const dataReady = data !== undefined;
-
-    return (
-      <div className="App">
-        <ReactPageScroller>
-          <Header/>
-          <GrowPossibilities/>
-          <Introduction/>
-          {dataReady ? <QuizPage data={data}/> : null}
-          {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
-          {dataReady ? <RelativeLineChart data={lineChartData} labelMap={labelMap}/> : null}
-          <Footer/>
-        </ReactPageScroller>
-      </div>
-    )
-  }
-
-  async loadData() {
-    const data = await DataService.getFullData();
-    const lineChartData = DataService.getNormalizedLineChartData(data);
-    const labelMap = DataService.getLabelMap()
-
-
-    this.setState({
-      data: data,
-      lineChartData: lineChartData,
-      labelMap: labelMap
-    })
-  }
+  return (
+    <div className="App">
+      <ReactPageScroller>
+        <Header/>
+        <GrowPossibilities/>
+        <Introduction/>
+        {data && <QuizPage data={data}/>}
+        {data && <FarmsCountStackedAreaChart data={data}/>}
+        {data && <RelativeLineChart data={lineChartData} labelMap={labelMap}/>}
+        <Footer/>
+      </ReactPageScroller>
+    </div>
+  )
 }
 
 export default App;
