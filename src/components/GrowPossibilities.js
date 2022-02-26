@@ -7,7 +7,7 @@ export default class GrowPossibilities extends React.Component {
 
   render() {
     return (
-      <div className='GrowPossibilities'>
+      <div className='GrowPossibilities page'>
         <h2>Anbaumöglichkeiten pro Hektar</h2>
 
         <div className='horizontal-container relations-container'>

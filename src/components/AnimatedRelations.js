@@ -143,7 +143,7 @@ export default class AnimatedRelations extends React.Component {
 
   render() {
     return (
-      <div className='AnimatedRelations'/>
+      <div className='AnimatedRelations page'/>
     )
   }
 }

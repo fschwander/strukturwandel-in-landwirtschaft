@@ -3,7 +3,7 @@ import * as React from "react";
 export default class Header extends React.Component {
   render() {
     return (
-      <div className='Header'>
+      <div className='Header page'>
 
         <h1>Strukturwandel <br/> in der Landwirtschaft</h1>
 

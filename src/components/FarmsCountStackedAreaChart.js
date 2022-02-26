@@ -145,7 +145,7 @@ export default class FarmsCountStackedAreaChart extends React.Component {
 
   render() {
     return (
-      <div className='FarmsCountStackedAreaChart'>
+      <div className='FarmsCountStackedAreaChart page'>
         <h2>Gesamthafte Bauernhofsentwicklung</h2>
         <div className='chart-container'/>
         <p>Tendenz stark sinkend: Seit 1985 sind die Hälfte der Bauernhöfe verschwunden oder wurden in andere Höfe

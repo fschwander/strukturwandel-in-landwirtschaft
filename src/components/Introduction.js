@@ -20,7 +20,7 @@ export default class Introduction extends React.Component {
   render() {
     const {areaSize, sizeState, staticObj, staticObjBackground, staticObjFill} = this.state;
     return (
-      <div className='Introduction'>
+      <div className='Introduction page'>
         <h2>Grössenkategorien</h2>
 
         <div className='horizontal-container relations-container top'>

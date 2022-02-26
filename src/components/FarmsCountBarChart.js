@@ -186,7 +186,7 @@ export default class FarmsCountBarChart extends React.Component {
   }
 
   render() {
-    return <div className='FarmsCountBarChart'>
+    return <div className='FarmsCountBarChart page'>
       <h2>Anzahl Bauernhöfe im Vergleich</h2>
 
       <div className='chartContainer'>

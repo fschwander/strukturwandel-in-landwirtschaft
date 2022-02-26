@@ -46,7 +46,7 @@ export default class QuizPage extends React.Component {
     const showAnswer = this.state.showAnswer;
 
     return (
-      <div className='QuizPage' ref={this.componentRef} onScroll={this.handleScroll}>
+      <div className='QuizPage page' ref={this.componentRef} onScroll={this.handleScroll}>
         <h2>Das Bauernhof-Quiz</h2>
 
         <div>

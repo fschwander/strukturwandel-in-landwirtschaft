@@ -1,21 +1,20 @@
 .App {
-  max-width: 840px;
   text-align: center;
-  margin: auto;
 
-  & > div > div {
+  // for page scroll container
+  & > div > div > div {
+    display: flex;
+  }
+
+  .page {
+    max-width: 840px;
+    border-radius: 1em;
+    padding: 3em 0;
+    margin: auto;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    & > div {
-      background-color: white;
-      border-radius: 1em;
-      min-height: 60vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
   }
 }

@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
 
   render() {
     return (
-      <div className='Footer'>
+      <div className='Footer page'>
         <h2>Credits</h2>
         <p>Semesterarbeit für das Modul "Informationsvisualisierung" an der Fachhochschule Nordwestschweiz. <u>Konzept,
           Design, Code:</u> Fabian Schwander <u>Dozent/Betreuung:</u> Marco Soldati</p>

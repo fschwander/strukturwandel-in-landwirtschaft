@@ -1,3 +1,4 @@
+import * as React from "react";
 import DataService from "./services/DataService";
 import RelativeLineChart from "./components/RelativeLineChart";
 import Header from "./components/Header";
@@ -6,59 +7,50 @@ import QuizPage from "./components/QuizPage";
 import FarmsCountStackedAreaChart from "./components/FarmsCountStackedAreaChart";
 import Footer from "./components/Footer";
 import GrowPossibilities from "./components/GrowPossibilities";
-import {useEffect, useState} from "react";
-import {FullPage, Slide} from "react-full-page";
+import ReactPageScroller from 'react-page-scroller';
 
-const App = () => {
-  const [data, setData] = useState();
-  const [lineChartData, setLineChartData] = useState()
-  const [labelMap, setLabelMap] = useState()
+class App extends React.Component {
 
-  useEffect(() => {
-    DataService.getFullData().then(data => {
-      const normalized = DataService.getNormalizedLineChartData(data)
-      const labels = DataService.getLabelMap()
-      setData(data)
-      setLineChartData(normalized);
-      setLabelMap(labels)
-    }).catch((err) => {
-      console.error(err)
-    })
-  }, [])
+  constructor(params) {
+    super(params);
+    this.state = {}
+  }
 
-  return (
-    <div className="App">
-      <FullPage>
-        <Slide>
+  componentWillMount() {
+    this.loadData()
+  }
+
+  render() {
+    const {data, lineChartData, labelMap} = this.state;
+    const dataReady = data !== undefined;
+
+    return (
+      <div className="App">
+        <ReactPageScroller>
           <Header/>
-        </Slide>
-
-        <Slide>
           <GrowPossibilities/>
-        </Slide>
-
-        <Slide>
           <Introduction/>
-        </Slide>
-
-        <Slide>
-          {data && <QuizPage data={data}/>}
-        </Slide>
-
-        <Slide>
-          {data && <FarmsCountStackedAreaChart data={data}/>}
-        </Slide>
-
-        <Slide>
-          {lineChartData && <RelativeLineChart data={lineChartData} labelMap={labelMap}/>}
-        </Slide>
-
-        <Slide>
+          {dataReady ? <QuizPage data={data}/> : null}
+          {dataReady ? <FarmsCountStackedAreaChart data={data}/> : null}
+          {dataReady ? <RelativeLineChart data={lineChartData} labelMap={labelMap}/> : null}
           <Footer/>
-        </Slide>
-      </FullPage>
-    </div>
-  )
+        </ReactPageScroller>
+      </div>
+    )
+  }
+
+  async loadData() {
+    const data = await DataService.getFullData();
+    const lineChartData = DataService.getNormalizedLineChartData(data);
+    const labelMap = DataService.getLabelMap()
+
+
+    this.setState({
+      data: data,
+      lineChartData: lineChartData,
+      labelMap: labelMap
+    })
+  }
 }
 
 export default App;
