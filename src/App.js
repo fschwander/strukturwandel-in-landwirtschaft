@@ -14,6 +14,8 @@ const App = () => {
   const [lineChartData, setLineChartData] = useState(null);
   const [labelMap, setLabelMap] = useState(null);
 
+  const [activePage, setActivePage] = useState(3);
+
   const loadData = () => {
     DataService.getFullData().then((data) => {
       setData(data);
@@ -22,17 +24,21 @@ const App = () => {
     });
   }
 
+  const onPageChange = (no) => {
+    setActivePage(no);
+  }
+
   useEffect(() => {
     loadData();
   }, [])
 
   return (
     <div className="App">
-      <ReactPageScroller>
+      <ReactPageScroller pageOnChange={onPageChange} customPageNumber={activePage}>
         <Header/>
         <GrowPossibilities/>
         <Introduction/>
-        {data && <QuizPage data={data}/>}
+        {data && <QuizPage data={data} isAnimating={activePage === 3}/>}
         {data && <FarmsCountStackedAreaChart data={data}/>}
         {data && <RelativeLineChart data={lineChartData} labelMap={labelMap}/>}
         <Footer/>

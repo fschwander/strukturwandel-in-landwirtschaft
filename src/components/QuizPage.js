@@ -24,34 +24,17 @@ export default class QuizPage extends React.Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll = e => {
-    const scrollTop = e.target.scrollingElement.scrollTop;
-    const offsetTop = this.componentRef.current.offsetTop;
-    const elementHeight = this.componentRef.current.offsetHeight;
-    const animStartPos = offsetTop + elementHeight * 0.75 - window.innerHeight;
-
-    if (scrollTop > animStartPos && scrollTop < offsetTop + elementHeight / 2) {
-      if (this.state.isAnimating !== true) {
-        this.setState({isAnimating: true});
-      }
-    } else {
-      if (this.state.isAnimating !== false) {
-        this.setState({isAnimating: false});
-      }
-    }
-  };
-
   render() {
     const data = DataService.getQuizData(this.props.data);
     const showAnswer = this.state.showAnswer;
 
     return (
-      <div className='QuizPage page' ref={this.componentRef} onScroll={this.handleScroll}>
+      <div className='QuizPage page' ref={this.componentRef}>
         <h2>Das Bauernhof-Quiz</h2>
 
         <div>
           <DraggableBarChart showAnswer={showAnswer}
-                             isAnimating={this.state.isAnimating}
+                             isAnimating={this.props.isAnimating}
                              data={data}/>
 
           <div className='toggle-container'>
