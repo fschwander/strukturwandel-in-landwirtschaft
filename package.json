@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "d3": "^7.3.0",
-    "node-sass": "^7.0.1",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.1.2",
-    "react-dom": "^17.0.2",
+    "d3": "^7.8.4",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
+    "react-dom": "^18.2.0",
     "react-full-page": "^0.1.12",
-    "react-page-scroller": "^2.2.1",
-    "react-scripts": "5.0.0",
+    "react-page-scroller": "^2.3.1",
+    "react-scripts": "5.0.1",
+    "sass": "^1.62.1",
     "topojson": "^3.0.2"
   },
   "scripts": {
